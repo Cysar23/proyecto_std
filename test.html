@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="charset=UTF-8" />
+  <title>Autenticación con Firebase en 5 minutos mas</title>
+</head>
+<body>
+  <h2>Información Privada</h2>
+  
+  <div id="loginFormUI">
+    <p>Por favor inicia sesión para acceder a tu información mas</p>
+  
+    <form name="loginForm">
+      <input
+        type="email"
+        name="email"
+        placeholder="Correo Electronico"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Contraseña"
+        required
+      />
+      <input
+        type="radio"
+        name="isLoginOrSignup"
+        id="radioIsLogin"
+        value="isLogin"
+        checked
+      />
+      <label for="radioIsLogin">Entrar a mi cuenta</label>
+
+      <input
+        type="radio"
+        name="isLoginOrSignup"
+        id="radioIsSignup"
+        value="isSignup"
+      />
+      <label for="radioIsSignup">Crear cuenta</label>
+
+      <button id="btnLogin">Acceder</button>
+    </form>
+  </div>
+  
+  <div id="privateInfo">
+    <p class="loading">Cargando...</p>
+  </div>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCXqJrgEF9tNtKV3zRFsidb2sagFl7hZdc",
+    authDomain: "test-std2.firebaseapp.com",
+    databaseURL: "https://test-std2.firebaseio.com",
+    projectId: "test-std2",
+    storageBucket: "test-std2.appspot.com",
+    messagingSenderId: "995987156163",
+    appId: "1:995987156163:web:5abbaa82630e76fe9a8676"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+ <script src="./test.js"></script>
+</body>
+</html>
