@@ -13,6 +13,7 @@
     
 <link href="./main.css" rel="stylesheet">
 <link href="./style.css" rel="stylesheet">
+
 </head>
 <body>
     
@@ -152,7 +153,7 @@
                                             <div class="widget-subheading">Cantidad de pacientes</div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-white" ><span>2</span></div>
+                                            <div class="widget-numbers text-white" ><span id="cantidad_pacientes"></span></div>
                                             
                                         </div>
                                                 
@@ -165,7 +166,7 @@
                         <!-- FORMULARIO AGREGAR PACIENTES -->
                         <!-- <button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" data-toggle="modal" data-target="#exampleModal" onclick="modal(mod2)">Agregar pacientes</button>  -->
 
-                        <button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" data-toggle="modal"  data-target="#exampleModal" onclick="modal(mod2)">Agregar pacientes</button> 
+                        <button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" data-toggle="modal"  data-target="#modal_pacientes" >Agregar pacientes</button> 
                         
 
 
@@ -188,60 +189,11 @@
                                                 <th>Nombre</th>
                                                 <th class="text-center">Dispositivo</th>
                                                 <th class="text-center">Estado</th>
-                                                <th class="text-center">Detalles</th>
+                                                <th class="text-center">Acción</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td class="text-center text-muted">1</td>
-                                                <td>
-                                                    <div class="widget-content p-0">
-                                                        <div class="widget-content-wrapper">
-                                                            <div class="widget-content-left mr-3">
-                                                                <div class="widget-content-left">
-                                                                    <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="widget-content-left flex2">
-                                                                <div class="widget-heading">John Doe</div>
-                                                                <div class="widget-subheading opacity-7">Padre</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-center">STD: 1</td>
-                                                <td class="text-center">
-                                                    <div class="badge badge-warning">Pendiente</div>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Ver</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center text-muted">2</td>
-                                                <td>
-                                                    <div class="widget-content p-0">
-                                                        <div class="widget-content-wrapper">
-                                                            <div class="widget-content-left mr-3">
-                                                                <div class="widget-content-left">
-                                                                    <img width="40" class="rounded-circle" src="assets/images/avatars/3.jpg" alt="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="widget-content-left flex2">
-                                                                <div class="widget-heading">Ruben Tillman</div>
-                                                                <div class="widget-subheading opacity-7">Hermano</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-center">STD: 2</td>
-                                                <td class="text-center">
-                                                    <div class="badge badge-success">Completado</div>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button type="button" id="PopoverCustomT-2" class="btn btn-primary btn-sm">Ver</button>
-                                                </td>
-                                            </tr>
+                                            <tbody id="mostrar_datos_pacientes">
+                                            
                                             
                                             </tbody>
                                         </table>
@@ -260,13 +212,35 @@
         </div>
     </div>
 <script type="text/javascript" src="./assets/scripts/main.js"></script>
-<script type="text/javascript" src="./assets/scripts/index.js"></script>
-<script src="./modal.js"></script>
+
+<!-- CONEXION A FIREBASE -->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCXqJrgEF9tNtKV3zRFsidb2sagFl7hZdc",
+    authDomain: "test-std2.firebaseapp.com",
+    databaseURL: "https://test-std2.firebaseio.com",
+    projectId: "test-std2",
+    storageBucket: "test-std2.appspot.com",
+    messagingSenderId: "995987156163",
+    appId: "1:995987156163:web:02b36dc84092711d9a8676"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+<!-- <script src="./modal.js"></script> -->
 </body>
 
 <!-- MODAL -->
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="modal_pacientes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="">
         <div class="modal-content">
             <div class="modal-header">
@@ -276,12 +250,78 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="needs-validation" novalidate="">
-                    <div id="mod2"></div>
+                <form class="needs-validation" novalidate="" id="form_pacientes">
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_nombre">Nombre</label>
+                            <input type="text" class="form-control" id="id_nombre" placeholder="Nombre"   required="">
+                            
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_apellido">Apellido</label>
+                            <input type="text" class="form-control" id="id_apellido" placeholder="Apellido"  required="">
+                            
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_fecha_nacimiento">Fecha de nacimiento</label>
+                            <input type="date" class="form-control" id="id_fecha_nacimiento"  required="">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_parentesco">Parentesco</label>
+                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="">
+                                <option></option>
+                                <option>Paciente</option>
+                                <option>Madre</option>
+                                <option>Padre</option>
+                                <option>Hija</option>
+                                <option>Hijo</option>
+                                <option>Hermana</option>
+                                <option>Hermano</option>
+                                <option>Otros</option>
+                            </select>
+                            
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="id_direccion">Dirección</label>
+                            <input type="text" class="form-control" id="id_direccion" placeholder="Dirección" required="">
+                            
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_ciudad">Ciudad</label>
+                            <input type="text" class="form-control" id="id_ciudad" placeholder="Ciudad" required="">
+                            
+                        </div>
+                        
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="id_enfermedades">Enfermedades</label>
+                            
+                            
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_dispositivos">Dispsitivo</label>
+                            <select name="custom-select-dip" id="id_dispositivos" class="form-control" required="">
+                                
+                                <option></option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                            <p id="label_dispositivo" style="color: red; font-size: 10px;"></p>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cerrar</button>
+                    <button  class="btn btn-primary" type="submit">Agregar</button>
                 </form>
             </div>
                 
         </div>
     </div>
 </div>
+<script type="text/javascript" src="./assets/scripts/index.js"></script>
 </html>
