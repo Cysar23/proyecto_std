@@ -175,9 +175,9 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
         })
         const btnsEliminar = document.querySelectorAll('.btn_eliminar-paciente');
             btnsEliminar.forEach(btn =>{
-                btn.addEventListener('click', async(e)=>{
+                btn.addEventListener('click', async(e)=>{ 
                    
-                   let conf = confirm("Esta seguro de eliminar")
+                   let conf = confirm("Esta seguro de eliminar a " + form_pacientes['id_nombre'].value)
                    if (conf==true) {
                     console.log("Si",id);
                     await eliminarPaciente(id);
