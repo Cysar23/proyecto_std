@@ -163,7 +163,7 @@
                         </div>
 
                         <!-- FORMULARIO AGREGAR DISPOSITIVOS -->
-                        <button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" data-toggle="modal" data-target="#exampleModal" onclick="alert('No asignado')">Agregar dispositivos</button>
+                        <button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" data-toggle="modal"  data-target="#modal_pacientes" >Agregar Dispositivo</button> 
 
                         <!-- FIN FOMULARIO AGREGAR DISPOSITIVOS -->
                         
@@ -363,11 +363,255 @@
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         </div>
     </div>
-<script type="text/javascript" src="./assets/scripts/main.js"></script>
-<script type="text/javascript" src="./assets/scripts/index.js"></script>
-<script src="./modal.js"></script>
+
 </body>
 
 <!-- MODAL -->
-<div id="mod2"></div>
+<div class="modal fade" id="modal_pacientes" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Agregar Nuevo Dispositivo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" novalidate="" id="form_pacientes" >
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_parentesco">Contendor</label>
+                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="" disabled>
+                                <option>1</option>
+                            </select>
+                        </div>
+                        <!-- PACIENTES TRAIDOS DE FIREBASE YA AGREGADOS -->
+                        <div class="col-md-6 mb-3">
+                            <label for="id_parentesco">Paciente</label>
+                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="">
+                                <option></option>
+                                <option>Cesar</option>
+                                <option>Antonella</option>
+                                <option>Angie</option>
+                            </select>
+                            
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_parentesco">Pastilla</label>
+                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="">
+                                <option>Seleccione...</option>
+                                <option>Acetaminofen</option>
+                                <option>Paracetamol</option>
+                            </select>
+                            
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="id_parentesco">Toma de pastillas por HORAS</label>
+                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="">
+                                <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                    <option>24</option>
+                                    <option>48</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h5>
+                                A partir de cuando empezara a tomar las pastillas?
+                            </h5>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="id_fecha_nacimiento">Día</label>
+                            <input type="date" class="form-control" id="id_"  required="">
+                        </div>
+                        <div class="col-md-6 mb-3" >
+                            <label for="id_fecha_nacimiento">Hora</label>
+                            <input type="time" class="form-control" id="id_"  required="">
+                        </div>
+                        
+                    </div>
+                    <div class="modal-header"></div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_parentesco">Contendor</label>
+                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="" disabled>
+                                <option>2</option>
+                            </select>
+                        </div>
+                        <!-- PACIENTES TRAIDOS DE FIREBASE YA AGREGADOS -->
+                        <div class="col-md-6 mb-3">
+                            <label for="id_parentesco">Paciente</label>
+                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="">
+                                <option></option>
+                                <option>Cesar</option>
+                                <option>Antonella</option>
+                                <option>Angie</option>
+                            </select>
+                            
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_parentesco">Pastilla</label>
+                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="">
+                                <option>Seleccione...</option>
+                                <option>Acetaminofen</option>
+                                <option>Paracetamol</option>
+                            </select>
+                            
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="id_parentesco">Toma de pastillas por HORAS</label>
+                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="">
+                                <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                    <option>24</option>
+                                    <option>48</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h5>
+                                A partir de cuando empezara a tomar las pastillas?
+                            </h5>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="id_fecha_nacimiento">Día</label>
+                            <input type="date" class="form-control" id="id_"  required="">
+                        </div>
+                        <div class="col-md-6 mb-3" >
+                            <label for="id_fecha_nacimiento">Hora</label>
+                            <input type="time" class="form-control" id="id_"  required="">
+                        </div>
+                        
+                    </div>
+                    <div class="modal-header"></div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_parentesco">Contendor</label>
+                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="" disabled>
+                                <option>3</option>
+                            </select>
+                        </div>
+                        <!-- PACIENTES TRAIDOS DE FIREBASE YA AGREGADOS -->
+                        <div class="col-md-6 mb-3">
+                            <label for="id_parentesco">Paciente</label>
+                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="">
+                                <option></option>
+                                <option>Cesar</option>
+                                <option>Antonella</option>
+                                <option>Angie</option>
+                            </select>
+                            
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_parentesco">Pastilla</label>
+                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="">
+                                <option>Seleccione...</option>
+                                <option>Acetaminofen</option>
+                                <option>Paracetamol</option>
+                            </select>
+                            
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="id_parentesco">Toma de pastillas por HORAS</label>
+                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="">
+                                <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                    <option>24</option>
+                                    <option>48</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h5>
+                                A partir de cuando empezara a tomar las pastillas?
+                            </h5>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="id_fecha_nacimiento">Día</label>
+                            <input type="date" class="form-control" id="id_"  required="">
+                        </div>
+                        <div class="col-md-6 mb-3" >
+                            <label for="id_fecha_nacimiento">Hora</label>
+                            <input type="time" class="form-control" id="id_"  required="">
+                        </div>
+                        
+                    </div>
+                    
+                    <div id="div_eliminar">
+                        <button  class="btn btn-primary" type="submit" id="btn_agregar">Agregar</button>
+                        <button  class="close btn btn-danger btn_eliminar-paciente " type="button" id="btn_eliminar" >Eliminar</button>
+                    </div>
+                    
+                </form>
+            </div>
+                
+        </div>
+    </div>
+</div>
+<!-- CONEXION A FIREBASE -->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCXqJrgEF9tNtKV3zRFsidb2sagFl7hZdc",
+    authDomain: "test-std2.firebaseapp.com",
+    databaseURL: "https://test-std2.firebaseio.com",
+    projectId: "test-std2",
+    storageBucket: "test-std2.appspot.com",
+    messagingSenderId: "995987156163",
+    appId: "1:995987156163:web:02b36dc84092711d9a8676"
+  };
+  // Initialize Firebase
+    //firebase.initializeApp(firebaseConfig);
+    
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+</script>
+<script type="text/javascript" src="./main_controler.js"></script>
+<script type="text/javascript" src="./assets/scripts/main.js"></script>
+<script type="text/javascript" src="./assets/scripts/dispositivos.js"></script>
 </html>
