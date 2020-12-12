@@ -2,6 +2,7 @@
 //Requiriendo a firestore
 const db = firebase.firestore(); 
 const tabla_pacientes = document.getElementById('mostrar_datos_pacientes');
+const tabla_detalle_pacientes = document.getElementById('mostrar_detalle_pacientes');
 const  modalLabel = document.getElementById('ModalLabel');
 
 //FUNCIONES DE FIREBASE
@@ -12,6 +13,8 @@ const eliminarPaciente = id => db.collection('datos_pacientes').doc(id).delete()
 const editarPaciente = (id) => db.collection('datos_pacientes').doc(id).get();
 
 const cuando_hay_pacientes = (callback) => db.collection('datos_pacientes').onSnapshot(callback);
+
+const cuando_hay_dispositivo = (callback) => db.collection('datos_dispositivos').onSnapshot(callback);
 
 const actualizar_paciente = (id, actualizando) => db.collection('datos_pacientes').doc(id).update(actualizando);
 
@@ -87,10 +90,12 @@ let id = '';
 
 //MOSTRANDO PACIENTES EN LA TABLA
 window.addEventListener('DOMContentLoaded', async(e) =>{
+    
     cuando_hay_pacientes((querySnapshot)=>{
-        
         tabla_pacientes.innerHTML = '';
         querySnapshot.forEach(doc =>{
+
+
             const paciente = doc.data();
             paciente.id = doc.id;
             
@@ -118,20 +123,23 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                     </div>
                 </div>
             </td>
-            <td class="text-center">STD: ${paciente.dispositivos}</td>
+            <td class="text-center" id="numero_std">${paciente.dispositivos}</td>
             <td class="text-center">
               <div class="badge badge-${color_estado}">${paciente.estado} </div> 
             </td>
             <td class="text-center">
-                <button type="button" id="" class="btn btn-info btn-sm">Detalle</button>
+                <button type="button" id="" class="btn btn-info btn-sm btn-detalle" data-id="${paciente.id}" data-toggle="modal" data-target="#modal_pacientes_detalle">Detalle</button>
                 <button type="button" id="" class="btn btn-primary btn-sm btn-perfil"  data-id="${paciente.id}" data-toggle="modal"  data-target="#modal_pacientes">Perfil</button>
                 
             </td>
         </tr>
             `;
-
-
-          
+            const btnsDetalle = document.querySelectorAll('.btn-detalle');
+            btnsDetalle.forEach(btn =>{
+                btn.addEventListener('click', async(e)=>{
+                    
+                })
+            })
 
             const btnsEdit = document.querySelectorAll('.btn-perfil');
             btnsEdit.forEach(btn =>{
@@ -166,13 +174,25 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                     form_pacientes["id_ciudad"].value = paciente.direccion;
                     form_pacientes['id_ciudad'].disabled = campStatus;
 
-                    form_pacientes["id_dispositivos"].value = paciente.dispositivos;
-                    form_pacientes['id_dispositivos'].disabled = campStatus;
+                    /* form_pacientes["id_dispositivos"].value = paciente.dispositivos;
+                    form_pacientes['id_dispositivos'].disabled = campStatus; */
                     
+                    cuando_hay_dispositivo((querySnapshot)=>{
+                        document.getElementById('id_dispositivos').innerHTML = '';
+                        querySnapshot.forEach(doc =>{
+                
+                            const dispositivo = doc.data();
+                            document.getElementById('id_dispositivos').innerHTML  += `
+                            <option>${dispositivo.numero}</option>
+                            `;
+                        })
+                
+                    })
  
                 })
             })
         })
+        
         const btnsEliminar = document.querySelectorAll('.btn_eliminar-paciente');
             btnsEliminar.forEach(btn =>{
                 btn.addEventListener('click', async(e)=>{ 
@@ -190,6 +210,9 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
             });
 
     })
+
+    
+    
 })
 
 //Funcion que guarda datos del form de pacientes y enviandolos a firestore
@@ -207,6 +230,7 @@ const guardar_paciente = (nombre,apellido,fecha_nacimiento,parentesco,direccion,
         })
 
         
-function borrar_form(){
+/* function borrar_form(){
     
-}
+} */
+

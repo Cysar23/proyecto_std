@@ -178,7 +178,7 @@
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th>Nombre</th>
-                                                <th class="text-center">Dispositivo</th>
+                                                <th class="text-center">Dispositivos STD</th>
                                                 <th class="text-center">Estado</th>
                                                 <th class="text-center">Acción</th>
                                             </tr>
@@ -298,12 +298,12 @@
                             <label for="id_dispositivos">Dispsitivo</label>
                             <select name="custom-select-dip" id="id_dispositivos" class="form-control" required="">
                                 
-                                <option></option>
-                                <option>1</option>
+                                <option>Sin asignar</option>
+                                <!-- <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
-                                <option>5</option>
+                                <option>5</option> -->
                             </select>
                             <p id="label_dispositivo" style="color: red; font-size: 10px;"></p>
                             
@@ -322,6 +322,89 @@
         </div>
     </div>
 </div>
+
+<!-- MODAL TABLA DETALLE -->
+<!-- 
+<div class="modal fade" id="modal_pacientes_detalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"   aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Detalles</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="table-responsive">
+                                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">Pastillas</th>
+                                        <th class="text-center">Contenedor</th>
+                                        <th class="text-center">Estado</th>
+                                        <th class="text-center">Fecha esperada</th>
+                                        <th class="text-center">Historial</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody id="mostrar_detalle_pacientes">
+                                    
+                                    
+                                    </tbody>
+                                </table>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+        </div>
+    </div>
+</div> -->
+
+<div class="modal fade bd-example-modal-lg" id="modal_pacientes_detalle" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="ModalLabel">Detalles</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="main-card mb-3 card">
+                        <div class="table-responsive">
+                            <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Pastillas</th>
+                                    <th class="text-center">Contenedor</th>
+                                    <th class="text-center">Estado</th>
+                                    <th class="text-center">Fecha esperada</th>
+                                    <th class="text-center">Historial</th>
+
+                                </tr>
+                                </thead>
+                                <tbody id="mostrar_detalle_pacientes">
+                                
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <script type="text/javascript" src="./assets/scripts/pacientes.js"></script>
 <script type="text/javascript" src="./main_controler.js"></script>
 </html>
