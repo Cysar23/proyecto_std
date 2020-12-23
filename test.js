@@ -1,80 +1,119 @@
 
-const form = document.forms['loginForm'];
-form.addEventListener('submit', function handleFormSubmit(event) {
-  event.preventDefault();
+const db = firebase.firestore(); 
 
-  const email = form['email'].value;
-  const password = form['password'].value;
-  const isLoginOrSignup = form['isLoginOrSignup'].value;
+const usersDb = db.collection('users'); 
+const liam = usersDb.doc();
+const leerUser = (callback) => db.collection('users').onSnapshot(callback);
+const editarUser= (id) => db.collection('users').doc(id).get();
+const cuando_hay_dispositivo = (callback) => db.collection('users').doc('4CPHti2BqsUp8ZE8MsOZ').collection('dispositivo').onSnapshot(callback);
 
-  if (isLoginOrSignup === 'isLogin') {
-    return loginUser(email, password);
-  }
 
-  return createUser(email, password);
-});
+card_dispositivo = document.getElementById('card_dispositivos')
 
-function createUser(email, password) {
-	console.log('Creando el usuario con email ' + email);
-
-	firebase.auth().createUserWithEmailAndPassword(email, password)
-	.then(function (user) {
-		console.log('¡Creamos al usuario!');
-	})
-	.catch(function (error) {
-		console.error(error)
+async function guardar(){
+	await liam.set({
+		nombre: 'Cesar',
+		apellido: 'Rodriguez'
 	});
+	   alert('guardado...');
+	   leer();
 }
+async function editar() {
+	/* let id =[];
+	let i=0; */
+	leerUser((querySnapshot)=>{
+        querySnapshot.forEach(doc =>{
+			const data = doc.data();
+			id = doc.id;
+			/* i +=1; */
+		})
+		
 
-function loginUser(email, password) {
-	console.log('Loging user ' + email);
+		db.collection('users').doc(id).collection('dispositivo').doc('disp_cont').set({
+				id: 1,
+				fecha: '23/09/2020',
+				hora: '8:00',
+				contenedores: {
+					numero: 1,
+					pastilla: 'Tt',
+					hora_pastilla: '4'
+			    }
 
-	firebase.auth().signInWithEmailAndPassword(email, password)
-	.then(function (user) {
-		console.log('Credenciales correctas, ¡bienvenido!');
+  		})
+
 	})
-	.catch(function (error) {
-		console.log(error);
-	});
+	leer();
+}
+async function borrar(){
+	leerUser((querySnapshot)=>{
+        querySnapshot.forEach(doc =>{
+			id = doc.id;
+		})
+		
+	})
+	await db.collection('users').doc(id).delete();
+	   alert('Nada.');
+}
+async function leer() {
+
+	console.log(db.collection('users').doc().collection('dispositivos'));
+
+	leerUser((querySnapshot)=>{
+        querySnapshot.forEach(doc =>{
+			data = doc.data();
+			id = doc.id;
+			console.log('ID->',id);
+			console.log('DATA->', data);
+        })
+
+	})
+
+	
 }
 
-function signoutUser() {
-	firebase.auth().signOut();
-}
 
-firebase.auth().onAuthStateChanged(function (user) {
-	if (user) {
-		showPrivateInfo()
-		return console.log('Habemus user 🎉');
-	}
 
-	showLoginForm()
-	return console.log('No habemus user 😭');
-});
+/* const btnsEliminar = document.querySelectorAll('.btn_eliminar_dispositivo');
+            btnsEliminar.forEach(btn =>{
+                btn.addEventListener('click', async(e)=>{ 
+                    console.log(e.target.dataset.id);
+                    const doc =  await editar_dispositivo(e.target.dataset.id);
+                    id = doc.id;
+                   
+                   let conf = confirm("Esta seguro de eliminar el dispositivo ")
+                   if (conf==true) {
+                    console.log("Si",id);
+                    await eliminar_dispositivo(id);
+                    //form_pacientes.reset();
+                    alert("DISPOSITIVO ELIMINADO");
+                   }
+                   else{
+                    alert("DISPOSITIVO NO ELIMINADO");
+                   }
+                   
+                })
+			}); */
+			
+window.addEventListener('DOMContentLoaded', async(e) =>{
+    leerUser((querySnapshot)=>{
+        querySnapshot.forEach(doc =>{
+            users = doc.data();
+			users.id = doc.id;
+            console.log(users);
 
-function showPrivateInfo(user) {
-	const loginForm = document.getElementById('loginFormUI');
-	loginForm.style.display = 'none';
+		})
+	})
+	cuando_hay_dispositivo((querySnapshot)=>{
+		querySnapshot.forEach(doc =>{
+			dat = doc.data();
+			console.log(dat);
 
-	const privateInfo = document.getElementById('privateInfo');
-	privateInfo.style.display = 'block';
-	privateInfo.innerHTML = `
-		<p>Información confidencial</p>
-		<button id="btnLogout" class="button">Logout</button>
-	`;
+		})
+	})
 
-	const btnLogout = document.getElementById('btnLogout');
-	btnLogout.addEventListener('click', signoutUser);
-}
+        
+        
+        
 
-function showLoginForm() {
-	const loginForm = document.getElementById('loginFormUI');
-	loginForm.style.display = 'block';
-
-	const privateInfo = document.getElementById('privateInfo');
-	privateInfo.style.display = 'none';
-	privateInfo.innerHTML = `
-		<p>Nada que mostrar, tienes que registrarte</p>
-	`;
-}
-
+    
+})

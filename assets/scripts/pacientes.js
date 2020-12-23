@@ -9,6 +9,7 @@ const  modalLabel = document.getElementById('ModalLabel');
 const obtener_paciente = () => db.collection('datos_pacientes').get(); 
 
 const eliminarPaciente = id => db.collection('datos_pacientes').doc(id).delete();
+const eliminarDispositivo = id => db.collection('datos_dispositivos').doc(id).delete();
 
 const editarPaciente = (id) => db.collection('datos_pacientes').doc(id).get();
 
@@ -100,10 +101,12 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
             paciente.id = doc.id;
             
             let color_estado = '';
-            if (paciente.estado === 'Pendiente') {
+            if (paciente.estado === false) {
                 color_estado = 'danger';
-            }else if(paciente.estado === 'Listo'){
+                paciente.estado = 'Pendiente'
+            }else if(paciente.estado === true){
                 color_estado = 'success';
+                paciente.estado = 'Listo'
             }else{
                 color_estado = '';
             }
@@ -201,6 +204,7 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                    if (conf==true) {
                     console.log("Si",id);
                     await eliminarPaciente(id);
+                    await eliminarDispositivo(id);
                     //form_pacientes.reset();
                     alert("PACIENTE ELIMINADO");
                     location.reload();
