@@ -18,6 +18,8 @@ const cuando_hay_pacientes = (callback) => db.collection('usuarios').doc(uid).co
 
 const cuando_hay_dispositivo = (callback) => db.collection('usuarios').doc(uid).collection('datos_dispositivos').onSnapshot(callback);
 
+const dispositivosC = (id) => db.collection('usuarios').doc(uid).collection('datos_dispositivos').doc(id).get();
+
 const actualizar_paciente = (id, actualizando) => db.collection('usuarios').doc(uid).collection('datos_pacientes').doc(id).update(actualizando);
 
 
@@ -45,12 +47,13 @@ let id = '';
                     const parentesco = form_pacientes["id_parentesco"].value;
                     const direccion = form_pacientes["id_direccion"].value;
                     const ciudad = form_pacientes["id_ciudad"].value;
-                    const dispositivos = form_pacientes["id_dispositivos"].value;
+                    const telefono = form_pacientes["id_telefono"].value;
+                    const dispositivos = '';
                     const estado = '';
 
                    if (!editStatus) {
                     
-                        await guardar_paciente(nombre,apellido,fecha_nacimiento,parentesco,direccion,ciudad,dispositivos, estado);
+                        await guardar_paciente(nombre,apellido,fecha_nacimiento,parentesco,direccion,ciudad,telefono,dispositivos, estado);
                         alert("PACIENTE AGREGADO");
                         form_pacientes.reset();
                    }else{ 
@@ -62,6 +65,7 @@ let id = '';
                         parentesco: parentesco,
                         direccion: direccion,
                         ciudad: ciudad,
+                        telefono: telefono,
                         dispositivos: dispositivos,
                        });
                        alert("PACIENTE ACTUALIZADO");
@@ -141,6 +145,23 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                 const btnsDetalle = document.querySelectorAll('.btn-detalle');
                 btnsDetalle.forEach(btn =>{
                     btn.addEventListener('click', async(e)=>{
+                        console.log("ID: ",e.target.dataset.id);
+                        const doc =  await editarPaciente(e.target.dataset.id);
+                        const data_pacientes = doc.data();
+                        tabla_detalle_pacientes.innerHTML = '';
+                        tabla_detalle_pacientes.innerHTML += `
+                        <tr>
+                            <td class="text-center" id="numero_std">${data_pacientes.nombre}</td>
+                            <td class="text-center" id="numero_std">${data_pacientes.apellido}</td>
+                            <td class="text-center" id="numero_std">24</td>
+                            <td class="text-center" id="numero_std">${data_pacientes.parentesco}</td>
+                            <td class="text-center" id="numero_std">${data_pacientes.direccion}</td>
+                            <td class="text-center" id="numero_std">${data_pacientes.ciudad}</td>
+                            <td class="text-center" id="numero_std">${data_pacientes.telefono}</td>
+                            <td class="text-center" id="numero_std">#${data_pacientes.dispositivos}</td>
+                            <td class="text-center" id="numero_std">${data_pacientes.estado}</td>
+                        </tr>
+                        `;
                         
                     })
                 })
@@ -151,7 +172,6 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                         console.log(e.target.dataset.id);
                         const doc =  await editarPaciente(e.target.dataset.id);
                         const paciente = doc.data();
-                        
                         editStatus = true;
                         id = doc.id;
 
@@ -175,23 +195,26 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                         form_pacientes["id_direccion"].value = paciente.direccion;
                         form_pacientes['id_direccion'].disabled = campStatus;
 
-                        form_pacientes["id_ciudad"].value = paciente.direccion;
+                        form_pacientes["id_ciudad"].value = paciente.ciudad;
                         form_pacientes['id_ciudad'].disabled = campStatus;
+
+                        form_pacientes["id_telefono"].value = paciente.telefono;
 
                         /* form_pacientes["id_dispositivos"].value = paciente.dispositivos;
                         form_pacientes['id_dispositivos'].disabled = campStatus; */
                         
-                        cuando_hay_dispositivo((querySnapshot)=>{
+                        /* cuando_hay_dispositivo((querySnapshot)=>{
                             document.getElementById('id_dispositivos').innerHTML = '';
                             querySnapshot.forEach(doc =>{
                     
                                 const dispositivo = doc.data();
+                                console.log(dispositivo);
                                 document.getElementById('id_dispositivos').innerHTML  += `
-                                <option>${dispositivo.numero}</option>
+                                <option>${dispositivo.numero_dispositivo}</option>
                                 `;
                             })
                     
-                        })
+                        }) */
     
                     })
                 })
@@ -201,14 +224,22 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                 btnsEliminar.forEach(btn =>{
                     btn.addEventListener('click', async(e)=>{ 
                     
+                    let doc_id
+                    const id_disp = await db.collection('usuarios').doc(uid).collection('datos_dispositivos').where('paciente', '==', form_pacientes['id_nombre'].value).get();
+                    id_disp.forEach(doc =>{
+                        //idNombrePaciente= doc.data();
+                        doc_id = doc.id;
+                    })
                     let conf = confirm("Esta seguro de eliminar a " + form_pacientes['id_nombre'].value)
                     if (conf==true) {
-                        console.log("Si",id);
-                        await eliminarPaciente(id);
-                        await eliminarDispositivo(id);
-                        //form_pacientes.reset();
-                        alert("PACIENTE ELIMINADO");
-                        location.reload();
+                        conf = confirm("SI ELIMINA AL PACIENTE, ELIMINARA EL DISPOSITIVO ASIGNADO");
+                        if (conf == true) {
+                            await eliminarPaciente(id);
+                            await eliminarDispositivo(doc_id);
+                            alert("PACIENTE ELIMINADO");
+                            location.reload();
+                        }
+                        
                     }
                     
                     });
@@ -220,7 +251,7 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
 });
 //Funcion que guarda datos del form de pacientes y enviandolos a firestore
 const form_pacientes = document.getElementById("form_pacientes");
-const guardar_paciente = (nombre,apellido,fecha_nacimiento,parentesco,direccion,ciudad,dispositivos,estado) => 
+const guardar_paciente = (nombre,apellido,fecha_nacimiento,parentesco,direccion,ciudad,telefono,dispositivos,estado) => 
             db.collection('usuarios').doc(uid).collection('datos_pacientes').doc().set({
                 nombre,
                 apellido,
@@ -228,10 +259,18 @@ const guardar_paciente = (nombre,apellido,fecha_nacimiento,parentesco,direccion,
                 parentesco,
                 direccion,
                 ciudad,
+                telefono,
                 dispositivos,
                 estado
             });
 
+function limpiar_form_pacientes(){
+    form_pacientes.reset();
+    editStatus = false;
+    form_pacientes["btn_agregar"].innerText = 'Agregar';
+    form_pacientes["btn_eliminar"].classList = 'close btn btn-danger btn_eliminar-paciente'
+    modalLabel.innerText = 'Agregar nuevo paciente';
+    id='';
+}
         
-
 

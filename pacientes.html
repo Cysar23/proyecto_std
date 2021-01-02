@@ -161,7 +161,7 @@
                         </div>
 
                         <!-- FORMULARIO AGREGAR PACIENTES -->
-                        <button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" data-toggle="modal"  data-target="#modal_pacientes" >Agregar pacientes</button> 
+                        <button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" data-toggle="modal"  data-target="#modal_pacientes" onclick="limpiar_form_pacientes()">Agregar pacientes</button> 
                         
                         <!-- FIN FOMULARIO AGREGAR PACIENTES -->
                         
@@ -260,7 +260,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="id_fecha_nacimiento">Fecha de nacimiento</label>
-                            <input type="date" class="form-control" id="id_fecha_nacimiento"  required="">
+                            <input type="date" class="form-control" id="id_fecha_nacimiento"  required="" min="1900-01-01" max="2016-01-01">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="id_parentesco">Parentesco</label>
@@ -287,33 +287,38 @@
                             <input type="text" class="form-control" id="id_ciudad" placeholder="Ciudad" required="">
                             
                         </div>
-                        
-                        
                         <div class="col-md-6 mb-3">
+                            <label for="id_telefono">Teléfono</label>
+                            <input type="tel" class="form-control" id="id_telefono" placeholder="888-888-8888" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required="">
+                            
+                        </div>
+                        
+                        
+                        <!--<div class="col-md-6 mb-3">
                             <label for="id_enfermedades">Enfermedades</label>
                             
                             
                         </div>
-                        <div class="col-md-6 mb-3">
+                         <div class="col-md-6 mb-3">
                             <label for="id_dispositivos">Dispsitivo</label>
                             <select name="custom-select-dip" id="id_dispositivos" class="form-control" required="">
                                 
                                 <option>Sin asignar</option>
-                                <!-- <option>1</option>
+                                <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
-                                <option>5</option> -->
+                                <option>5</option>
                             </select>
                             <p id="label_dispositivo" style="color: red; font-size: 10px;"></p>
                             
-                        </div>
+                        </div> -->
                         
                     </div>
                     
                     <div id="div_eliminar">
                         <button  class="btn btn-primary" type="submit" id="btn_agregar">Agregar</button>
-                        <button  class="close btn btn-danger btn_eliminar-paciente " type="button" id="btn_eliminar" >Eliminar</button>
+                        <button  class="close btn btn-danger btn_eliminar-paciente btn-lg btn-block" type="button" id="btn_eliminar" >Eliminar</button>
                     </div>
                     
                 </form>
@@ -324,50 +329,10 @@
 </div>
 
 <!-- MODAL TABLA DETALLE -->
-<!-- 
-<div class="modal fade" id="modal_pacientes_detalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"   aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-                <h5 class="modal-title" id="ModalLabel">Detalles</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="main-card mb-3 card">
-                            <div class="table-responsive">
-                                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">Pastillas</th>
-                                        <th class="text-center">Contenedor</th>
-                                        <th class="text-center">Estado</th>
-                                        <th class="text-center">Fecha esperada</th>
-                                        <th class="text-center">Historial</th>
 
-                                    </tr>
-                                    </thead>
-                                    <tbody id="mostrar_detalle_pacientes">
-                                    
-                                    
-                                    </tbody>
-                                </table>
-                            </div>
-                           
-                        </div>
-                    </div>
-                </div>
-            </div>
-                
-        </div>
-    </div>
-</div> -->
 
 <div class="modal fade bd-example-modal-lg" id="modal_pacientes_detalle" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="ModalLabel">Detalles</h5>
@@ -382,19 +347,22 @@
                         <div class="table-responsive">
                             <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                 <thead>
-                                <tr>
-                                    <th class="text-center">Pastillas</th>
-                                    <th class="text-center">Contenedor</th>
-                                    <th class="text-center">Estado</th>
-                                    <th class="text-center">Fecha esperada</th>
-                                    <th class="text-center">Historial</th>
+                                    <tr>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Apellido</th>
+                                        <th class="text-center">Edad</th>
+                                        <th class="text-center">Parentesco</th>
+                                        <th class="text-center">Dirección</th>
+                                        <th class="text-center">Ciudad</th>
+                                        <th class="text-center">Teléfono</th>
+                                        <th class="text-center">Dispositivo</th>
+                                        <th class="text-center">Estado</th>
 
-                                </tr>
+                                    </tr>
                                 </thead>
-                                <tbody id="mostrar_detalle_pacientes">
-                                
-                                
-                                </tbody>
+                                <tbody id="mostrar_detalle_pacientes"></tbody>
+
+
                             </table>
                         </div>
                        

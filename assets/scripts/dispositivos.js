@@ -2,22 +2,23 @@
 const db = firebase.firestore(); 
 const card_dispositivo = document.getElementById('card_dispositivo'); //Donde se muestran 
 const  modalLabel = document.getElementById('ModalLabel');
+const tabla_detalle_dispositivo = document.getElementById('mostrar_detalle_dispositivo');
 var uid;
 
 //FUNCIONES DE FIREBASE
 const obtener_dispositivo = () => db.collection('usuarios').doc(uid).collection('datos_dispositivos').get(); 
 
-const eliminar_dispositivo = id => db.collection('usuarios').doc(uid).collection('datos_pacientes').doc().collection('datos_dispositivos').doc(id).delete();
+const eliminar_dispositivo = id => db.collection('usuarios').doc(uid).collection('datos_dispositivos').doc(id).delete();
 
 const editar_dispositivo = (id) => db.collection('usuarios').doc(uid).collection('datos_dispositivos').doc(id).get();
 
-const cuando_hay_dispositivo = (callback) => db.collection('usuarios').doc(uid).collection('datos_pacientes').doc().collection('datos_dispositivos').onSnapshot(callback);
+const cuando_hay_dispositivo = (callback) => db.collection('usuarios').doc(uid).collection('datos_dispositivos').onSnapshot(callback);
 
 const cuando_hay_pacientes = (callback) => db.collection('usuarios').doc(uid).collection('datos_pacientes').onSnapshot(callback);
 ///////
 //////
 //////
-const actualizar_paciente = (id, actualizando) => db.collection('usuarios').doc(uid).collection('datos_pacientes').doc(id).update(actualizando);
+const actualizar_paciente = (idNombrePaciente, actualizando) => db.collection('usuarios').doc(uid).collection('datos_pacientes').doc(idNombrePaciente).update(actualizando);
 const editarPaciente = (id) => db.collection('usuarios').doc(uid).collection('datos_pacientes').doc(id).get();
 //const actualizar_dispositivo = (id, actualizando) => db.collection('datos_dispositivos').doc(id).update(actualizando);
 
@@ -26,6 +27,7 @@ const editarPaciente = (id) => db.collection('usuarios').doc(uid).collection('da
 let editStatus = false;
 let campStatus = false;
 let id = '';
+let idNombrePaciente = '';
 let numero_dispositivo=1; 
 let arreglo = [];
 let paciente;
@@ -52,11 +54,26 @@ let dispositivos;
                     const dia_inicio_pastilla = form_dispositivo["dia_inicio_pastilla"].value;
                     const hora_inicio_pastilla = form_dispositivo["hora_inicio_pastilla"].value;
 
-                   if (!editStatus) {
+                    // Create a reference to the cities collection
                     
-                        await guardar_dispositivo(numero_dispositivo, paciente,contenedor_1,pastilla,stock_1,frecuencia_de_pastillas,dia_inicio_pastilla,hora_inicio_pastilla);
+
+                   if (!editStatus) {
+                        const NombrePaciente = await db.collection('usuarios').doc(uid).collection('datos_pacientes').where('nombre', '==', paciente).get();
+                        NombrePaciente.forEach(doc =>{
+                            //idNombrePaciente= doc.data();
+                            idNombrePaciente = doc.id;
+                            console.log('ID DEL PACIENTE ',idNombrePaciente);
+                        })
+                        await actualizar_paciente(idNombrePaciente, {
+                            dispositivos: numero_dispositivo
+                        });
+                        await guardar_dispositivo(numero_dispositivo, idNombrePaciente, paciente,contenedor_1,pastilla,stock_1,frecuencia_de_pastillas,dia_inicio_pastilla,hora_inicio_pastilla);
+                        
                         alert("DISPOSITIVO AGREGADO");
                         form_dispositivo.reset();
+                        
+                        
+
                    }else{ 
                     
                        await actualizar_paciente(id, {
@@ -96,19 +113,19 @@ let dispositivos;
 
 //MOSTRANDO DISPOSITIVOS EN TARJETAS
 window.addEventListener('DOMContentLoaded', async(e) =>{
-    auth.onAuthStateChanged(function(user) {uid = user.uid
+    auth.onAuthStateChanged(function(user) {
+        uid = user.uid;
         cuando_hay_dispositivo((querySnapshot)=>{
-            
             card_dispositivo.innerHTML = '';
             querySnapshot.forEach(doc =>{
                 dispositivos = doc.data();
                 dispositivos.id = doc.id;
-
-                //console.log(dispositivos);
+                
+                console.log(dispositivos);
                 console.log(dispositivos.numero_dispositivo);
                 arreglo.push(dispositivos.numero_dispositivo +1);
                 numero_dispositivo  = maximo_id_std(arreglo);
-                console.log("->"+numero_dispositivo);
+                console.log("Numero Disp: "+numero_dispositivo);
 
                 card_dispositivo.innerHTML += `
                 <div class="col-md-12 col-lg-6 col-xl-4">
@@ -143,7 +160,7 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                                                                     </div>
                                                                     <div class="widget-content-right">
                                                                         <div class="icon-wrapper m-0">
-                                                                            <button type="button" id="PopoverCustomT-1" class="mb-2 mr-2 btn-transition btn btn-outline-success">Ver</button>
+                                                                            <button type="button" id="PopoverCustomT-1" class="mb-2 mr-2 btn-transition btn btn-outline-success">Abrir</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -156,7 +173,7 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                                                                     <div class="widget-content-left flex2">
                                                                         <div class="widget-heading">CONTENEDOR 2</div>
                                                                         <div class="widget-subheading opacity-10">
-                                                                            <span > <b class="text-warning">${dispositivos.pastilla2}</b></span>
+                                                                            <span > <b class="text-warning">+</b></span>
                                                                             <br>
                                                                             <span class="pr-2"> Quedan <b class="text-danger">12</b></span>
                                                                             
@@ -164,7 +181,7 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                                                                     </div>
                                                                     <div class="widget-content-right">
                                                                         <div class="icon-wrapper m-0">
-                                                                            <button type="button" id="PopoverCustomT-1" class="mb-2 mr-2 btn-transition btn btn-outline-success">Ver</button>
+                                                                            <button type="button" id="PopoverCustomT-1" class="mb-2 mr-2 btn-transition btn btn-outline-success">Abrir</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -177,7 +194,7 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                                                                     <div class="widget-content-left flex2">
                                                                         <div class="widget-heading">CONTENEDOR 3</div>
                                                                         <div class="widget-subheading opacity-10">
-                                                                            <span > <b class="text-warning">${dispositivos.pastilla3}</b></span>
+                                                                            <span > <b class="text-warning">+</b></span>
                                                                             <br>
                                                                             <span class="pr-2"> Quedan <b class="text-danger">4</b></span>
                                                                             
@@ -185,7 +202,7 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                                                                     </div>
                                                                     <div class="widget-content-right">
                                                                         <div class="icon-wrapper m-0">
-                                                                            <button type="button" id="PopoverCustomT-1" class="mb-2 mr-2 btn-transition btn btn-outline-success">Ver</button>
+                                                                            <button type="button" id="PopoverCustomT-1" class="mb-2 mr-2 btn-transition btn btn-outline-success">Abrir</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -198,6 +215,8 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                                             
                                         </div>
                                         <div class="text-center d-block card-footer">
+                                            <button class="btn-shadow-primary btn btn-primary btn-lg btn_ver_dispositivo" data-id="${dispositivos.id}" data-toggle="modal" data-target="#modal_dispositivo_detalle">Ver</button>
+
                                             <button class="btn-shadow-primary btn btn-danger btn-lg btn_eliminar_dispositivo" data-id="${dispositivos.id}">Eliminar</button>
                                         </div>
                                     </div>
@@ -208,7 +227,49 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
             })
 
             
-            
+            const btnsVer = document.querySelectorAll('.btn_ver_dispositivo');
+            btnsVer.forEach(btn =>{
+                btn.addEventListener('click', async(e)=>{
+                    console.log(e.target.dataset.id);
+                    const doc =  await editar_dispositivo(e.target.dataset.id);
+                    const data_dispositivos = doc.data();
+                    console.log('data',data_dispositivos);
+                    const pasciente_STD = document.getElementById('paciente_STD');
+                    pasciente_STD.innerHTML = `PACIENTE: <strong>${data_dispositivos.paciente}</strong> | STD: <strong>${data_dispositivos.numero_dispositivo}</strong>`
+                    tabla_detalle_dispositivo.innerHTML = '';
+                    tabla_detalle_dispositivo.innerHTML += `
+                    <tr>
+                        <td class="text-center" id="numero_std">Contenedor 1</td>
+                        <td class="text-center" id="numero_std" name="pastilla">${data_dispositivos.contenedor_1.pastilla}</td>
+                        <td class="text-center" id="numero_std" name="cada">${data_dispositivos.contenedor_1.frecuencia_de_pastillas} H</td>
+                        <td class="text-center" id="numero_std" name="estado"></td>
+                        <td class="text-center" id="numero_std" name="fecha_esperada">23/12/2020 20:56</td>
+                        <td class="text-center" id="numero_std" name="fecha_tomada">23/12/2020 20:56</td>
+                        <td class="text-center" id="numero_std" name="historial">Historial</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" id="numero_std">Contenedor 2</td>
+                        <td class="text-center" id="numero_std" name="pastilla"></td>
+                        <td class="text-center" id="numero_std" name="cada"></td>
+                        <td class="text-center" id="numero_std" name="estado"></td>
+                        <td class="text-center" id="numero_std" name="fecha_esperada">23/12/2020 20:56</td>
+                        <td class="text-center" id="numero_std" name="fecha_tomada">23/12/2020 20:56</td>
+                        <td class="text-center" id="numero_std" name="historial">Historial</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" id="numero_std">Contenedor 3</td>
+                        <td class="text-center" id="numero_std" name="pastilla"></td>
+                        <td class="text-center" id="numero_std" name="cada"></td>
+                        <td class="text-center" id="numero_std" name="estado"></td>
+                        <td class="text-center" id="numero_std" name="fecha_esperada">23/12/2020 20:56</td>
+                        <td class="text-center" id="numero_std" name="fecha_tomada">23/12/2020 20:56</td>
+                        <td class="text-center" id="numero_std" name="historial">Historial</td>
+                    </tr>
+                    `;
+                    
+                })
+            })
+
             const btnsEliminar = document.querySelectorAll('.btn_eliminar_dispositivo');
                 btnsEliminar.forEach(btn =>{
                     btn.addEventListener('click', async(e)=>{ 
@@ -236,9 +297,11 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
 
 //Funcion que guarda datos del form de pacientes y enviandolos a firestore
 const form_dispositivo = document.getElementById("form_dispositivo");
-const guardar_dispositivo = (numero_dispositivo, paciente,contenedor_1,pastilla,stock_1,frecuencia_de_pastillas,dia_inicio_pastilla,hora_inicio_pastilla) => 
-        db.collection('usuarios').doc(uid).collection('datos_pacientes').doc().collection('datos_dispositivos').doc().set({
+const guardar_dispositivo = (numero_dispositivo, idNombrePaciente, paciente,contenedor_1,pastilla,stock_1,frecuencia_de_pastillas,dia_inicio_pastilla,hora_inicio_pastilla) => 
+
+        db.collection('usuarios').doc(uid).collection('datos_dispositivos').doc().set({
             numero_dispositivo,
+            idNombrePaciente,
             paciente,
             contenedor_1:{
                 pastilla,
@@ -262,7 +325,7 @@ function pas() {
         querySnapshot.forEach(doc =>{
 
             paciente = doc.data();
-            console.log('--->',paciente);
+            console.log('--->',doc.id);
             document.getElementById('id_paciente').innerHTML  += `
             <option>${paciente.nombre}</option>
             `;
@@ -270,4 +333,19 @@ function pas() {
 
     })
 
+}
+
+
+
+function buscando_id_paciente() {
+    alert('K')
+    cuando_hay_pacientes((querySnapshot)=>{
+        querySnapshot.forEach(doc =>{
+            idNombrePaciente =  doc.id;
+            console.log(idNombrePaciente);
+        })
+
+
+
+    })
 }
