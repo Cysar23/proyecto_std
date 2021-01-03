@@ -6,7 +6,7 @@ const tabla_detalle_dispositivo = document.getElementById('mostrar_detalle_dispo
 var uid;
 
 //FUNCIONES DE FIREBASE
-const obtener_dispositivo = () => db.collection('usuarios').doc(uid).collection('datos_dispositivos').get(); 
+const obtener_dispositivos = () => db.collection('usuarios').doc(uid).collection('datos_dispositivos').get(); 
 
 const eliminar_dispositivo = id => db.collection('usuarios').doc(uid).collection('datos_dispositivos').doc(id).delete();
 
@@ -116,16 +116,20 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
     auth.onAuthStateChanged(function(user) {
         uid = user.uid;
         cuando_hay_dispositivo((querySnapshot)=>{
+
+            const cant_disp = document.getElementById('cant_disp');
+            cant_disp.innerHTML = `<span >${querySnapshot.docs.length}</span>`;
+            
             card_dispositivo.innerHTML = '';
             querySnapshot.forEach(doc =>{
                 dispositivos = doc.data();
                 dispositivos.id = doc.id;
                 
-                console.log(dispositivos);
-                console.log(dispositivos.numero_dispositivo);
+                //console.log(doc);
+                //console.log(dispositivos.numero_dispositivo);
                 arreglo.push(dispositivos.numero_dispositivo +1);
                 numero_dispositivo  = maximo_id_std(arreglo);
-                console.log("Numero Disp: "+numero_dispositivo);
+                //console.log("Numero Disp: "+numero_dispositivo);
 
                 card_dispositivo.innerHTML += `
                 <div class="col-md-12 col-lg-6 col-xl-4">
@@ -313,8 +317,8 @@ const guardar_dispositivo = (numero_dispositivo, idNombrePaciente, paciente,cont
         })
 
 function maximo_id_std(arreglo){
-    console.log("Max");
-    console.log(arreglo);
+    /* console.log("Max");
+    console.log(arreglo); */
     return Math.max.apply(null, arreglo);
 }
 
@@ -338,7 +342,6 @@ function pas() {
 
 
 function buscando_id_paciente() {
-    alert('K')
     cuando_hay_pacientes((querySnapshot)=>{
         querySnapshot.forEach(doc =>{
             idNombrePaciente =  doc.id;
@@ -349,3 +352,4 @@ function buscando_id_paciente() {
 
     })
 }
+

@@ -33,6 +33,7 @@ let id = '';
 (function() {
     'use strict';
     window.addEventListener('load', function() {
+
         var forms = document.getElementsByClassName('needs-validation');
         var validation = Array.prototype.filter.call(forms, function(form) {
             form.addEventListener('submit', async(event) =>{
@@ -54,8 +55,9 @@ let id = '';
                    if (!editStatus) {
                     
                         await guardar_paciente(nombre,apellido,fecha_nacimiento,parentesco,direccion,ciudad,telefono,dispositivos, estado);
-                        alert("PACIENTE AGREGADO");
                         form_pacientes.reset();
+                        alert("PACIENTE AGREGADO");
+                        
                    }else{ 
                     
                        await actualizar_paciente(id, {
@@ -68,8 +70,8 @@ let id = '';
                         telefono: telefono,
                         dispositivos: dispositivos,
                        });
-                       alert("PACIENTE ACTUALIZADO");
                        form_pacientes.reset();
+                       alert("PACIENTE ACTUALIZADO");
                        editStatus = false;
                        form_pacientes["btn_agregar"].innerText = 'Agregar';
                        form_pacientes["btn_eliminar"].classList = 'close btn btn-danger btn_eliminar-paciente'
@@ -99,6 +101,10 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
     auth.onAuthStateChanged(function(user) {uid = user.uid
     
         cuando_hay_pacientes((querySnapshot)=>{
+
+            const cantidad_pacientes = document.getElementById('cantidad_pacientes');
+            cantidad_pacientes.innerHTML = `<span >${querySnapshot.docs.length}</span>`;
+
             tabla_pacientes.innerHTML = '';
             querySnapshot.forEach(doc =>{
                 
@@ -272,5 +278,4 @@ function limpiar_form_pacientes(){
     modalLabel.innerText = 'Agregar nuevo paciente';
     id='';
 }
-        
-
+   
