@@ -178,11 +178,18 @@
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th>Nombre</th>
-                                                <th class="text-center">Dispositivos STD</th>
+                                                <th class="text-center">Parentesco</th>
                                                 <th class="text-center">Estado</th>
                                                 <th class="text-center">Acción</th>
                                             </tr>
                                             </thead>
+                                            
+                                            <div class="text-center">
+                                                <div class="spinner-border" role="status" id="preload_pacientes">
+                                                  <span class="sr-only">Loading...</span>
+                                                </div>
+                                              </div>
+                                              
                                             <tbody id="mostrar_datos_pacientes">
                                             
                                             
@@ -247,6 +254,14 @@
             <div class="modal-body">
                 <form class="needs-validation" novalidate="" id="form_pacientes" >
                     <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="estado">Estado</label>
+                            <select name="custom-select-dip" id="estado" class="form-control" required="">
+                                <option [ngValue]="true">Activo</option>
+                                <option [ngValue]="false">Inactivo</option>
+                            </select>
+                            
+                        </div>
                         <div class="col-md-6 mb-3">
                             <label for="id_nombre">Nombre</label>
                             <input type="text" class="form-control" id="id_nombre" placeholder="Nombre" required="">
@@ -258,8 +273,67 @@
                             
                         </div>
                         <div class="col-md-6 mb-3">
+                            <label for="id_nacionalidad">Nacionalidad</label>
+                            <select name="custom-select-dip" id="id_nacionalidad" class="form-control" required="">
+                                <option></option>
+                                <option>Dominicano(a)</option>
+                                <option>Otro</option>
+                            </select>
+                            
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_estadocivil">Estado civil</label>
+                            <select name="custom-select-dip" id="id_estadocivil" class="form-control" required="">
+                                <option></option>
+                                <option>Casado(a)</option>
+                                <option>Union Libre</option>
+                                <option>Soltero(a)</option>
+                                <option>Viudo(a)</option>
+                                <option>Divorciado(a)</option>
+                            </select>
+                            
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="id_cedula">Cédula</label>
+                            <input type="text" class="form-control" id="id_cedula" placeholder="000-0000000-0" required="" maxlength="11">
+                            <label id="id_cedula_validar"></label>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
                             <label for="id_fecha_nacimiento">Fecha de nacimiento</label>
                             <input type="date" class="form-control" id="id_fecha_nacimiento"  required="" min="1900-01-01" max="2016-01-01">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="id_seguro">Seguro Médico</label>
+                            <select name="custom-select-dip" id="id_seguro" class="form-control" required="">
+                                <option>No tiene</option>
+                                <option>Senasa</option>
+                                <option>Humano</option>
+                            </select>
+                            
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="id_nss">NSS</label>
+                            <input type="text" class="form-control" id="id_nss" placeholder="00000000" maxlength="8">
+                            
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="id_sexo">Sexo</label>
+                            <select name="custom-select-dip" id="id_sexo" class="form-control" required="">
+                                <option></option>
+                                <option>Masculino</option>
+                                <option>Femenino</option>
+                            </select>
+                            
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_peso">Peso (Lb)</label>
+                            <input type="text" class="form-control" id="id_peso" placeholder="Ejemplo: 150 LB" maxlength="3" required="">
+                            
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="id_parentesco">Parentesco</label>
@@ -276,48 +350,253 @@
                             </select>
                             
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_telefono">Teléfono</label>
+                            <!-- <input type="tel" class="form-control" id="id_telefono" placeholder="Teléfono sin guión" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required="" maxlength="10"> -->
+                            <input type="number" class="form-control" id="id_telefono" placeholder="Teléfono sin guión" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required="" maxlength="10">
+                            
+                        </div>
                         <div class="col-md-12 mb-3">
                             <label for="id_direccion">Dirección</label>
                             <input type="text" class="form-control" id="id_direccion" placeholder="Dirección" required="">
                             
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-12 mb-3">
                             <label for="id_ciudad">Ciudad</label>
                             <input type="text" class="form-control" id="id_ciudad" placeholder="Ciudad" required="">
                             
                         </div>
+
+
+                        <hr style="width:100%;text-align:left;margin-left:0">
+                        <div class="col-md-12 mb-3 text-primary" style="text-align: center;">
+                            <h5>VALORACION SOCIAL</h5>
+                            <hr >
+                        </div>
+                        
+                        
                         <div class="col-md-6 mb-3">
-                            <label for="id_telefono">Teléfono</label>
-                            <input type="tel" class="form-control" id="id_telefono" placeholder="Teléfono sin guión" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required="" maxlength="10">
+                            <label for="id_vive">Con quién vive?</label>
+                            <select name="custom-select-dip" id="id_vive" class="form-control">
+                                <option></option>
+                                <option>Esposa (a)</option>
+                                <option>Hijo (a)</option>
+                                <option>Nieto (a)</option>
+                                <option>Sobrino (a)</option>
+                                <option>Otro Paciente</option>
+                                <option>Solo (a)</option>
+                            </select>
                             
                         </div>
-                        
-                        
-                        <!--<div class="col-md-6 mb-3">
-                            <label for="id_enfermedades">Enfermedades</label>
-                            
+
+                        <div class="col-md-6 mb-3">
+                            <label for="id_trabajo">Realiza algun trabajo de paga</label>
+                            <select name="custom-select-dip" id="id_trabajo" class="form-control" >
+                                <option></option>
+                                <option>Si</option>
+                                <option>No</option>
+                            </select>
                             
                         </div>
-                         <div class="col-md-6 mb-3">
-                            <label for="id_dispositivos">Dispsitivo</label>
-                            <select name="custom-select-dip" id="id_dispositivos" class="form-control" required="">
-                                
-                                <option>Sin asignar</option>
+
+                        <hr style="width:100%;text-align:left;margin-left:0">
+                        <div class="col-md-12 mb-3 text-primary" style="text-align: center;">
+                            <h5>ANTECEDENTES DE SALUD</h5>
+                            <hr >
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="id_cvasculares" class="font-weight-bold">1. Enfermedades Cardiovasculares</label>
+                            
+                            
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_hta">
+                                <label class="form-check-label" for="id_hta">
+                                    HTA
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_icardiaca">
+                                <label class="form-check-label" for="id_icardiaca">
+                                    Insuficiencia Cardiaca
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_iagudo">
+                                <label class="form-check-label" for="id_iagudo">
+                                    Infarto Agudo miocardio
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_tconduccion">
+                                <label class="form-check-label" for="id_tconduccion">
+                                    Trastornos de conducción
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_tcardiaco">
+                                <label class="form-check-label" for="id_tcardiaco">
+                                    Taponamiento cardiaco
+                                </label>
+                            </div>
+
+                            
+                        </div>
+
+
+
+                        <div class="col-md-6 mb-3">
+                            <label for="id_cvasculares" class="font-weight-bold">2. Trastorno metabólico</label>
+                            
+                            
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_dislipidemia">
+                                <label class="form-check-label" for="id_dislipidemia">
+                                    Dislipidemia
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_obesidad">
+                                <label class="form-check-label" for="id_obesidad">
+                                    Obesidad
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_dmt1">
+                                <label class="form-check-label" for="id_dmt1">
+                                    Diabetes Mellitus Tipo 1
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_dmt2">
+                                <label class="form-check-label" for="id_dmt2">
+                                    Diabetes Mellitus Tipo 2
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_smetabolico">
+                                <label class="form-check-label" for="id_smetabolico">
+                                    Sindrome Metabólico
+                                </label>
+                            </div>
+
+                            
+                        </div>
+
+
+                        <div class="col-md-6 mb-3">
+                            <label for="id_cvasculares" class="font-weight-bold">3. Enfermedad renal</label>
+                            
+                            
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_litiasisRenal">
+                                <label class="form-check-label" for="id_litiasisRenal">
+                                    Litiasis renal
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_renalAguda">
+                                <label class="form-check-label" for="id_renalAguda">
+                                    Enfermedad renal aguda
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_renalCronica">
+                                <label class="form-check-label" for="id_renalCronica">
+                                    Enfermedad renal crónica
+                                </label>
+                            </div>
+
+                            
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="id_cvasculares" class="font-weight-bold">4. Oncológicos</label>
+                            
+                            
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_cancerPiel">
+                                <label class="form-check-label" for="id_cancerPiel">
+                                    Cáncer Piel
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_CancerPulmon">
+                                <label class="form-check-label" for="id_CancerPulmon">
+                                    Cáncer Pulmón
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_cancerColon">
+                                <label class="form-check-label" for="id_cancerColon">
+                                    Cáncer Colón-Rectal
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_cancerTiroides">
+                                <label class="form-check-label" for="id_cancerTiroides">
+                                    Cáncer Tiroides
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_cancerMama">
+                                <label class="form-check-label" for="id_cancerMama">
+                                    Cáncer Mama
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_cancerCervicoUterino">
+                                <label class="form-check-label" for="id_cancerCervicoUterino">
+                                    Cáncer Cervico Uterino
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="id_cancerProstata">
+                                <label class="form-check-label" for="id_cancerProstata">
+                                    Cáncer De Próstata
+                                </label>
+                            </div>
+
+                            
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label for="id_vive">Sufre alguna alergia a estos medicamentos?</label>
+                            <select name="custom-select-dip" id="id_vive" class="form-control">
+                                <option></option>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
-                                <option>5</option>
                             </select>
-                            <p id="label_dispositivo" style="color: red; font-size: 10px;"></p>
                             
-                        </div> -->
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label for="">Nota</label>
+                            <textarea class="form-control" name="" id="" rows="2"></textarea>
+                        </div>
+
+
+
+
+
+
                         
                     </div>
                     
-                    <div id="div_eliminar">
+                    <!-- <div id="div_eliminar" class="col-md-12 mb-3">
                         <button  class="btn btn-primary" type="submit" id="btn_agregar">Agregar</button>
                         <button  class="close btn btn-danger btn_eliminar-paciente btn-lg btn-block" type="button" id="btn_eliminar" >Eliminar</button>
+                    </div> -->
+
+                    <div class="row">
+                            
+                        <div class="col-md-12">
+                            <!-- <button type="button" id="PopoverCustomT-1" class="mb-2 mr-2 btn-pill btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#agregarClienteModal" onclick="formNuevoCliente()">Agregar Cliente</button> -->
+                            <button  class="mb-2 mr-2 btn-pill btn btn-primary btn-lg btn-block" type="submit" id="btn_agregar">Agregar</button>
+                        <button  class="close mb-2 mr-2 btn-pill btn btn-danger btn_eliminar-paciente btn-lg btn-block" type="button" id="btn_eliminar" >Eliminar</button>
+                        </div>
                     </div>
                     
                 </form>
@@ -351,20 +630,23 @@
                                         <th class="text-center">Apellido</th>
                                         <th class="text-center">Edad</th>
                                         <th class="text-center">Parentesco</th>
+                                        <th class="text-center">Sexo</th>
+                                        <th class="text-center">Peso (lb)</th>
                                         <th class="text-center">Dirección</th>
                                         <th class="text-center">Ciudad</th>
                                         <th class="text-center">Teléfono</th>
-                                        <th class="text-center">Dispositivo</th>
-                                        <th class="text-center">Estado</th>
+                                        <th class="text-center">Expediente</th>
 
                                     </tr>
                                 </thead>
+                                
+                                  
                                 <tbody id="mostrar_detalle_pacientes"></tbody>
 
 
                             </table>
                         </div>
-                       
+                    </div>
                     </div>
                 </div>
             </div>
@@ -372,6 +654,50 @@
       </div>
     </div>
   </div>
+
+  <!-- MODAL TABLA EXPEDIENTE -->
+
+
+<div class="modal fade bd-example-modal-lg" id="modal_expediente" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="ModalLabel">Expediente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close_modal_exp">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="main-card mb-3 card">
+                        <div class="table-responsive">
+                            <form class="needs-validation" novalidate="" id="form_exp">
+                                <div class="form-group">
+                                    <div id="id_nombre_paciente_exp">
+                                        <!-- <label for="expediente_paciente">Expediente del paciente FULANO</label> -->
+                                    </div>
+                                  
+                                  <textarea class="form-control" id="expediente_paciente" rows="10" focus></textarea>
+                                  <div>
+                                    <label for="archivo_expediente">Subir archivo</label>
+                                     <input type="file" class="form-control-file" id="archivo_expediente">
+                                   </div>
+                                </div>
+                                <div>
+                                    <button  class="btn btn-primary" type="submit" id="btn_guardar_exp">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <script type="text/javascript" src="./assets/scripts/pacientes.js"></script>
 <script type="text/javascript" src="./main_controler.js"></script>
 </html>

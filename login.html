@@ -33,16 +33,20 @@
                     <input type="email" class="form-control" placeholder="ejemplo@gmail.com" id="email">
                  </div>
                  <div class="form-group">
-                    <label>Contrasena</label>
-                    <input type="password" class="form-control" placeholder="Contrasena" id="password">
+                    <label>Contraseña</label>
+                    <input type="password" class="form-control" placeholder="Contraseña" id="password">
                  </div>
-                 <button type="submit" class="btn btn-black btn-login" id="login">Login</button>
-                 <button type="submit" class="btn btn-secondary btn-login" id="register">Register</button>
+                 <button type="submit" class="btn btn-black btn-login" id="login">Entrar</button>
+                 <!-- <button type="submit" class="btn btn-secondary btn-login" id="register">Registrar</button> -->
+                 <button type="button" class="btn btn-secondary btn-login" data-toggle="modal" data-target="#exampleModal">Registrar</button>
               </form>
            </div>
         </div>
      </div>
-     <script src="/login.js"></script>
+
+     <script type="text/javascript" src="./assets/scripts/main.js"></script>
+
+     <!-- <script src="/login.js"></script> -->
      <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
@@ -67,4 +71,38 @@
 </script>
 
 </body>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Registrar</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <form id="form_registro">
+            <div class="form-group">
+               <label>Correo</label>
+               <input type="email" class="form-control" placeholder="ejemplo@gmail.com" id="email">
+            </div>
+            <div class="form-group">
+               <label>Contraseña</label>
+               <input type="password" class="form-control" placeholder="Contraseña" id="password">
+            </div>
+            <div class="form-group">
+               <label>Repetir contraseña</label>
+               <input type="password" class="form-control" placeholder="Contraseña" id="password_2">
+            </div>
+            <button type="submit" class="btn btn-secondary btn-login" id="register">Registrar</button>
+         </form>
+       </div>
+     </div>
+   </div>
+ </div>
+
+
+
+<script src="/login.js"></script>
 </html>

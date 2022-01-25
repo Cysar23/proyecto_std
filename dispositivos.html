@@ -162,7 +162,8 @@
                         <button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" data-toggle="modal"  data-target="#modal_pacientes" onclick="pas()">Agregar Dispositivo</button> 
 
                         <!-- FIN FOMULARIO AGREGAR DISPOSITIVOS -->
-                        
+                        <!-- <button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" data-toggle="modal"  data-target="#modal_pastillas">Pastillas</button>  -->
+
                         
                         <div class="row" id="card_dispositivo">
                             
@@ -181,7 +182,7 @@
 </body>
 
 <!-- MODAL -->
-<div class="modal fade" id="modal_pacientes" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" style="display: none;" aria-hidden="true">
+<div class="modal fade overflow-auto" id="modal_pacientes" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="">
         <div class="modal-content">
             <div class="modal-header">
@@ -193,34 +194,50 @@
             <div class="modal-body">
                 <form class="needs-validation" novalidate="" id="form_dispositivo" >
                     <div class="modal-header">
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="id_paciente">Paciente</label>
                             <select name="custom-select-dip" id="id_paciente" class="form-control" required="">
                                 
                             </select>
                             
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-12 mb-3">
-                            <label for="id_contenedor_1">Contendor</label>
-                            <select name="custom-select-dip" id="id_contenedor_1" class="form-control" required="" disabled>
-                                <option>1</option>
-                            </select>
-                        </div>
                         <div class="col-md-6 mb-3">
-                            <label for="id_pastilla_1">Pastillas</label>
+                            <label for="id_paciente">MAC del dispositivo <font COLOR="red">*</font></label>
+                            <input type="text" class="form-control" id="mac_dispositivo" placeholder="00:1a:b2:3c:45:6d" required="" minlength="17" maxlength="17">
+                        </div>
+                    </div>
+
+
+                    <!-- CONTENEDOR 1 -->
+                    <div class="form-row">
+                        <hr style="width:100%;text-align:left;margin-left:0">
+                        <div class="col-md-12 mb-3 text-primary" style="text-align: center;">
+                            <h5>CONTENEDOR #1</h5>
+                            <hr >
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="id_pastilla_1">Pastillas <font COLOR="red">*</font></label>
+                            <div class="input-group">
                             <select name="custom-select-dip" id="id_pastilla_1" class="form-control" required="">
                                 <option value="" disabled selected>Seleccione...</option>
-                                <option>Acetaminofen</option>
-                                <option>Paracetamol</option>
+                                
                             </select>
+                                <div class="input-group-append">
+                                 <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#agregar_pastillas" type="button">Agregar</button>
+                              </div>
+                            </div>
                             
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="fecha_v_1">Fecha de vencimiento <font COLOR="red">*</font></label>
+                            <input type="date" class="form-control" id="fecha_v_1"  required="">
                         </div>
                         
                         <div class="col-md-6 mb-3">
-                            <label for="frecuencia_de_pastillas">Toma de pastillas por HORAS</label>
-                            <select name="custom-select-dip" id="frecuencia_de_pastillas" class="form-control" required="">
+                            <label for="frecuencia_de_pastillas_1">Toma de pastillas cada X horas <font COLOR="red">*</font></label>
+                            <select name="custom-select-dip" id="frecuencia_de_pastillas_1" class="form-control" required="">
                                 <option value="" disabled selected>Seleccione...</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -234,45 +251,62 @@
                             </select>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-6 mb-3" >
+                            <label for="t_tratamiento_1">Tiempo del tratamiento <font COLOR="red">*</font></label>
+                            <input type="number" class="form-control"  required="" placeholder="Dias" id="t_tratamiento_1">
+                        </div>
+
+                        <div class="col-md-12" style="text-align: center;">
                             <h5>
-                                A partir de cuando empezara a tomar las pastillas?
+                                ¿A partir de cuando empezará a tomar las pastillas?
                             </h5>
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="dia_inicio_pastilla">Día</label>
+                            <label for="dia_inicio_pastilla">Día <font COLOR="red">*</font></label>
                             <input type="date" class="form-control" id="dia_inicio_pastilla"  required="">
                         </div>
                         <div class="col-md-6 mb-3" >
-                            <label for="hora_inicio_pastilla">Hora</label>
+                            <label for="hora_inicio_pastilla">Hora <font COLOR="red">*</font></label>
                             <input type="time" class="form-control" id="hora_inicio_pastilla"  required="">
                         </div>
                         
+
+                        
+                        
                     </div>
 
+
+                    <!-- CONTENEDOR 2 -->
                     <div class="modal-header"></div>
                     <div class="form-row">
-                        <div class="col-md-12 mb-3">
-                            <label for="id_contenedor_2">Contendor</label>
-                            <select name="custom-select-dip" id="id_contenedor_2" class="form-control" required="" disabled>
-                                <option>2</option>
-                            </select>
-                        </div>
-                        <!-- PACIENTES TRAIDOS DE FIREBASE YA AGREGADOS -->
-                        <div class="col-md-6 mb-3">
-                            <label for="id_pastilla_2">Pastilla</label>
-                            <select name="custom-select-dip" id="id_pastilla_2" class="form-control">
-                                <option value="" disabled selected>Seleccione...</option>
-                                <option>Acetaminofen</option>
-                                <option>Paracetamol</option>
-                            </select>
-                            
+                        <hr style="width:100%;text-align:left;margin-left:0">
+                        <div class="col-md-12 mb-3 text-primary" style="text-align: center;"> 
+                            <h5>CONTENEDOR #2</h5>
+                            <div class="custom-checkbox custom-control">
+                                <input type="checkbox" id="checkbox_contenedor_2" class="custom-control-input">
+                                <label class="custom-control-label" for="checkbox_contenedor_2">Usar este contenedor</label>
+                            </div>
+                            <hr >
                         </div>
                         
                         <div class="col-md-6 mb-3">
-                            <label for="id_pastilla_hora_2">Toma de pastillas por HORAS</label>
-                            <select name="custom-select-dip" id="id_pastilla_hora_2" class="form-control">
+                            <label for="id_pastilla_2">Pastilla <font COLOR="red">*</font></label>
+                            <select name="custom-select-dip" id="id_pastilla_2" class="form-control" disabled required>
+                                <option value="" disabled selected>Seleccione...</option>
+                                
+                            </select>
+                            
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="fecha_v_2">Fecha de vencimiento <font COLOR="red">*</font></label>
+                            <input type="date" class="form-control" id="fecha_v_2"  required="" disabled required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="frecuencia_de_pastillas_2">Toma de pastillas por HORAS <font COLOR="red">*</font></label>
+                            <select name="custom-select-dip" id="frecuencia_de_pastillas_2" class="form-control" disabled required>
                                 <option value="" disabled selected>Seleccione...</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -286,46 +320,60 @@
                             </select>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-6 mb-3" >
+                            <label for="t_tratamiento_2">Tiempo del tratamiento <font COLOR="red">*</font></label>
+                            <input type="number" class="form-control"  placeholder="Dias" id="t_tratamiento_2" disabled required>
+                        </div>
+
+                        <div class="col-md-12" style="text-align: center;">
                             <h5>
-                                A partir de cuando empezara a tomar las pastillas?
+                                ¿A partir de cuando empezará a tomar las pastillas?
                             </h5>
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="id_dia_2">Día</label>
-                            <input type="date" class="form-control" id="id_dia_2">
+                            <label for="dia_inicio_pastilla_2">Día <font COLOR="red">*</font></label>
+                            <input type="date" class="form-control" id="dia_inicio_pastilla_2" disabled required> 
                         </div>
                         <div class="col-md-6 mb-3" >
-                            <label for="id_hora_2">Hora</label>
-                            <input type="time" class="form-control" id="id_hora_2">
+                            <label for="hora_inicio_pastilla_2">Hora <font COLOR="red">*</font></label>
+                            <input type="time" class="form-control" id="hora_inicio_pastilla_2" disabled required>
                         </div>
+                        
                         
                     </div>
 
 
+                    <!-- CONTENEDOR 3 -->
                     <div class="modal-header"></div>
                     <div class="form-row">
-                        <div class="col-md-12 mb-3">
-                            <label for="id_contenedor_3">Contendor</label>
-                            <select name="custom-select-dip" id="id_contenedor_3" class="form-control" required="" disabled>
-                                <option>3</option>
-                            </select>
-                        </div>
-                        <!-- PACIENTES TRAIDOS DE FIREBASE YA AGREGADOS -->
-                        <div class="col-md-6 mb-3">
-                            <label for="id_pastilla_3">Pastilla</label>
-                            <select name="custom-select-dip" id="id_pastilla_3" class="form-control" >
-                                <option value="" disabled selected>Seleccione...</option>
-                                <option>Acetaminofen</option>
-                                <option>Paracetamol</option>
-                            </select>
-                            
+                        <hr style="width:100%;text-align:left;margin-left:0">
+                        <div class="col-md-12 mb-3 text-primary" style="text-align: center;">
+                            <h5>CONTENEDOR #3</h5>
+                            <div class="custom-checkbox custom-control">
+                                <input type="checkbox" id="checkbox_contenedor_3" class="custom-control-input">
+                                <label class="custom-control-label" for="checkbox_contenedor_3">Usar este contenedor</label>
+                            </div>
+                            <hr >
                         </div>
                         
                         <div class="col-md-6 mb-3">
-                            <label for="id_pastilla_hora_3">Toma de pastillas por HORAS</label>
-                            <select name="custom-select-dip" id="id_pastilla_hora_3" class="form-control">
+                            <label for="id_pastilla_3">Pastilla <font COLOR="red">*</font></label>
+                            <select name="custom-select-dip" id="id_pastilla_3" class="form-control" disabled required>
+                                <option value="" disabled selected>Seleccione...</option>
+                                
+                            </select>
+                            
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="fecha_v_3">Fecha de vencimiento <font COLOR="red">*</font></label>
+                            <input type="date" class="form-control" id="fecha_v_3"  required="" disabled required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="frecuencia_de_pastillas_3">Toma de pastillas por HORAS <font COLOR="red">*</font></label>
+                            <select name="custom-select-dip" id="frecuencia_de_pastillas_3" class="form-control" disabled required>
                                 <option value="" disabled selected>Seleccione...</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -339,20 +387,26 @@
                             </select>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-6 mb-3" >
+                            <label for="t_tratamiento_3">Tiempo del tratamiento <font COLOR="red">*</font></label>
+                            <input type="number" class="form-control" placeholder="Dias" id="t_tratamiento_3" disabled required>
+                        </div>
+
+                        <div class="col-md-12" style="text-align: center;">
                             <h5>
-                                A partir de cuando empezara a tomar las pastillas?
+                                ¿A partir de cuando empezará a tomar las pastillas?
                             </h5>
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="id_dia_3">Día</label>
-                            <input type="date" class="form-control" id="id_dia_3">
+                            <label for="dia_inicio_pastilla_3">Día <font COLOR="red">*</font></label>
+                            <input type="date" class="form-control" id="dia_inicio_pastilla_3" disabled required>
                         </div>
                         <div class="col-md-6 mb-3" >
-                            <label for="id_hora_3">Hora</label>
-                            <input type="time" class="form-control" id="id_hora_3">
+                            <label for="hora_inicio_pastilla_3">Hora <font COLOR="red">*</font></label>
+                            <input type="time" class="form-control" id="hora_inicio_pastilla_3" disabled required>
                         </div>
+                        
                         
                     </div>
                     
@@ -368,6 +422,41 @@
     </div>
 </div>
 
+<!-- MODAL AGREGAR PASTILLAS -->
+
+<div class="modal fade" id="agregar_pastillas" tabindex="-1" role="dialog" aria-labelledby="agregar_pastillasModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="agregar_pastillasModalLabel">Agregar Pastilla</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form class="needs-validation" novalidate="" id="form_agregar_pastillas" >
+            <div class="modal-body form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="">Nombre de la pastilla</label>
+                    <input type="text" class="form-control" id="nombre_pastilla"  required="">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="">Miligramos (mg)</label>
+                    <input type="number" class="form-control" id="mg_pastillas" required="">
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label for="">Descripción</label>
+                    <textarea class="form-control" name="" id="nota_pastillas" rows="2"></textarea>
+                </div>
+            </div>
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="agregar_pastillas()">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- FIN MODAL AGREGAR PASTILLAS -->
 
 <div class="modal fade bd-example-modal-lg" id="modal_dispositivo_detalle" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
