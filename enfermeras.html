@@ -130,14 +130,14 @@
                             </li>
 
                             <li>
-                                <a href="enfermeras.html">
+                                <a href="enfermeras.html" class="mm-active">
                                     <i class="metismenu-icon pe-7s-eyedropper"></i>
                                     Enfermeras
                                 </a>
                             </li>
                             <li>
                             <li>
-                                <a href="pacientes.html" class="mm-active">
+                                <a href="pacientes.html">
                                     <i class="metismenu-icon pe-7s-users"></i>
                                     Pacientes
                                 </a>
@@ -166,11 +166,11 @@
                             <div class="card mb-3 widget-content bg-midnight-bloom">
                                 <div class="widget-content-wrapper text-white">
                                     <div class="widget-content-left">
-                                        <div class="widget-heading">Pacientes</div>
-                                        <div class="widget-subheading">Cantidad de pacientes</div>
+                                        <div class="widget-heading">Enfermeras</div>
+                                        <div class="widget-subheading">Cantidad de enfermeras</div>
                                     </div>
                                     <div class="widget-content-right">
-                                        <div class="widget-numbers text-white" id="cantidad_pacientes"><span></span>
+                                        <div class="widget-numbers text-white" id="cantidad_enfermeras"><span></span>
                                         </div>
 
                                     </div>
@@ -181,18 +181,18 @@
 
                     </div>
 
-                    <!-- FORMULARIO AGREGAR PACIENTES -->
+                    <!-- FORMULARIO AGREGAR ENFERMERA -->
                     <button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" data-toggle="modal"
-                        data-target="#modal_pacientes" onclick="limpiar_form_pacientes()">Agregar pacientes</button>
+                        data-target="#modal_enfermera" onclick="limpiar_form_enfermeras()">Agregar enfermera</button>
 
-                    <!-- FIN FOMULARIO AGREGAR PACIENTES -->
+                    <!-- FIN FOMULARIO AGREGAR ENFERMERA -->
 
 
                     <div class="row">
                         <div class="col-md-12">
                             <div class="main-card mb-3 card">
                                 <div class="card-header">
-                                    Pacientes
+                                    Enfermeras
                                 </div>
                                 <div class="table-responsive">
                                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
@@ -200,9 +200,9 @@
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th>Nombre</th>
-                                                <th class="text-center">Parentesco</th>
+                                                <th class="text-center">Cargo</th>
                                                 <th class="text-center">Estado</th>
-                                                <th class="text-center">Enfermera asignada</th>
+                                                <th class="text-center">Cant. pacientes asignados</th>
                                                 <th class="text-center">Acción</th>
                                             </tr>
                                         </thead>
@@ -213,7 +213,7 @@
                                             </div>
                                         </div>
 
-                                        <tbody id="mostrar_datos_pacientes">
+                                        <tbody id="mostrar_datos_enfermeras">
 
 
                                         </tbody>
@@ -265,20 +265,20 @@
 
 <!-- MODAL -->
 
-<div class="modal fade bd-example-modal-lg" id="modal_pacientes" tabindex="-1" role="dialog"
-    aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="modal_enfermera" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalLabel">Agregar nuevo paciente</h5>
+                <h5 class="modal-title" id="ModalLabel">Agregar nueva enfermera</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form class="needs-validation" novalidate="" id="form_pacientes">
+                <form class="needs-validation" novalidate="" id="form_enfermeras">
                     <div class="form-row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-3 mb-3">
                             <label for="estado">Estado</label>
                             <select name="custom-select-dip" id="estado" class="form-control" required="">
                                 <option [ngValue]="true">Activo</option>
@@ -286,17 +286,24 @@
                             </select>
 
                         </div>
-
-                        <div class="col-md-6 mb-3">
-                            <label for="">Enfermera asignada</label>
-                            <select name="custom-select-dip" id="" class="form-control" required="">
-                                <option></option>
-                                <option>Maria Perez</option>
-                                <option>Ana Espinal</option>
-                            </select>
+                        <div class="col-md-3 mb-3">
+                            <label for="id_correo">Correo</label>
+                            <input type="email" class="form-control" id="email" placeholder="ejemplo@gmail.com"
+                                required="">
 
                         </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="id_correo">Contrasena</label>
+                            <input type="password" class="form-control" id="password" placeholder="********"
+                                required="">
 
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="id_correo">Repetir contrasena</label>
+                            <input type="password" class="form-control" id="password_2" placeholder="********"
+                                required="">
+
+                        </div>
                         <div class="col-md-3 mb-3">
                             <label for="id_nombre">Nombre</label>
                             <input type="text" class="form-control" id="id_nombre" placeholder="Nombre" required="">
@@ -368,27 +375,6 @@
 
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="id_peso">Peso (Lb)</label>
-                            <input type="text" class="form-control" id="id_peso" placeholder="Ejemplo: 150 LB"
-                                maxlength="3" required="">
-
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="id_parentesco">Parentesco</label>
-                            <select name="custom-select-dip" id="id_parentesco" class="form-control" required="">
-                                <option></option>
-                                <option>Paciente</option>
-                                <option>Madre</option>
-                                <option>Padre</option>
-                                <option>Hija</option>
-                                <option>Hijo</option>
-                                <option>Hermana</option>
-                                <option>Hermano</option>
-                                <option>Otros</option>
-                            </select>
-
-                        </div>
-                        <div class="col-md-3 mb-3">
                             <label for="id_telefono">Teléfono</label>
                             <!-- <input type="tel" class="form-control" id="id_telefono" placeholder="Teléfono sin guión" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required="" maxlength="10"> -->
                             <input type="number" class="form-control" id="id_telefono" placeholder="Teléfono sin guión"
@@ -396,13 +382,13 @@
                                 required="" maxlength="10">
 
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-3 mb-3">
                             <label for="id_direccion">Dirección</label>
                             <input type="text" class="form-control" id="id_direccion" placeholder="Dirección"
                                 required="">
 
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-3 mb-3">
                             <label for="id_ciudad">Ciudad</label>
                             <input type="text" class="form-control" id="id_ciudad" placeholder="Ciudad" required="">
 
@@ -411,219 +397,52 @@
 
                         <hr style="width:100%;text-align:left;margin-left:0">
                         <div class="col-md-12 mb-3 text-primary" style="text-align: center;">
-                            <h5>VALORACION SOCIAL</h5>
+                            <h5>DATOS DE LA ORGANIZACION</h5>
                             <hr>
                         </div>
 
-
                         <div class="col-md-6 mb-3">
-                            <label for="id_vive">Con quién vive?</label>
-                            <select name="custom-select-dip" id="id_vive" class="form-control">
-                                <option></option>
-                                <option>Esposa (a)</option>
-                                <option>Hijo (a)</option>
-                                <option>Nieto (a)</option>
-                                <option>Sobrino (a)</option>
-                                <option>Otro Paciente</option>
-                                <option>Solo (a)</option>
-                            </select>
-
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <label for="id_trabajo">Realiza algun trabajo de paga</label>
+                            <label for="id_trabajo">Cargo</label>
                             <select name="custom-select-dip" id="id_trabajo" class="form-control">
                                 <option></option>
-                                <option>Si</option>
-                                <option>No</option>
+                                <option>Auxiliar o asistente de enfermería</option>
+                                <option>Enfermera autorizada</option>
+                                <option>Enfermera registrada</option>
+                                <option>Encargada del departamento</option>
                             </select>
 
                         </div>
 
-                        <hr style="width:100%;text-align:left;margin-left:0">
-                        <div class="col-md-12 mb-3 text-primary" style="text-align: center;">
-                            <h5>ANTECEDENTES DE SALUD</h5>
-                            <hr>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_fecha_ingreso">Fecha de ingreso</label>
+                            <input type="date" class="form-control" id="id_fecha_ingreso" required="" min="1900-01-01"
+                                max="2022-12-12">
                         </div>
 
-                        <div class="col-md-3 mb-3">
-                            <label for="id_cvasculares" class="font-weight-bold">1. Enfermedades
-                                Cardiovasculares</label>
-
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_hta">
-                                <label class="form-check-label" for="id_hta">
-                                    HTA
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_icardiaca">
-                                <label class="form-check-label" for="id_icardiaca">
-                                    Insuficiencia Cardiaca
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_iagudo">
-                                <label class="form-check-label" for="id_iagudo">
-                                    Infarto Agudo miocardio
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_tconduccion">
-                                <label class="form-check-label" for="id_tconduccion">
-                                    Trastornos de conducción
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_tcardiaco">
-                                <label class="form-check-label" for="id_tcardiaco">
-                                    Taponamiento cardiaco
-                                </label>
-                            </div>
-
-
-                        </div>
-
-
-
-                        <div class="col-md-3 mb-3">
-                            <label for="id_cvasculares" class="font-weight-bold">2. Trastorno metabólico</label>
-
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_dislipidemia">
-                                <label class="form-check-label" for="id_dislipidemia">
-                                    Dislipidemia
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_obesidad">
-                                <label class="form-check-label" for="id_obesidad">
-                                    Obesidad
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_dmt1">
-                                <label class="form-check-label" for="id_dmt1">
-                                    Diabetes Mellitus Tipo 1
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_dmt2">
-                                <label class="form-check-label" for="id_dmt2">
-                                    Diabetes Mellitus Tipo 2
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_smetabolico">
-                                <label class="form-check-label" for="id_smetabolico">
-                                    Sindrome Metabólico
-                                </label>
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="col-md-3 mb-3">
-                            <label for="id_cvasculares" class="font-weight-bold">3. Enfermedad renal</label>
-
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_litiasisRenal">
-                                <label class="form-check-label" for="id_litiasisRenal">
-                                    Litiasis renal
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_renalAguda">
-                                <label class="form-check-label" for="id_renalAguda">
-                                    Enfermedad renal aguda
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_renalCronica">
-                                <label class="form-check-label" for="id_renalCronica">
-                                    Enfermedad renal crónica
-                                </label>
-                            </div>
-
-
-                        </div>
-
-                        <div class="col-md-3 mb-3">
-                            <label for="id_cvasculares" class="font-weight-bold">4. Oncológicos</label>
-
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_cancerPiel">
-                                <label class="form-check-label" for="id_cancerPiel">
-                                    Cáncer Piel
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_CancerPulmon">
-                                <label class="form-check-label" for="id_CancerPulmon">
-                                    Cáncer Pulmón
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_cancerColon">
-                                <label class="form-check-label" for="id_cancerColon">
-                                    Cáncer Colón-Rectal
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_cancerTiroides">
-                                <label class="form-check-label" for="id_cancerTiroides">
-                                    Cáncer Tiroides
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_cancerMama">
-                                <label class="form-check-label" for="id_cancerMama">
-                                    Cáncer Mama
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_cancerCervicoUterino">
-                                <label class="form-check-label" for="id_cancerCervicoUterino">
-                                    Cáncer Cervico Uterino
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="id_cancerProstata">
-                                <label class="form-check-label" for="id_cancerProstata">
-                                    Cáncer De Próstata
-                                </label>
-                            </div>
-
-
-                        </div>
-
-                        <!-- <div class="col-md-6 mb-3">
-                            <label for="id_vive">Sufre alguna alergia a estos medicamentos?</label>
-                            <select name="custom-select-dip" id="id_vive" class="form-control">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_turno">Turno</label>
+                            <select name="custom-select-dip" id="id_turno" class="form-control">
                                 <option></option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
+                                <option>Completo (8h)</option>
+                                <option>Manana (4h)</option>
+                                <option>Tarde (4h)</option>
+                                <option>Noche</option>
                             </select>
-                            
-                        </div> -->
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="id_salario">Salario Mensual</label>
+                            <input type="number" class="form-control" id="id_salario" placeholder="Salario Mensual"
+                                required="">
+
+                        </div>
+
 
                         <div class="col-md-12 mb-3">
                             <label for="">Nota</label>
                             <textarea class="form-control" name="" id="id_nota" rows="2"></textarea>
                         </div>
-
-
-
-
-
-
 
                     </div>
 
@@ -674,24 +493,57 @@
                                         <tr>
                                             <th class="text-center">Nombre</th>
                                             <th class="text-center">Apellido</th>
-                                            <th class="text-center">Edad</th>
-                                            <th class="text-center">Parentesco</th>
-                                            <th class="text-center">Sexo</th>
-                                            <th class="text-center">Peso (lb)</th>
-                                            <th class="text-center">Dirección</th>
-                                            <th class="text-center">Ciudad</th>
                                             <th class="text-center">Teléfono</th>
-                                            <th class="text-center">Expediente</th>
+                                            <th class="text-center">Cédula</th>
+                                            <th class="text-center">Correo</th>
+                                            <th class="text-center">Cargo</th>
+                                            <th class="text-center">Turno</th>
+                                            <th class="text-center">Reportes</th>
 
                                         </tr>
                                     </thead>
 
 
-                                    <tbody id="mostrar_detalle_pacientes"></tbody>
+                                    <tbody id="tabla_detalle_enfermeras"></tbody>
 
 
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 mb-3 text-primary" style="text-align: center;">
+                <h5>PACIENTES ASIGNANDOS</h5>
+                <hr>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="main-card mb-3 card">
+                        <div class="table-responsive">
+                            <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Apellido</th>
+                                        <th class="text-center">Edad</th>
+                                        <th class="text-center">Parentesco</th>
+                                        <th class="text-center">Sexo</th>
+                                        <th class="text-center">Peso (lb)</th>
+                                        <th class="text-center">Dirección</th>
+                                        <th class="text-center">Ciudad</th>
+                                        <th class="text-center">Teléfono</th>
+
+                                    </tr>
+                                </thead>
+
+
+                                <tbody id="tabla_detalle_pacientes"></tbody>
+
+
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -747,7 +599,7 @@
 </div>
 </div>
 
-<script type="text/javascript" src="./assets/scripts/pacientes.js"></script>
+<script type="text/javascript" src="./assets/scripts/enfermeras.js"></script>
 <script type="text/javascript" src="./main_controler.js"></script>
 
 </html>

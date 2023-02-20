@@ -279,6 +279,7 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                 <td class="text-center">
                 <div class="badge badge-${color_estado}">${paciente.estado} </div> 
                 </td>
+                <td class="text-center" id="numero_std">ENFERMERA</td>
                 <td class="text-center">
                     <button type="button" id="" class="btn btn-info btn-sm btn-detalle" data-id="${paciente.id}" data-toggle="modal" data-target="#modal_pacientes_detalle">Detalle</button>
                     <button type="button" id="" class="btn btn-primary btn-sm btn-perfil"  data-id="${paciente.id}" data-toggle="modal"  data-target="#modal_pacientes">Perfil</button>

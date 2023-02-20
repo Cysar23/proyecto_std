@@ -10,7 +10,7 @@ auth
         var uid = user.uid;
         var providerData = user.providerData; 
         // ...
-        console.log();
+        document.getElementById('home_email').innerHTML = `${email}`;
         console.log('Usuario logueado: ',email,uid);
         } else {
         window.location = 'login.html'
@@ -24,3 +24,5 @@ auth
                 window.location = 'login.html'
             })
     }
+
+    
