@@ -12,6 +12,7 @@
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
 
+
     <link href="./main.css" rel="stylesheet">
     <link href="./style.css" rel="stylesheet">
 
@@ -183,7 +184,8 @@
 
                     <!-- FORMULARIO AGREGAR PACIENTES -->
                     <button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" data-toggle="modal"
-                        data-target="#modal_pacientes" onclick="limpiar_form_pacientes()">Agregar pacientes</button>
+                        data-target="#modal_pacientes" onclick="limpiar_form_pacientes(); asignar_enfermeras();">Agregar
+                        pacientes</button>
 
                     <!-- FIN FOMULARIO AGREGAR PACIENTES -->
 
@@ -267,7 +269,7 @@
 
 <div class="modal fade bd-example-modal-lg" id="modal_pacientes" tabindex="-1" role="dialog"
     aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ModalLabel">Agregar nuevo paciente</h5>
@@ -275,7 +277,7 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="max-height: 100%; overflow-y: auto;">
                 <form class="needs-validation" novalidate="" id="form_pacientes">
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
@@ -289,10 +291,8 @@
 
                         <div class="col-md-6 mb-3">
                             <label for="">Enfermera asignada</label>
-                            <select name="custom-select-dip" id="" class="form-control" required="">
-                                <option></option>
-                                <option>Maria Perez</option>
-                                <option>Ana Espinal</option>
+                            <select name="custom-select-dip" id="select_enfermeras" class="form-control" required="">
+
                             </select>
 
                         </div>
@@ -420,7 +420,7 @@
                             <label for="id_vive">Con quién vive?</label>
                             <select name="custom-select-dip" id="id_vive" class="form-control">
                                 <option></option>
-                                <option>Esposa (a)</option>
+                                <option>Esposo (a)</option>
                                 <option>Hijo (a)</option>
                                 <option>Nieto (a)</option>
                                 <option>Sobrino (a)</option>
@@ -634,18 +634,23 @@
 
                     <div class="row">
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 text-center">
                             <!-- <button type="button" id="PopoverCustomT-1" class="mb-2 mr-2 btn-pill btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#agregarClienteModal" onclick="formNuevoCliente()">Agregar Cliente</button> -->
-                            <button class="mb-2 mr-2 btn-pill btn btn-primary btn-lg btn-block" type="submit"
+                            <button class="mb-2 mr-2 btn-pill btn btn-primary btn-width" type="submit"
                                 id="btn_agregar">Agregar</button>
-                            <button
-                                class="close mb-2 mr-2 btn-pill btn btn-danger btn_eliminar-paciente btn-lg btn-block"
+
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <button class="close mb-2 mr-2 btn-pill btn btn-danger btn_eliminar-paciente btn-width"
                                 type="button" id="btn_eliminar">Eliminar</button>
+
                         </div>
                     </div>
 
                 </form>
             </div>
+
+            
 
         </div>
     </div>

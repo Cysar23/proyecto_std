@@ -1,13 +1,13 @@
 
 //Requiriendo a firestore
-const db = firebase.firestore(); 
+const db = firebase.firestore();
 const tabla_pacientes = document.getElementById('mostrar_datos_pacientes');
 const tabla_detalle_pacientes = document.getElementById('mostrar_detalle_pacientes');
-const  modalLabel = document.getElementById('ModalLabel');
+const modalLabel = document.getElementById('ModalLabel');
 var uid;
 
 //FUNCIONES DE FIREBASE
-const obtener_paciente = () => db.collection('usuarios').doc(uid).collection('datos_pacientes').get(); 
+const obtener_paciente = () => db.collection('usuarios').doc(uid).collection('datos_pacientes').get();
 
 const eliminarPaciente = id => db.collection('usuarios').doc(uid).collection('datos_pacientes').doc(id).delete();
 const eliminarDispositivo = id => db.collection('usuarios').doc(uid).collection('datos_dispositivos').doc(id).delete();
@@ -35,16 +35,18 @@ const preload_pacientes = document.getElementById('preload_pacientes');
 const preload_detalle = document.getElementById('preload_detalle');
 
 //VALIDACION DE CAMPOS Y ENVIO A FIREBASE PARA GUARDAR DATOS
-(function() {
+(function () {
     'use strict';
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
         var forms = document.getElementsByClassName('needs-validation');
-        var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', async(event) =>{
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', async (event) => {
                 if (form.checkValidity() === true) {
                     event.preventDefault();
                     event.stopPropagation();
                     //Capturando datos del form de pacientes y enviandolos a firestore
+                    
+                    const enfermera_asiganada = form_pacientes["select_enfermeras"].value;
                     const nombre = form_pacientes['id_nombre'].value;
                     const apellido = form_pacientes["id_apellido"].value;
                     const id_nacionalidad = form_pacientes["id_nacionalidad"].value;
@@ -92,9 +94,10 @@ const preload_detalle = document.getElementById('preload_detalle');
                     const expediente = form_exp['expediente_paciente'].value;
                     const archivo_expediente = form_exp['archivo_expediente'].value;
                     console.log(status);
-                   if (status == 'agregar') {
-                    
+                    if (status == 'agregar') {
+
                         await guardar_paciente(
+                            enfermera_asiganada,
                             nombre,
                             apellido,
                             id_nacionalidad,
@@ -102,8 +105,8 @@ const preload_detalle = document.getElementById('preload_detalle');
                             id_seguro,
                             id_cedula,
                             id_nss,
-                            fecha_nacimiento, 
-                            sexo, 
+                            fecha_nacimiento,
+                            sexo,
                             peso,
                             parentesco,
                             direccion,
@@ -111,8 +114,8 @@ const preload_detalle = document.getElementById('preload_detalle');
                             telefono,
                             id_vive,
                             id_trabajo,
-                            dispositivos, 
-                            estado, 
+                            dispositivos,
+                            estado,
                             id_hta,
                             id_icardiaca,
                             id_iagudo,
@@ -138,82 +141,84 @@ const preload_detalle = document.getElementById('preload_detalle');
 
 
 
-                            expediente, 
+                            expediente,
                             archivo_expediente);
                         form_pacientes.reset();
                         alert("PACIENTE AGREGADO");
-                        
-                   }else if(status == 'editar'){ 
-                    
-                       await actualizar_paciente(id, {
-                        nombre: nombre,
-                        apellido:   apellido,
-                        id_nacionalidad:    id_nacionalidad,
-                        id_estadocivil:  id_estadocivil,
-                        id_seguro:   id_seguro,
-                        id_cedula:   id_cedula,
-                        id_nss:  id_nss,
-                        fecha_nacimiento:    fecha_nacimiento, 
-                        sexo:    sexo, 
-                        peso:    peso,
-                        parentesco:  parentesco,
-                        direccion:   direccion,
-                        ciudad:  ciudad,
-                        telefono:    telefono,
-                        id_vive:     id_vive,
-                        id_trabajo:  id_trabajo,
-                        dispositivos:    dispositivos, 
-                        estado:      estado, 
-                        id_hta : id_hta,
-                        id_icardiaca : id_icardiaca,
-                        id_iagudo : id_iagudo,
-                        id_tconduccion : id_tconduccion,
-                        id_tcardiaco : id_tcardiaco,
-                        id_dislipidemia : id_dislipidemia,
-                        id_obesidad : id_obesidad,
-                        id_dmt1 : id_dmt1,
-                        id_dmt2 : id_dmt2,
-                        id_smetabolico : id_smetabolico,
-                        id_litiasisRenal : id_litiasisRenal,
-                        id_renalAguda : id_renalAguda,
-                        id_renalCronica : id_renalCronica,
-                        id_cancerPiel : id_cancerPiel,
-                        id_CancerPulmon : id_CancerPulmon,
-                        id_cancerColon : id_cancerColon,
-                        id_cancerTiroides : id_cancerTiroides,
-                        id_cancerMama : id_cancerMama, 
-                        id_cancerCervicoUterino : id_cancerCervicoUterino,
-                        id_cancerProstata : id_cancerProstata,
-                        
+
+                    } else if (status == 'editar') {
+
+                        await actualizar_paciente(id, {
+                            
+                            enfermera_asiganada: enfermera_asiganada,
+                            nombre: nombre,
+                            apellido: apellido,
+                            id_nacionalidad: id_nacionalidad,
+                            id_estadocivil: id_estadocivil,
+                            id_seguro: id_seguro,
+                            id_cedula: id_cedula,
+                            id_nss: id_nss,
+                            fecha_nacimiento: fecha_nacimiento,
+                            sexo: sexo,
+                            peso: peso,
+                            parentesco: parentesco,
+                            direccion: direccion,
+                            ciudad: ciudad,
+                            telefono: telefono,
+                            id_vive: id_vive,
+                            id_trabajo: id_trabajo,
+                            dispositivos: dispositivos,
+                            estado: estado,
+                            id_hta: id_hta,
+                            id_icardiaca: id_icardiaca,
+                            id_iagudo: id_iagudo,
+                            id_tconduccion: id_tconduccion,
+                            id_tcardiaco: id_tcardiaco,
+                            id_dislipidemia: id_dislipidemia,
+                            id_obesidad: id_obesidad,
+                            id_dmt1: id_dmt1,
+                            id_dmt2: id_dmt2,
+                            id_smetabolico: id_smetabolico,
+                            id_litiasisRenal: id_litiasisRenal,
+                            id_renalAguda: id_renalAguda,
+                            id_renalCronica: id_renalCronica,
+                            id_cancerPiel: id_cancerPiel,
+                            id_CancerPulmon: id_CancerPulmon,
+                            id_cancerColon: id_cancerColon,
+                            id_cancerTiroides: id_cancerTiroides,
+                            id_cancerMama: id_cancerMama,
+                            id_cancerCervicoUterino: id_cancerCervicoUterino,
+                            id_cancerProstata: id_cancerProstata,
 
 
-                        expediente:      expediente, 
-                        archivo_expediente:      archivo_expediente
-                       });
-                       form_pacientes.reset();
-                       alert("PACIENTE ACTUALIZADO");
-                       status = 'agregar';
-                       form_pacientes["btn_agregar"].innerText = 'Agregar';
-                       form_pacientes["btn_eliminar"].classList = 'close btn btn-danger btn_eliminar-paciente'
-                       modalLabel.innerText = 'Agregar nuevo paciente';
-                       id=''; 
-                       
-                   }
-                   else if(status == 'exp'){
-                    await actualizar_paciente(id, {
-                        expediente: expediente,
-                        archivo_expediente: archivo_expediente
-                    });
-                    alert("GUARDADO!");
-                    status = 'agregar';
-                    document.getElementById("close_modal_exp").click();
-                   }
-                }else{
-                alert("DEBE LLENAR TODOS LOS CAMPOS");
-                form.classList.add('was-validated');
-                event.preventDefault();
+
+                            expediente: expediente,
+                            archivo_expediente: archivo_expediente
+                        });
+                        form_pacientes.reset();
+                        alert("PACIENTE ACTUALIZADO");
+                        status = 'agregar';
+                        form_pacientes["btn_agregar"].innerText = 'Agregar';
+                        form_pacientes["btn_eliminar"].classList = 'close btn btn-danger btn_eliminar-paciente btn-with'
+                        modalLabel.innerText = 'Agregar nuevo paciente';
+                        id = '';
+
+                    }
+                    else if (status == 'exp') {
+                        await actualizar_paciente(id, {
+                            expediente: expediente,
+                            archivo_expediente: archivo_expediente
+                        });
+                        alert("GUARDADO!");
+                        status = 'agregar';
+                        document.getElementById("close_modal_exp").click();
+                    }
+                } else {
+                    alert("DEBE LLENAR TODOS LOS CAMPOS");
+                    form.classList.add('was-validated');
+                    event.preventDefault();
                 }
-                
+
             }, false);
         });
     }, false);
@@ -224,43 +229,44 @@ const preload_detalle = document.getElementById('preload_detalle');
 
 
 //MOSTRANDO PACIENTES EN LA TABLA
-window.addEventListener('DOMContentLoaded', async(e) =>{
-    auth.onAuthStateChanged(function(user) {uid = user.uid
-    
-        cuando_hay_pacientes((querySnapshot)=>{
+window.addEventListener('DOMContentLoaded', async (e) => {
+    auth.onAuthStateChanged(function (user) {
+        uid = user.uid
+
+        cuando_hay_pacientes((querySnapshot) => {
 
             const cantidad_pacientes = document.getElementById('cantidad_pacientes');
             cantidad_pacientes.innerHTML = `<span >${querySnapshot.docs.length}</span>`;
             const cant_pacientes = querySnapshot.docs.length;
-            
+
             tabla_pacientes.innerHTML = '';
 
             if (!cant_pacientes) {
-                tabla_pacientes.innerHTML = 
-                `   <tr>
+                tabla_pacientes.innerHTML =
+                    `   <tr>
                     <td class="text-center">
                     NO HAY REGISTROS
                     </td>
                     </tr>
                 `      }
 
-            querySnapshot.forEach(doc =>{
-                
+            querySnapshot.forEach(doc => {
+
                 const paciente = doc.data();
                 paciente.id = doc.id;
-                
+
                 let color_estado = '';
                 if (paciente.estado === false) {
                     color_estado = 'danger';
                     paciente.estado = 'Inactivo'
-                }else if(paciente.estado === true){
+                } else if (paciente.estado === true) {
                     color_estado = 'success';
                     paciente.estado = 'Activo'
-                }else{
+                } else {
                     color_estado = '';
                 }
 
-                
+
 
                 tabla_pacientes.innerHTML += `
                 <tr>
@@ -287,16 +293,16 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                 </td>
             </tr>
                 `;
-                
+
                 const btnsDetalle = document.querySelectorAll('.btn-detalle');
-                btnsDetalle.forEach(btn =>{
-                    btn.addEventListener('click', async(e)=>{
-                        console.log("ID: ",e.target.dataset.id);
-                        const doc =  await editarPaciente(e.target.dataset.id);
+                btnsDetalle.forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        console.log("ID: ", e.target.dataset.id);
+                        const doc = await editarPaciente(e.target.dataset.id);
                         const data_pacientes = doc.data();
                         tabla_detalle_pacientes.innerHTML = '';
                         let hoy = new Date();
-                        let date  = new Date(data_pacientes.fecha_nacimiento);
+                        let date = new Date(data_pacientes.fecha_nacimiento);
                         let edad = hoy.getFullYear() - date.getFullYear();
                         var mes = hoy.getMonth() - date.getMonth();
 
@@ -321,14 +327,14 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                             </td>
                         </tr>
                         `;
-                        
+
                         const btnsVer = document.querySelectorAll('.btn-ver');
-                        btnsVer.forEach(btn =>{
-                            btn.addEventListener('click', async(e)=>{ 
+                        btnsVer.forEach(btn => {
+                            btn.addEventListener('click', async (e) => {
                                 console.log(e.target.dataset.id);
                                 const form_exp = document.getElementById('form_exp');
                                 const id_nombre_paciente_exp = document.getElementById("id_nombre_paciente_exp");
-                                const doc =  await editarPaciente(e.target.dataset.id);
+                                const doc = await editarPaciente(e.target.dataset.id);
                                 const exp = doc.data();
                                 console.log(exp);
                                 status = 'exp'
@@ -341,30 +347,34 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
 
 
 
-                    }); 
-                }); 
+                    });
+                });
 
                 const btnsEdit = document.querySelectorAll('.btn-perfil');
-                btnsEdit.forEach(btn =>{
-                    btn.addEventListener('click', async(e)=>{
+                btnsEdit.forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
                         console.log(e.target.dataset.id);
-                        const doc =  await editarPaciente(e.target.dataset.id);
+                        asignar_enfermeras();
+                        const doc = await editarPaciente(e.target.dataset.id);
                         const paciente = doc.data();
                         status = 'editar';
                         id = doc.id;
-
+                        console.log(paciente)
+                        
                         modalLabel.innerText = 'Actualizar paciente'
                         form_pacientes["btn_agregar"].innerText = 'Actualizar';
                         /* form_pacientes["btn_eliminar"].classList = 'btn btn-danger'; */
-                        form_pacientes["btn_eliminar"].classList = 'mb-2 mr-2 btn-pill btn btn-danger btn_eliminar-paciente btn-lg btn-block';
+                        form_pacientes["btn_eliminar"].classList = 'mb-2 mr-2 btn-pill btn btn-danger btn_eliminar-paciente btn-width';
 
+                        form_pacientes["select_enfermeras"].value = paciente.enfermera_asiganada;
+                        form_pacientes['select_enfermeras'].disabled = campStatus;
                         
                         form_pacientes['id_nombre'].value = paciente.nombre;
                         form_pacientes['id_nombre'].disabled = campStatus;
 
                         form_pacientes["id_apellido"].value = paciente.apellido;
                         form_pacientes['id_apellido'].disabled = campStatus;
-
+                        
                         form_pacientes["id_nacionalidad"].value = paciente.id_nacionalidad;
                         form_pacientes['id_nacionalidad'].disabled = campStatus;
 
@@ -376,7 +386,7 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
 
                         form_pacientes["id_cedula"].value = paciente.id_cedula;
                         form_pacientes['id_cedula'].disabled = campStatus;
-                        
+
                         form_pacientes["id_nss"].value = paciente.id_nss;
                         form_pacientes['id_nss'].disabled = campStatus;
 
@@ -408,16 +418,16 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
 
                         form_pacientes["id_hta"].checked = paciente.id_hta;
                         form_pacientes['id_hta'].disabled = campStatus;
-                        
+
                         form_pacientes["id_icardiaca"].checked = paciente.id_icardiaca;
                         form_pacientes['id_icardiaca'].disabled = campStatus;
-                        
+
                         form_pacientes["id_iagudo"].checked = paciente.id_iagudo;
                         form_pacientes['id_iagudo'].disabled = campStatus;
-                        
+
                         form_pacientes["id_tconduccion"].checked = paciente.id_tconduccion;
                         form_pacientes['id_tconduccion'].disabled = campStatus;
-                        
+
                         form_pacientes["id_tcardiaco"].checked = paciente.id_tcardiaco;
                         form_pacientes['id_tcardiaco'].disabled = campStatus;
 
@@ -444,7 +454,7 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
 
                         form_pacientes["id_renalCronica"].checked = paciente.id_renalCronica;
                         form_pacientes['id_renalCronica'].disabled = campStatus;
-                        
+
                         form_pacientes["id_cancerPiel"].checked = paciente.id_cancerPiel;
                         form_pacientes['id_cancerPiel'].disabled = campStatus;
 
@@ -469,7 +479,7 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
 
                         /* form_pacientes["id_dispositivos"].value = paciente.dispositivos;
                         form_pacientes['id_dispositivos'].disabled = campStatus; */
-                        
+
                         /* cuando_hay_dispositivo((querySnapshot)=>{
                             document.getElementById('id_dispositivos').innerHTML = '';
                             querySnapshot.forEach(doc =>{
@@ -482,24 +492,24 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                             })
                     
                         }) */
-    
+
                     })
                 })
             })
-            
-            
+
+
             const btnsEliminar = document.querySelectorAll('.btn_eliminar-paciente');
-                btnsEliminar.forEach(btn =>{
-                    btn.addEventListener('click', async(e)=>{ 
+            btnsEliminar.forEach(btn => {
+                btn.addEventListener('click', async (e) => {
                     //console.log('ELIMINAR');
                     let doc_id
                     const id_disp = await db.collection('usuarios').doc(uid).collection('datos_dispositivos').where('paciente', '==', form_pacientes['id_nombre'].value).get();
-                    id_disp.forEach(doc =>{
+                    id_disp.forEach(doc => {
                         //idNombrePaciente= doc.data();
                         doc_id = doc.id;
                     })
                     let conf = confirm("Esta seguro de eliminar a " + form_pacientes['id_nombre'].value)
-                    if (conf==true) {
+                    if (conf == true) {
                         conf = confirm("SI ELIMINA AL PACIENTE, ELIMINARA EL DISPOSITIVO ASIGNADO");
                         if (conf == true) {
                             await eliminarPaciente(id);
@@ -507,11 +517,11 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                             alert("PACIENTE ELIMINADO");
                             location.reload();
                         }
-                        
+
                     }
-                    
-                    });
+
                 });
+            });
 
         });
 
@@ -522,6 +532,7 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
 //Funcion que guarda datos del form de pacientes y enviandolos a firestore
 const form_pacientes = document.getElementById("form_pacientes");
 const guardar_paciente = (
+    enfermera_asiganada,
     nombre,
     apellido,
     id_nacionalidad,
@@ -529,8 +540,8 @@ const guardar_paciente = (
     id_seguro,
     id_cedula,
     id_nss,
-    fecha_nacimiento, 
-    sexo, 
+    fecha_nacimiento,
+    sexo,
     peso,
     parentesco,
     direccion,
@@ -538,8 +549,8 @@ const guardar_paciente = (
     telefono,
     id_vive,
     id_trabajo,
-    dispositivos, 
-    estado, 
+    dispositivos,
+    estado,
     id_hta,
     id_icardiaca,
     id_iagudo,
@@ -562,124 +573,149 @@ const guardar_paciente = (
     id_cancerProstata,
 
 
-    expediente, 
-    archivo_expediente) => 
-            db.collection('usuarios').doc(uid).collection('datos_pacientes').doc().set({
-                nombre,
-                apellido,
-                id_nacionalidad,
-                id_estadocivil,
-                id_seguro,
-                id_cedula,
-                id_nss,
-                fecha_nacimiento, 
-                sexo, 
-                peso,
-                parentesco,
-                direccion,
-                ciudad,
-                telefono,
-                id_vive,
-                id_trabajo,
-                dispositivos, 
-                estado, 
-                id_hta,
-                id_icardiaca,
-                id_iagudo,
-                id_tconduccion,
-                id_tcardiaco,
-                id_dislipidemia,
-                id_obesidad,
-                id_dmt1,
-                id_dmt2,
-                id_smetabolico,
-                id_litiasisRenal,
-                id_renalAguda,
-                id_renalCronica,
-                id_cancerPiel,
-                id_CancerPulmon,
-                id_cancerColon,
-                id_cancerTiroides,
-                id_cancerMama,
-                id_cancerCervicoUterino,
-                id_cancerProstata,
+    expediente,
+    archivo_expediente) =>
+    db.collection('usuarios').doc(uid).collection('datos_pacientes').doc().set({
+        enfermera_asiganada,
+        nombre,
+        apellido,
+        id_nacionalidad,
+        id_estadocivil,
+        id_seguro,
+        id_cedula,
+        id_nss,
+        fecha_nacimiento,
+        sexo,
+        peso,
+        parentesco,
+        direccion,
+        ciudad,
+        telefono,
+        id_vive,
+        id_trabajo,
+        dispositivos,
+        estado,
+        id_hta,
+        id_icardiaca,
+        id_iagudo,
+        id_tconduccion,
+        id_tcardiaco,
+        id_dislipidemia,
+        id_obesidad,
+        id_dmt1,
+        id_dmt2,
+        id_smetabolico,
+        id_litiasisRenal,
+        id_renalAguda,
+        id_renalCronica,
+        id_cancerPiel,
+        id_CancerPulmon,
+        id_cancerColon,
+        id_cancerTiroides,
+        id_cancerMama,
+        id_cancerCervicoUterino,
+        id_cancerProstata,
 
 
-                expediente, 
-                archivo_expediente
-            });
+        expediente,
+        archivo_expediente
+    });
 
-function limpiar_form_pacientes(){
+function limpiar_form_pacientes() {
     form_pacientes.reset();
     status = 'agregar'
     form_pacientes["btn_agregar"].innerText = 'Agregar';
     form_pacientes["btn_eliminar"].classList = 'close btn btn-danger btn_eliminar-paciente'
     modalLabel.innerText = 'Agregar nuevo paciente';
-    id='';
+    id = '';
+}
+
+function asignar_enfermeras() {
+    const cuando_hay_enfermeras = (callback) => db.collection('usuarios').doc(uid).collection('datos_enfermeras').onSnapshot(callback);
+    cuando_hay_enfermeras((querySnapshot) => {
+
+        select_enfermeras.innerHTML = '';
+        const cant_enfermeras = querySnapshot.docs.length;
+
+        if (!cant_enfermeras) {
+            select_enfermeras.innerHTML =
+                `<option>No hay enfermeras</option>`;
+        }
+
+        querySnapshot.forEach(doc => {
+
+            const enfermera = doc.data();
+
+            select_enfermeras.innerHTML += `
+            <option>${enfermera.nombre} ${enfermera.apellido}</option>
+            `;
+
+        });
+    });
 }
 
 
 /* FUNCIONES DE VALIDAR CEDULA */
 
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
     id_cedula.addEventListener("keypress", soloNumeros, false);
     id_cedula.addEventListener("keyup", valida, false);
     id_nss.addEventListener("keypress", soloNumeros, false);
     id_peso.addEventListener("keypress", soloNumeros, false);
 
-  });
-  
-  //Solo permite introducir numeros.
-  function soloNumeros(e){
+});
+
+//Solo permite introducir numeros.
+function soloNumeros(e) {
     var key = window.event ? e.which : e.keyCode;
     if (key < 48 || key > 57) {
-      e.preventDefault();
+        e.preventDefault();
     }
-  }
-  
-  function valida(id_cedula){
-                  id_cedula = document.getElementById('id_cedula').value;
-                  id_cedula_validar = document.getElementById('id_cedula_validar').value;
-                  c = id_cedula.split('');
-                  v = [1,2,1,2,1,2,1,2,1,2]
-                var result = 0 ; 
-                var ar ;
-                var up;
-                var oc ;
-                for (i=0;i <10;i++){  
-                up =c[i] * v[i];
-                ab = up;
-                if ( ab >= 10 ) {
-                  oc = ab.toString()
-                          .split('')
-                          .map(x => parseInt(x) )
-                          .reduce( (x, y) => x + y);
-                }else {
-                  oc = ab;
-                }
-                result = parseFloat(result) + parseFloat(oc);   
-                }
-                  dp = result;
-                  ac = dp.toString().split('')[0] + '0';
-                  ac = parseInt(ac);
-                  uj = (ac / 10) * 10;
-                    if (uj < dp ) {
-                    dp = (uj + 10) - dp; 
-                    }   
-  
-                if (c[10] == dp) {             
-                  
-                  document.getElementById('id_cedula_validar').innerHTML = '<p>Correcta </p>';
-                  document.getElementById('id_cedula_validar').setAttribute("style", "color: green");
-                } else {
-                  
-                  document.getElementById('id_cedula_validar').innerHTML = '<p>Incorrecta </p>';
-                  document.getElementById('id_cedula_validar').setAttribute("style", "color: red");
-                  
-                }
-     }       
-  
-  
+}
+
+function valida(id_cedula) {
+    id_cedula = document.getElementById('id_cedula').value;
+    id_cedula_validar = document.getElementById('id_cedula_validar').value;
+    c = id_cedula.split('');
+    v = [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
+    var result = 0;
+    var ar;
+    var up;
+    var oc;
+    for (i = 0; i < 10; i++) {
+        up = c[i] * v[i];
+        ab = up;
+        if (ab >= 10) {
+            oc = ab.toString()
+                .split('')
+                .map(x => parseInt(x))
+                .reduce((x, y) => x + y);
+        } else {
+            oc = ab;
+        }
+        result = parseFloat(result) + parseFloat(oc);
+    }
+    dp = result;
+    ac = dp.toString().split('')[0] + '0';
+    ac = parseInt(ac);
+    uj = (ac / 10) * 10;
+    if (uj < dp) {
+        dp = (uj + 10) - dp;
+    }
+
+    if (c[10] == dp) {
+
+        document.getElementById('id_cedula_validar').innerHTML = '<p>Correcta </p>';
+        document.getElementById('id_cedula_validar').setAttribute("style", "color: green");
+    } else {
+
+        document.getElementById('id_cedula_validar').innerHTML = '<p>Incorrecta </p>';
+        document.getElementById('id_cedula_validar').setAttribute("style", "color: red");
+
+    }
+}
+
+
 
 /*      let filtro_fecha_exp = document.getElementById("filtro_fecha_exp");
 

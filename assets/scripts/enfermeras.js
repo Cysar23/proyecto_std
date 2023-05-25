@@ -26,7 +26,8 @@ const actualizar_paciente = (id, actualizando) => db.collection('usuarios').doc(
 
 
 ////////////////////////////
-let status = 'agregar';
+
+let estado_btn = 'agregar';
 let campStatus = false;
 let id = '';
 
@@ -74,11 +75,11 @@ const preload_detalle = document.getElementById('preload_detalle');
                     const password_2 = form_enfermeras["password_2"].value;
 
 
-                    console.log(status);
-                    if (status == 'agregar') {
+                    console.log("ESTADO: ", estado_btn);
+                    if (estado_btn == 'agregar') {
 
                         if (password != password_2) {
-                            alert("Contraseñas NO coisiden");
+                            alert("Contraseñas NO coinciden");
                         } else {
 
                             auth
@@ -116,10 +117,10 @@ const preload_detalle = document.getElementById('preload_detalle');
                             form_enfermeras.reset();
                             alert("ENFERMERA AGREGADA");
                         }
-                    } else if (status == 'editar') {
+                    } else if (estado_btn == 'editar') {
 
                         await actualizar_paciente(id, {
-                            email : email,
+                            email: email,
                             nombre: nombre,
                             apellido: apellido,
                             id_nacionalidad: id_nacionalidad,
@@ -143,20 +144,20 @@ const preload_detalle = document.getElementById('preload_detalle');
                         });
                         form_enfermeras.reset();
                         alert("ENFERMERA ACTUALIZADO");
-                        status = 'agregar';
+                        estado_btn = 'agregar';
                         form_enfermeras["btn_agregar"].innerText = 'Agregar';
                         form_enfermeras["btn_eliminar"].classList = 'close btn btn-danger btn_eliminar-paciente'
                         modalLabel.innerText = 'Agregar nueva enfermera';
                         id = '';
 
                     }
-                    else if (status == 'exp') {
+                    else if (estado_btn == 'exp') {
                         await actualizar_paciente(id, {
                             expediente: expediente,
                             archivo_expediente: archivo_expediente
                         });
                         alert("GUARDADO!");
-                        status = 'agregar';
+                        estado_btn = 'agregar';
                         document.getElementById("close_modal_exp").click();
                     }
                 } else {
@@ -194,7 +195,8 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                     NO HAY REGISTROS
                     </td>
                     </tr>
-                `      }
+                `
+            }
 
             querySnapshot.forEach(doc => {
 
@@ -231,7 +233,7 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                 <td class="text-center">
                 <div class="badge badge-${color_estado}">${enfermera.estado} </div> 
                 </td>
-                <td class="text-center" id="">8</td>
+                <td class="text-center" id=""></td>
                 <td class="text-center">
                     <button type="button" id="" class="btn btn-info btn-sm btn-detalle" data-id="${enfermera.id}" data-toggle="modal" data-target="#modal_pacientes_detalle">Detalle</button>
                     <button type="button" id="" class="btn btn-primary btn-sm btn-perfil"  data-id="${enfermera.id}" data-toggle="modal"  data-target="#modal_enfermera">Perfil</button>
@@ -273,28 +275,32 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                         </tr>
                         `;
 
-                        cuando_hay_pacientes((querySnapshot)=>{
+                        cuando_hay_pacientes((querySnapshot) => {
                             tabla_detalle_pacientes.innerHTML = '';
-                            querySnapshot.forEach(doc =>{
+                            querySnapshot.forEach(doc => {
                                 const data_pacientes = doc.data();
-                                tabla_detalle_pacientes.innerHTML += `
-                        <tr>
-                            <td class="text-center" id="numero_std">${data_pacientes.nombre}</td>
-                            <td class="text-center" id="numero_std">${data_pacientes.apellido}</td>
-                            <td class="text-center" id="numero_std">20</td>
-                            <td class="text-center" id="numero_std">${data_pacientes.parentesco}</td>
-                            <td class="text-center" id="numero_std">${data_pacientes.sexo}</td>
-                            <td class="text-center" id="numero_std">${data_pacientes.peso}</td>
-                            <td class="text-center" id="numero_std">${data_pacientes.direccion}</td>
-                            <td class="text-center" id="numero_std">${data_pacientes.ciudad}</td>
-                            <td class="text-center" id="numero_std">${data_pacientes.telefono}</td>
-                        </tr>
-                        `;
-                            });
+                                //EN ESTE CASO USO EL NOMBRE PROBANDO PARA LA RELACION, DEBE DE SER POR ID, TENER PENDIENTE ESTO
+                                const id_nombreApellido = data_enfermeras.nombre +" "+ data_enfermeras.apellido;
+                                if(id_nombreApellido == data_pacientes.enfermera_asiganada){
+                                    tabla_detalle_pacientes.innerHTML += `
+                                        <tr>
+                                            <td class="text-center" id="numero_std">${data_pacientes.nombre}</td>
+                                            <td class="text-center" id="numero_std">${data_pacientes.apellido}</td>
+                                            <td class="text-center" id="numero_std">20</td>
+                                            <td class="text-center" id="numero_std">${data_pacientes.parentesco}</td>
+                                            <td class="text-center" id="numero_std">${data_pacientes.sexo}</td>
+                                            <td class="text-center" id="numero_std">${data_pacientes.peso}</td>
+                                            <td class="text-center" id="numero_std">${data_pacientes.direccion}</td>
+                                            <td class="text-center" id="numero_std">${data_pacientes.ciudad}</td>
+                                            <td class="text-center" id="numero_std">${data_pacientes.telefono}</td>
+                                        </tr>
+                                    `;
+                                }
+                            });                        
                         });
 
 
-                        
+
 
                         const btnsVer = document.querySelectorAll('.btn-ver');
                         btnsVer.forEach(btn => {
@@ -305,11 +311,11 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                                 const doc = await editarEnfermera(e.target.dataset.id);
                                 const exp = doc.data();
                                 console.log(exp);
-                                status = 'exp'
+                                estado_btn = 'exp'
                                 id = doc.id;
                                 id_nombre_paciente_exp.innerHTML = `<label for="expediente_paciente">Expediente del enfermera ${exp.nombre}</label>`
                                 form_exp['expediente_paciente'].value = exp.expediente;
-                                console.log(status);
+                                console.log(estado_btn);
                             });
                         });
 
@@ -324,7 +330,7 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                         console.log(e.target.dataset.id);
                         const doc = await editarEnfermera(e.target.dataset.id);
                         const enfermera = doc.data();
-                        status = 'editar';
+                        estado_btn = 'editar';
                         id = doc.id;
 
                         modalLabel.innerText = 'Actualizar enfermera'
@@ -333,7 +339,16 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                         form_enfermeras["btn_eliminar"].classList = 'mb-2 mr-2 btn-pill btn btn-danger btn_eliminar-paciente btn-lg btn-block';
 
 
+                        form_enfermeras['estado'].value = enfermera.estado;
+                        form_enfermeras['estado'].disabled = campStatus;
+
                         form_enfermeras['email'].value = enfermera.email;
+                        form_enfermeras['email'].disabled = campStatus;
+
+                        form_enfermeras['password'].value = "*";
+                        form_enfermeras['password'].disabled = campStatus;
+
+                        form_enfermeras['password_2'].value = "*";
                         form_enfermeras['email'].disabled = campStatus;
 
                         form_enfermeras['id_nombre'].value = enfermera.nombre;
@@ -477,7 +492,7 @@ const guardar_paciente = (
 
 function limpiar_form_enfermeras() {
     form_enfermeras.reset();
-    status = 'agregar'
+    estado_btn = 'agregar'
     form_enfermeras["btn_agregar"].innerText = 'Agregar';
     form_enfermeras["btn_eliminar"].classList = 'close btn btn-danger btn_eliminar-paciente'
     modalLabel.innerText = 'Agregar nuevo paciente';

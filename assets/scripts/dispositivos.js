@@ -113,12 +113,12 @@ let estado_reg_pastilla = false;
 
 
                         const consultando_mac =  await db.collection('usuarios').doc('registros_MAC').get();
-                        console.log('MACS: ',consultando_mac.data().MACS);
                         let array_macs = consultando_mac.data().MACS;
+                        console.log('consultando_mac: ',array_macs);
                         array_macs.forEach(db_mac => {
-                            console.log(db_mac);
+                            console.log("db_mac: ", db_mac);
 
-                            if (db_mac == mac_dispositivo) {
+                            if (db_mac.mac_dispositivo == mac_dispositivo) {
                                     estado_mac = true;
                                     alert('MAC DUPLICADO');
                             }
@@ -399,12 +399,12 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
             })
 
             const btnsEliminar = document.querySelectorAll('.btn_eliminar_dispositivo');
-                btnsEliminar.forEach(btn =>{
+                /* btnsEliminar.forEach(btn =>{
                     btn.addEventListener('click', async(e)=>{ 
                         console.log(e.target.dataset.id);
                         const doc =  await editar_dispositivo(e.target.dataset.id);
                         id = doc.id;
-                        console.log(dispositivos.mac_dispositivo);
+                        console.log("dispositivos.mac_dispositivo: ", dispositivos.mac_dispositivo);
                     
                     let conf = confirm("Esta seguro de eliminar el dispositivo ")
                     if (conf==true) {
@@ -418,9 +418,9 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                                 MACS: firebase.firestore.FieldValue.arrayRemove(dispositivos.mac_dispositivo)
                             });
 
-                        /* await actualizar_paciente(id_pac, {
-                            dispositivos: ''
-                        }); */
+                        // await actualizar_paciente(id_pac, {
+                        //    dispositivos: ''
+                        //}); 
                         await eliminar_dispositivo(id);
 
                        
@@ -432,7 +432,49 @@ window.addEventListener('DOMContentLoaded', async(e) =>{
                     }
                     
                     })
-                });
+                }); */
+
+                /* CODIGO REHECHO */
+                btnsEliminar.forEach(btn => {
+                    btn.addEventListener('click', async (e) => { 
+                      console.log(e.target.dataset.id);
+                      const doc = await editar_dispositivo(e.target.dataset.id);
+                      id = doc.id;
+                      console.log("dispositivos.mac_dispositivo: ", dispositivos.mac_dispositivo);
+                  
+                      let conf = confirm("¿Está seguro de eliminar el dispositivo?");
+                      if (conf == true) {
+                        console.log("Sí", id);
+                        const id_pac = doc.data().idNombrePaciente;
+                  
+                        const mac_dispositivo = dispositivos.mac_dispositivo; // Valor de mac_dispositivo a eliminar
+                        const eliminando_MAC = db.collection("usuarios").doc("registros_MAC");
+                  
+                        // Obtener la matriz actual de MACS
+                        const snapshot = await eliminando_MAC.get();
+                        const { MACS } = snapshot.data();
+                  
+                        // Filtrar la matriz para eliminar el objeto con el mac_dispositivo correspondiente
+                        const updatedMACS = MACS.filter(obj => obj.mac_dispositivo !== mac_dispositivo);
+                  
+                        // Actualizar la matriz MACS en la base de datos
+                        await eliminando_MAC.update({
+                          MACS: updatedMACS
+                        });
+                  
+                        /* await actualizar_paciente(id_pac, {
+                          dispositivos: ''
+                        }); */
+                        await eliminar_dispositivo(id);
+                  
+                        //form_pacientes.reset();
+                        alert("DISPOSITIVO ELIMINADO");
+                      } else {
+                        alert("DISPOSITIVO NO ELIMINADO");
+                      }
+                    });
+                  });
+                  
 
                 const btnsAbrir = document.querySelectorAll('.btn_abrir_dispositivo');
                 btnsAbrir.forEach(btn =>{
