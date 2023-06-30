@@ -709,7 +709,7 @@
 <!-- MODAL TABLA EXPEDIENTE -->
 
 
-<div class="modal fade bd-example-modal-lg" id="modal_expediente" tabindex="-1" role="dialog"
+<!-- <div class="modal fade bd-example-modal-lg" id="modal_expediente" tabindex="-1" role="dialog"
     aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -727,7 +727,6 @@
                                 <form class="needs-validation" novalidate="" id="form_exp">
                                     <div class="form-group">
                                         <div id="id_nombre_paciente_exp">
-                                            <!-- <label for="expediente_paciente">Expediente del paciente FULANO</label> -->
                                         </div>
 
                                         <textarea class="form-control" id="expediente_paciente" rows="10"
@@ -749,7 +748,78 @@
             </div>
         </div>
     </div>
+</div> -->
+
+<div class="modal fade bd-example-modal-lg" id="modal_expediente" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Expediente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close_modal_exp">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="table-responsive">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="card mb-4">
+                                        <div class="card-body">
+                                          <h3 class="card-title">Agregar Nota</h3>
+                                          <div class="form-group">
+                                            <!-- <input type="text" class="form-control" id="contenido-input" placeholder="Contenido de la nota"> -->
+                                            <textarea class="form-control" id="contenido-input" cols="30" rows="2" placeholder="Contenido de la nota"></textarea>
+                                          </div>
+                                          <button class="btn btn-primary" onclick="agregarNota()">Agregar</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                              
+                                    <div class="col-md-6">
+                                      <div class="card mb-4">
+                                        <div class="card-body">
+                                          <h3 class="card-title">Buscar Notas</h3>
+                                          <div class="form-group">
+                                            <input type="text" class="form-control" id="fecha-buscar" placeholder="Buscar por fecha (Ej: DD/MM/AAAA)" oninput="buscarNotas()">
+                                          </div>
+                                          <div class="form-group">
+                                            <input type="text" class="form-control" id="contenido-buscar" placeholder="Buscar por contenido" oninput="buscarNotas()">
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <style>
+                                    .modal-scroll {
+                                      max-height: 400px;
+                                      overflow-y: auto;
+                                    }
+                                  </style>
+                              
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="card">
+                                        <div class="card-body ">
+                                          <h3 class="card-title">Notas</h3>
+                                          <div class="modal-scroll" id="notas-container"></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 </div>
 
 <script type="text/javascript" src="./assets/scripts/pacientes.js"></script>

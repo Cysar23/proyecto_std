@@ -5,6 +5,7 @@ const tabla_enfermeras = document.getElementById('mostrar_datos_enfermeras');
 const tabla_detalle_enfermeras = document.getElementById('tabla_detalle_enfermeras');
 const tabla_detalle_pacientes = document.getElementById('tabla_detalle_pacientes');
 const modalLabel = document.getElementById('ModalLabel');
+const cant_pacientes = document.getElementById('cant_pacientes');
 var uid;
 
 //FUNCIONES DE FIREBASE
@@ -204,16 +205,15 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                 enfermera.id = doc.id;
 
                 let color_estado = '';
-                if (enfermera.estado === false) {
+                if (enfermera.estado === 'Inactivo') {
                     color_estado = 'danger';
                     enfermera.estado = 'Inactivo'
-                } else if (enfermera.estado === true) {
+                } else if (enfermera.estado === 'Activo') { //A esto hay que ponerle True o False en la db
                     color_estado = 'success';
                     enfermera.estado = 'Activo'
                 } else {
                     color_estado = '';
                 }
-
 
 
                 tabla_enfermeras.innerHTML += `
@@ -233,7 +233,6 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                 <td class="text-center">
                 <div class="badge badge-${color_estado}">${enfermera.estado} </div> 
                 </td>
-                <td class="text-center" id=""></td>
                 <td class="text-center">
                     <button type="button" id="" class="btn btn-info btn-sm btn-detalle" data-id="${enfermera.id}" data-toggle="modal" data-target="#modal_pacientes_detalle">Detalle</button>
                     <button type="button" id="" class="btn btn-primary btn-sm btn-perfil"  data-id="${enfermera.id}" data-toggle="modal"  data-target="#modal_enfermera">Perfil</button>
@@ -274,14 +273,18 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                             </td>
                         </tr>
                         `;
+                        
+
 
                         cuando_hay_pacientes((querySnapshot) => {
+                            let cant_pacientes_asignados = 0;
                             tabla_detalle_pacientes.innerHTML = '';
                             querySnapshot.forEach(doc => {
                                 const data_pacientes = doc.data();
                                 //EN ESTE CASO USO EL NOMBRE PROBANDO PARA LA RELACION, DEBE DE SER POR ID, TENER PENDIENTE ESTO
                                 const id_nombreApellido = data_enfermeras.nombre +" "+ data_enfermeras.apellido;
-                                if(id_nombreApellido == data_pacientes.enfermera_asiganada){
+                                if(id_nombreApellido == data_pacientes.enfermera_asiganada && data_pacientes.estado == 'Activo'){
+                                    cant_pacientes_asignados ++; 
                                     tabla_detalle_pacientes.innerHTML += `
                                         <tr>
                                             <td class="text-center" id="numero_std">${data_pacientes.nombre}</td>
@@ -296,6 +299,8 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                                         </tr>
                                     `;
                                 }
+                                
+                                cant_pacientes.innerHTML = `${cant_pacientes_asignados}`;
                             });                        
                         });
 
@@ -333,6 +338,12 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                         estado_btn = 'editar';
                         id = doc.id;
 
+                        if (enfermera.estado == 'Inactivo') {
+                            campStatus = true;
+                        }else{
+                            campStatus = false;
+                        }
+
                         modalLabel.innerText = 'Actualizar enfermera'
                         form_enfermeras["btn_agregar"].innerText = 'Actualizar';
                         /* form_enfermeras["btn_eliminar"].classList = 'btn btn-danger'; */
@@ -340,16 +351,15 @@ window.addEventListener('DOMContentLoaded', async (e) => {
 
 
                         form_enfermeras['estado'].value = enfermera.estado;
-                        form_enfermeras['estado'].disabled = campStatus;
 
                         form_enfermeras['email'].value = enfermera.email;
-                        form_enfermeras['email'].disabled = campStatus;
+                        form_enfermeras['email'].disabled = true;
 
-                        form_enfermeras['password'].value = "*";
-                        form_enfermeras['password'].disabled = campStatus;
+                        form_enfermeras['password'].value = "******";
+                        form_enfermeras['password'].disabled = true;
 
-                        form_enfermeras['password_2'].value = "*";
-                        form_enfermeras['email'].disabled = campStatus;
+                        form_enfermeras['password_2'].value = "*******";
+                        form_enfermeras['password_2'].disabled = true;
 
                         form_enfermeras['id_nombre'].value = enfermera.nombre;
                         form_enfermeras['id_nombre'].disabled = campStatus;
@@ -497,6 +507,8 @@ function limpiar_form_enfermeras() {
     form_enfermeras["btn_eliminar"].classList = 'close btn btn-danger btn_eliminar-paciente'
     modalLabel.innerText = 'Agregar nuevo paciente';
     id = '';
+    form_enfermeras['password'].disabled = false;
+    form_enfermeras['password_2'].disabled = false;
 }
 
 

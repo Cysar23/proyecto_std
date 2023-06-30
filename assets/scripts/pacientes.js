@@ -91,8 +91,8 @@ const preload_detalle = document.getElementById('preload_detalle');
 
 
                     const dispositivos = '';
-                    const expediente = form_exp['expediente_paciente'].value;
-                    const archivo_expediente = form_exp['archivo_expediente'].value;
+                    //const expediente = form_exp['expediente_paciente'].value;
+                    //const archivo_expediente = form_exp['archivo_expediente'].value;
                     console.log(status);
                     if (status == 'agregar') {
 
@@ -141,8 +141,9 @@ const preload_detalle = document.getElementById('preload_detalle');
 
 
 
-                            expediente,
-                            archivo_expediente);
+                            //expediente,
+                            //archivo_expediente
+                            );
                         form_pacientes.reset();
                         alert("PACIENTE AGREGADO");
 
@@ -192,8 +193,8 @@ const preload_detalle = document.getElementById('preload_detalle');
 
 
 
-                            expediente: expediente,
-                            archivo_expediente: archivo_expediente
+                            //expediente: expediente,
+                            //archivo_expediente: archivo_expediente
                         });
                         form_pacientes.reset();
                         alert("PACIENTE ACTUALIZADO");
@@ -206,8 +207,8 @@ const preload_detalle = document.getElementById('preload_detalle');
                     }
                     else if (status == 'exp') {
                         await actualizar_paciente(id, {
-                            expediente: expediente,
-                            archivo_expediente: archivo_expediente
+                            //expediente: expediente,
+                            //archivo_expediente: archivo_expediente
                         });
                         alert("GUARDADO!");
                         status = 'agregar';
@@ -256,10 +257,10 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                 paciente.id = doc.id;
 
                 let color_estado = '';
-                if (paciente.estado === false) {
+                if (paciente.estado === 'Inactivo') {
                     color_estado = 'danger';
                     paciente.estado = 'Inactivo'
-                } else if (paciente.estado === true) {
+                } else if (paciente.estado === 'Activo') {
                     color_estado = 'success';
                     paciente.estado = 'Activo'
                 } else {
@@ -285,7 +286,7 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                 <td class="text-center">
                 <div class="badge badge-${color_estado}">${paciente.estado} </div> 
                 </td>
-                <td class="text-center" id="numero_std">ENFERMERA</td>
+                <td class="text-center">${paciente.enfermera_asiganada}</td>
                 <td class="text-center">
                     <button type="button" id="" class="btn btn-info btn-sm btn-detalle" data-id="${paciente.id}" data-toggle="modal" data-target="#modal_pacientes_detalle">Detalle</button>
                     <button type="button" id="" class="btn btn-primary btn-sm btn-perfil"  data-id="${paciente.id}" data-toggle="modal"  data-target="#modal_pacientes">Perfil</button>
@@ -332,7 +333,7 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                         btnsVer.forEach(btn => {
                             btn.addEventListener('click', async (e) => {
                                 console.log(e.target.dataset.id);
-                                const form_exp = document.getElementById('form_exp');
+                                //const form_exp = document.getElementById('form_exp');
                                 const id_nombre_paciente_exp = document.getElementById("id_nombre_paciente_exp");
                                 const doc = await editarPaciente(e.target.dataset.id);
                                 const exp = doc.data();
@@ -340,7 +341,7 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                                 status = 'exp'
                                 id = doc.id;
                                 id_nombre_paciente_exp.innerHTML = `<label for="expediente_paciente">Expediente del paciente ${exp.nombre}</label>`
-                                form_exp['expediente_paciente'].value = exp.expediente;
+                                //form_exp['expediente_paciente'].value = exp.expediente;
                                 console.log(status);
                             });
                         });
@@ -359,12 +360,19 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                         const paciente = doc.data();
                         status = 'editar';
                         id = doc.id;
-                        console.log(paciente)
+                        console.log(paciente.estado)
+                        if (paciente.estado == 'Inactivo') {
+                            campStatus = true;
+                        }else{
+                            campStatus = false;
+                        }
                         
                         modalLabel.innerText = 'Actualizar paciente'
                         form_pacientes["btn_agregar"].innerText = 'Actualizar';
                         /* form_pacientes["btn_eliminar"].classList = 'btn btn-danger'; */
                         form_pacientes["btn_eliminar"].classList = 'mb-2 mr-2 btn-pill btn btn-danger btn_eliminar-paciente btn-width';
+
+                        form_pacientes["estado"].value = paciente.estado;
 
                         form_pacientes["select_enfermeras"].value = paciente.enfermera_asiganada;
                         form_pacientes['select_enfermeras'].disabled = campStatus;
@@ -415,6 +423,7 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                         form_pacientes['id_ciudad'].disabled = campStatus;
 
                         form_pacientes["id_telefono"].value = paciente.telefono;
+                        form_pacientes['id_telefono'].disabled = campStatus;
 
                         form_pacientes["id_hta"].checked = paciente.id_hta;
                         form_pacientes['id_hta'].disabled = campStatus;
@@ -475,6 +484,9 @@ window.addEventListener('DOMContentLoaded', async (e) => {
 
                         form_pacientes["id_cancerProstata"].checked = paciente.id_cancerProstata;
                         form_pacientes['id_cancerProstata'].disabled = campStatus;
+
+                        form_pacientes["id_nota"].checked = paciente.id_nota;
+                        form_pacientes['id_nota'].disabled = campStatus;
 
 
                         /* form_pacientes["id_dispositivos"].value = paciente.dispositivos;
@@ -573,8 +585,9 @@ const guardar_paciente = (
     id_cancerProstata,
 
 
-    expediente,
-    archivo_expediente) =>
+    //expediente,
+    //archivo_expediente
+    ) =>
     db.collection('usuarios').doc(uid).collection('datos_pacientes').doc().set({
         enfermera_asiganada,
         nombre,
@@ -617,8 +630,8 @@ const guardar_paciente = (
         id_cancerProstata,
 
 
-        expediente,
-        archivo_expediente
+        //expediente,
+        //archivo_expediente
     });
 
 function limpiar_form_pacientes() {
@@ -646,9 +659,11 @@ function asignar_enfermeras() {
 
             const enfermera = doc.data();
 
-            select_enfermeras.innerHTML += `
-            <option>${enfermera.nombre} ${enfermera.apellido}</option>
-            `;
+            if(enfermera.estado == 'Activo'){
+                select_enfermeras.innerHTML += `<option>${enfermera.nombre} ${enfermera.apellido}</option>`;
+            }
+
+            
 
         });
     });
@@ -724,3 +739,63 @@ function valida(id_cedula) {
      function exp_filtro() {
          console.log(filtro_fecha_exp.value);
      } */
+
+     let notas = [];
+
+     function agregarNota() {
+       const fechaActual = new Date();
+       const fecha = fechaActual.toLocaleDateString(); // Obtener la fecha actual en formato local
+     
+       const contenido = document.getElementById('contenido-input').value;
+     
+       // Validar que se haya ingresado el contenido de la nota
+       if (contenido.trim() === '') {
+         alert('Por favor, ingresa el contenido de la nota.');
+         return;
+       }
+     
+       const nota = {
+         fecha: fecha,
+         contenido: contenido
+       };
+     
+       notas.push(nota);
+     
+       document.getElementById('contenido-input').value = '';
+     
+       actualizarListaNotas();
+     }
+     
+     function buscarNotas() {
+       const fechaBuscar = document.getElementById('fecha-buscar').value;
+       const contenidoBuscar = document.getElementById('contenido-buscar').value;
+     
+       const notasFiltradas = notas.filter(nota =>
+         nota.fecha.includes(fechaBuscar) && nota.contenido.includes(contenidoBuscar)
+       );
+     
+       mostrarNotas(notasFiltradas);
+     }
+     
+     function actualizarListaNotas() {
+       mostrarNotas(notas);
+     }
+     
+     function mostrarNotas(notasArray) {
+       const notasContainer = document.getElementById('notas-container');
+     
+       notasContainer.innerHTML = '';
+     
+       notasArray.forEach(nota => {
+         const notaHTML = document.createElement('div');
+         notaHTML.classList.add('card', 'mb-2', 'border', 'border-primary');
+         notaHTML.innerHTML = `
+           <div class="card-body">
+             <h6 class="card-subtitle mb-2 text-muted">${nota.fecha}</h6>
+             <p class="card-text">${nota.contenido}</p>
+           </div>
+         `;
+         notasContainer.appendChild(notaHTML);
+       });
+     }
+     
