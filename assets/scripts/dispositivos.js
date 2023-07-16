@@ -40,9 +40,14 @@ const cuando_hay_pacientes = (callback) =>
     .doc(uid)
     .collection("datos_pacientes")
     .onSnapshot(callback);
-///////
-//////
-//////
+
+const cuando_hay_pastillas = (callback) =>
+  db
+    .collection("usuarios")
+    .doc(uid)
+    .collection("pastillas")
+    .onSnapshot(callback);
+
 const actualizar_paciente = (id_paciente, actualizando) =>
   db
     .collection("usuarios")
@@ -1259,3 +1264,60 @@ async function agregar_pastillas() {
     form_agregar_pastillas.reset();
   }
 }
+
+const pastillas = () => {
+  cuando_hay_pastillas((querySnapshot) => {
+    const tbody = document.getElementById("table_body_pastillas");
+    tbody.innerHTML = "";
+    input = document.getElementById("search_pastillas");
+    input.value = "";
+    querySnapshot.forEach((doc) => {
+      pastillasArray = doc.data().PASTILLAS;
+
+      pastillasArray.forEach((pastilla) => {
+        const row = document.createElement("tr");
+        const nombreCell = document.createElement("td");
+        const miligramosCell = document.createElement("td");
+        const descripcionCell = document.createElement("td");
+
+        nombreCell.textContent = pastilla.nombre_pastilla;
+        miligramosCell.textContent = pastilla.miligramos;
+        descripcionCell.textContent = pastilla.nota_pastillas;
+
+        row.appendChild(nombreCell);
+        row.appendChild(miligramosCell);
+        row.appendChild(descripcionCell);
+
+        tbody.appendChild(row);
+      });
+    });
+  });
+
+  /* cuando_hay_pastillas((querySnapshot) => {
+    const tbody = document.getElementById("table_body_pastillas");
+
+    // Limpiar el contenido previo de la tabla
+    tbody.innerHTML = "";
+
+    // Obtener el array PASTILLAS del resultado
+    const pastillasArray = querySnapshot.data().PASTILLAS;
+    console.log(pastillasArray)
+
+    pastillasArray.forEach((pastilla) => {
+      const row = document.createElement("tr");
+      const nombreCell = document.createElement("td");
+      const miligramosCell = document.createElement("td");
+      const descripcionCell = document.createElement("td");
+
+      nombreCell.textContent = pastilla.nombre_pastilla;
+      miligramosCell.textContent = pastilla.miligramos;
+      descripcionCell.textContent = pastilla.nota_pastillas;
+
+      row.appendChild(nombreCell);
+      row.appendChild(miligramosCell);
+      row.appendChild(descripcionCell);
+
+      tbody.appendChild(row);
+    });
+  }); */
+};
