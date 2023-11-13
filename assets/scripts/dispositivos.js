@@ -301,6 +301,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                         <div class="dropdown-menu-header">
                                             <div class="dropdown-menu-header-inner bg-success">
                                                 <div class="menu-header-content">
+                                                
                                                     <div>
                                                         <h5 class="menu-header-title">Asignado a: ${
                                                           dispositivos.paciente
@@ -317,12 +318,17 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                             <div class="tab-content">
                                                 <div class="tab-pane show active" id="tab-2-eg1">
                                                     <ul class="list-group list-group-flush">
+
+                                                    <li class="list-group-item">
+                                                     <span class="badge badge-dot badge-dot-lg badge-danger badge-pulse mr-2">Badge</span>
+                                                     Estado de conexión 
+                                                    </li>
                                                         <li class="list-group-item">
                                                             <div class="widget-content p-0">
                                                                 <div class="widget-content-wrapper">
                                                                     
                                                                     <div class="widget-content-left flex2" style="margin-right: 5px;">
-                                                                        <div class="widget-heading">CONTENEDOR 1</div>
+                                                                        <div class="widget-heading">CONTENEDOR 1 <b class="text-primary">[AZUL]</b></div>
                                                                         <div class="widget-subheading opacity-10">
                                                                             <span > Pastillas: <b class="text-primary">${
                                                                               dispositivos
@@ -334,7 +340,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                                               dispositivos
                                                                                 .contenedor_1
                                                                                 .stock_1
-                                                                            } de 6</div>
+                                                                            } de 12</div>
                                                                             <div class="mb-3 progress">
                                                                                 <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: ${
                                                                                   dispositivos
@@ -363,12 +369,13 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                                 </div>
                                                             </div>
                                                         </li>
+                                                        
                                                         <li class="list-group-item">
                                                             <div class="widget-content p-0">
                                                                 <div class="widget-content-wrapper">
                                                                     
                                                                     <div class="widget-content-left flex2" style="margin-right: 5px;">
-                                                                        <div class="widget-heading">CONTENEDOR 2</div>
+                                                                        <div class="widget-heading">CONTENEDOR 2 <b class="text-danger">[ROJO]</b></div>
                                                                         <div class="widget-subheading opacity-10">
                                                                         <span > Pastillas: <b class="text-primary">${
                                                                           dispositivos
@@ -380,7 +387,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                                               dispositivos
                                                                                 .contenedor_2
                                                                                 .stock_2
-                                                                            } de 10</div>
+                                                                            } de 12</div>
                                                                             <div class="mb-3 progress">
                                                                                 <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: ${
                                                                                   dispositivos
@@ -413,7 +420,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                                 <div class="widget-content-wrapper">
                                                                     
                                                                     <div class="widget-content-left flex2" style="margin-right: 5px;">
-                                                                        <div class="widget-heading">CONTENEDOR 3</div>
+                                                                        <div class="widget-heading">CONTENEDOR 3 <b class="text-warning">[AMARILLO]</b></div>
                                                                         <div class="widget-subheading opacity-10">
                                                                         <span > Pastillas: <b class="text-primary">${
                                                                           dispositivos
@@ -425,7 +432,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                                               dispositivos
                                                                                 .contenedor_3
                                                                                 .stock_3
-                                                                            } de 10</div>
+                                                                            } de 12</div>
                                                                             <div class="mb-3 progress">
                                                                                 <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: ${
                                                                                   dispositivos
@@ -453,6 +460,43 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                                 </div>
                                                             </div>
                                                         </li>
+                                                        <li class="list-group-item">
+                                                          <div class="widget-content p-0">
+                                                            <div class="widget-content-wrapper">
+                                                              <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                  <img
+                                                                    width="42"
+                                                                    class="rounded"
+                                                                    src="assets/images/avatars/4.jpg"
+                                                                    alt=""
+                                                                  />
+                                                                </div>
+                                                              </div>
+                                                              <div class="widget-content-left flex2">
+                                                                <div class="widget-heading">Product Sales</div>
+                                                                <div class="widget-subheading opacity-10">
+                                                                  <span class="pr-2"><b>43</b> Sales</span>
+                                                                  <span><b class="text-success">$156,24</b> Totals</span>
+                                                                </div>
+                                                              </div>
+                                                              <div class="widget-content-right text-right mr-3">
+                                                                <div><b>52,5%</b></div>
+                                                                YoY Growth
+                                                              </div>
+                                                              <div class="widget-content-right">
+                                                                <div class="progress-circle-wrapper">
+                                                                  <div class="circle-progress circle-progress-success">
+                                                                    <canvas width="52" height="52"></canvas>
+                                                                    <small
+                                                                      ><span><span></span></span
+                                                                    ></small>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                                 
@@ -475,6 +519,47 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                 </div>
                 `;
       });
+      const canvas = document.querySelector(".progress-circle-wrapper canvas");
+      const ctx = canvas.getContext("2d");
+      const percentage = 90; // Replace with actual progress percentage
+
+      const radius = canvas.width / 2;
+      const circumference = 2 * Math.PI * radius;
+
+      // Function to draw the progress circle
+      function drawProgressCircle() {
+        ctx.beginPath();
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = "#ccc"; // Color of the progress bar
+        ctx.arc(radius, radius, radius - ctx.lineWidth / 2, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Function to draw the progress arc
+      function drawProgressArc() {
+        const angle = (percentage / 100) * 2 * Math.PI;
+        ctx.beginPath();
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = "#007bff"; // Color of the progress indicator
+        ctx.arc(radius, radius, radius - ctx.lineWidth / 2, 0, angle);
+        ctx.stroke();
+      }
+
+      // Draw the progress circle and arc
+      drawProgressCircle();
+      drawProgressArc();
+
+      // Update the percentage text
+      const percentageText = document.querySelector(
+        ".progress-circle-wrapper small span span"
+      );
+      percentageText.textContent = percentage + "%";
+
+
+
+
+
+      
 
       const btnsVer = document.querySelectorAll(".btn_ver_dispositivo");
       btnsVer.forEach((btn) => {
@@ -488,7 +573,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
           tabla_detalle_dispositivo.innerHTML = "";
           tabla_detalle_dispositivo.innerHTML += `
                     <tr>
-                        <td class="text-center" id="numero_std">Contenedor 1</td>
+                        <td class="text-center text-primary" id="numero_std">Contenedor 1</td>
                         <td class="text-center" id="numero_std" name="pastilla">${data_dispositivos.contenedor_1.pastilla}</td>
                         <td class="text-center" id="numero_std" name="cada">${data_dispositivos.contenedor_1.frecuencia_de_pastillas_1} H</td>
                         <td class="text-center" id="numero_std" name="estado"></td>
@@ -497,7 +582,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                         <td class="text-center" id="numero_std" name="historial">Historial</td>
                     </tr>
                     <tr>
-                        <td class="text-center" id="numero_std">Contenedor 2</td>
+                        <td class="text-center text-danger" id="numero_std">Contenedor 2</td>
                         <td class="text-center" id="numero_std" name="pastilla">${data_dispositivos.contenedor_2.pastilla_2}</td>
                         <td class="text-center" id="numero_std" name="cada">${data_dispositivos.contenedor_2.frecuencia_de_pastillas_2} H</td>
                         <td class="text-center" id="numero_std" name="estado"></td>
@@ -506,7 +591,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                         <td class="text-center" id="numero_std" name="historial">Historial</td>
                     </tr>
                     <tr>
-                        <td class="text-center" id="numero_std">Contenedor 3</td>
+                        <td class="text-center text-warning" id="numero_std">Contenedor 3</td>
                         <td class="text-center" id="numero_std" name="pastilla"></td>
                         <td class="text-center" id="numero_std" name="cada"></td>
                         <td class="text-center" id="numero_std" name="estado"></td>

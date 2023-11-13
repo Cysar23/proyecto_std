@@ -234,9 +234,10 @@ window.addEventListener('DOMContentLoaded', async (e) => {
                 <div class="badge badge-${color_estado}">${enfermera.estado} </div> 
                 </td>
                 <td class="text-center">
-                    <button type="button" id="" class="btn btn-info btn-sm btn-detalle" data-id="${enfermera.id}" data-toggle="modal" data-target="#modal_pacientes_detalle">Detalle</button>
+                <div class=" d-flex justify-content-center align-items-center">
+                    <button type="button" id="" class="btn btn-info btn-sm btn-detalle mr-2" data-id="${enfermera.id}" data-toggle="modal" data-target="#modal_pacientes_detalle">Detalle</button>
                     <button type="button" id="" class="btn btn-primary btn-sm btn-perfil"  data-id="${enfermera.id}" data-toggle="modal"  data-target="#modal_enfermera">Perfil</button>
-                    
+                </div>
                 </td>
             </tr>
                 `;

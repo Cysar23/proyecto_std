@@ -1,209 +1,409 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Language" content="en" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>STD ADMIN</title>
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
-    <meta name="msapplication-tap-highlight" content="no">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="This is an example dashboard created using build-in elements and components."
+    />
+    <meta name="msapplication-tap-highlight" content="no" />
 
-    <link href="./main.css" rel="stylesheet">
-    <link href="./style.css" rel="stylesheet">
-</head>
+    <link href="./main.css" rel="stylesheet" />
+    <link href="./style.css" rel="stylesheet" />
+  </head>
 
-<body>
-    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-        <div class="app-header header-shadow">
-            <div class="app-header__logo">
-                <div class="logo-src"></div>
-                <div class="header__pane ml-auto">
-                    <div>
-                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
-                            data-class="closed-sidebar">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
+  <body>
+    <div
+      class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header"
+    >
+      <div class="app-header header-shadow" id="nav"></div>
+
+      <div class="app-main">
+        <div class="app-sidebar sidebar-shadow" id="sidebar"></div>
+        <div class="app-main__outer">
+          <div class="app-main__inner">
+            <div class="row">
+              <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-midnight-bloom">
+                  <div class="widget-content-wrapper text-white">
+                    <div class="widget-content-left">
+                      <div class="widget-heading">Pacientes</div>
+                      <div class="widget-subheading">
+                        Cantidad de pacientes activos
+                      </div>
                     </div>
+                    <div class="widget-content-right">
+                      <div class="widget-numbers text-white">
+                        <span>1</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
-            <div class="app-header__mobile-menu">
-                <div>
-                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
-                        <span class="hamburger-box">
-                            <span class="hamburger-inner"></span>
-                        </span>
-                    </button>
+              </div>
+
+              <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-arielle-smile">
+                  <div class="widget-content-wrapper text-white">
+                    <div class="widget-content-left">
+                      <div class="widget-heading">Enfermeras</div>
+                      <div class="widget-subheading">
+                        Cantidad de enfermeras activas
+                      </div>
+                    </div>
+                    <div class="widget-content-right">
+                      <div class="widget-numbers text-white">
+                        <span>1</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
-            <div class="app-header__menu">
-                <span>
-                    <button type="button"
-                        class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                        <span class="btn-icon-wrapper">
-                            <i class="fa fa-ellipsis-v fa-w-6"></i>
-                        </span>
-                    </button>
-                </span>
-            </div>
-            <div class="app-header__content">
-                <div class="app-header-right">
-                    <div class="header-btn-lg pr-0">
-                        <div class="widget-content p-0">
-                            <div class="widget-content-wrapper">
-                                <div class="widget-content-left">
-                                    <div class="btn-group">
-                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                            class="p-0 btn">
-                                            <img width="42" class="rounded-circle"
-                                                src="assets/images/avatars/user_icon.png" alt="">
-                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
-                                        </a>
-                                        <div tabindex="-1" role="menu" aria-hidden="true"
-                                            class="dropdown-menu dropdown-menu-right">
-                                            <button type="button" tabindex="0" class="dropdown-item">Account</button>
-                                            <button type="button" tabindex="0" class="dropdown-item">Settings</button>
-                                            <h6 tabindex="-1" class="dropdown-header">Header</h6>
-                                            <button type="button" tabindex="0" class="dropdown-item">Actions</button>
-                                            <div tabindex="-1" class="dropdown-divider"></div>
-                                            <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+              </div>
+
+              <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-grow-early">
+                  <div class="widget-content-wrapper text-white">
+                    <div class="widget-content-left">
+                      <div class="widget-heading">Dispositivos</div>
+                      <div class="widget-subheading">
+                        Cantidad de dispositivos
+                      </div>
+                    </div>
+                    <div class="widget-content-right">
+                      <div class="widget-numbers text-white">
+                        <span>1</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-lg-4">
+                <div class="card-hover-shadow-2x mb-3 card">
+                  <div
+                    class="card-header-tab card-header-tab-animation card-header"
+                  >
+                    <div class="card-header-title">
+                      Timeline próximas tomas
+                    </div>
+                  </div>
+                  <div class="scroll-area-lg">
+                    <div class="scrollbar-container ps ps--active-y">
+                      <div class="p-4">
+                        <div
+                          class="vertical-time-simple vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column"
+                        >
+                          <div
+                            class="vertical-timeline-item dot-warning vertical-timeline-element"
+                          >
+                            <div>
+                              <span
+                                class="vertical-timeline-element-icon bounce-in"
+                              ></span>
+                              <div
+                                class="vertical-timeline-element-content bounce-in"
+                              >
+                                <p>
+                                  Hoy
+                                  <span class="text-success">15:00 PM</span>
+                                  : Pedro Rodriguez, Acetaminofén
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="vertical-timeline-item dot-warning vertical-timeline-element"
+                          >
+                            <div>
+                              <span
+                                class="vertical-timeline-element-icon bounce-in"
+                              ></span>
+                              <div
+                                class="vertical-timeline-element-content bounce-in"
+                              >
+                                <p>
+                                  Hoy
+                                  <span class="text-success">18:30 PM</span>
+                                  : Adabel Cabrera, Iboprufen
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-lg-4">
+                <div class="card-hover-shadow-2x mb-3 card">
+                  <div
+                    class="card-header-tab card-header-tab-animation card-header"
+                  >
+                    <div class="card-header-title">
+                      Contenedores a agotarse
+                    </div>
+                  </div>
+                  <div class="scroll-area-lg">
+                    <div class="scrollbar-container ps ps--active-y">
+                      <div class="table-responsive">
+                        <table
+                          class="align-middle text-truncate mb-0 table table-borderless table-hover"
+                        >
+                          <thead>
+                            <tr>
+                              <th class="text-center">Paciente</th>
+                              <th class="text-center">Contenedor</th>
+                              <th class="text-center">Estado</th>
+                              <th class="text-center">Cantidad</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="text-center">César Rodriguez</td>
+                              <td class="text-center">1 [AZUL]</td>
+                              <td class="text-center">
+                                <div class="badge badge-pill badge-warning">
+                                  4/12
+                                </div>
+                              </td>
+                              <td class="text-center" style="width: 200px">
+                                <div class="widget-content p-0">
+                                  <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                      <div class="widget-content-left pr-2">
+                                        <div
+                                          class="widget-numbers fsize-1 text-danger"
+                                        >
+                                          33%
                                         </div>
+                                      </div>
+                                      <div class="widget-content-right w-100">
+                                        <div class="progress-bar-xs progress">
+                                          <div
+                                            class="progress-bar bg-danger"
+                                            role="progressbar"
+                                            aria-valuenow="71"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            style="width: 33%"
+                                          ></div>
+                                        </div>
+                                      </div>
                                     </div>
+                                  </div>
                                 </div>
-
-                            </div>
-                        </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
+
+              <div class="col-sm-12 col-lg-4">
+                <div class="card-hover-shadow-2x mb-3 card">
+                  <div
+                    class="card-header-tab card-header-tab-animation card-header"
+                  >
+                    <div class="card-header-title">
+                      Tomas recientes
+                    </div>
+                  </div>
+                  <div class="scroll-area-lg">
+                    <div class="scrollbar-container ps ps--active-y">
+                      <div class="table-responsive">
+                        <table
+                          class="align-middle text-truncate mb-0 table table-borderless table-hover"
+                        >
+                          <thead>
+                            <tr>
+                              <th class="text-center">Fecha</th>
+                              <th class="text-center">Paciente</th>
+                              <th class="text-center">Cantidad</th>
+                              <th class="text-center">Pastillas</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="text-center">
+                                <!-- <span class="pr-2 opacity-6">
+                                <i class="fa fa-business-time"></i>
+                                </span> -->
+                                10/11/23 <br> 8:00 AM
+                                </td>
+                              <td class="text-center">César Rodriguez</td>
+                              <td class="text-center">1</td>
+                              <td class="text-center">Acetaminofén
+                              </td>
+                              
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>              
+
+              <div class="col-md-12 col-lg-6">
+                <div class="mb-3 card">
+                  <div
+                    class="card-header-tab card-header-tab-animation card-header"
+                  >
+                    <div class="card-header-title">
+                      Pacientes y enfermeras por sexo
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="tab-content">
+                      <div class="tab-pane fade show active" id="tabs-eg-77">
+                        <div
+                          class="card mb-6 widget-chart widget-chart2 text-left w-100"
+                        >
+                          <div class="widget-chat-wrapper-outer">
+                            <!-- <div
+                              class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0"
+                            >
+                              <div
+                                class="chartjs-size-monitor"
+                                style="
+                                  position: absolute;
+                                  inset: 0px;
+                                  overflow: hidden;
+                                  pointer-events: none;
+                                  visibility: hidden;
+                                  z-index: -1;
+                                "
+                              >
+                                <div
+                                  class="chartjs-size-monitor-expand"
+                                  style="
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    overflow: hidden;
+                                    pointer-events: none;
+                                    visibility: hidden;
+                                    z-index: -1;
+                                  "
+                                >
+                                  <div
+                                    style="
+                                      position: absolute;
+                                      width: 1000000px;
+                                      height: 1000000px;
+                                      left: 0;
+                                      top: 0;
+                                    "
+                                  ></div>
+                                </div>
+                                <div
+                                  class="chartjs-size-monitor-shrink"
+                                  style="
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    overflow: hidden;
+                                    pointer-events: none;
+                                    visibility: hidden;
+                                    z-index: -1;
+                                  "
+                                >
+                                  <div
+                                    style="
+                                      position: absolute;
+                                      width: 200%;
+                                      height: 200%;
+                                      left: 0;
+                                      top: 0;
+                                    "
+                                  ></div>
+                                </div>
+                              </div> -->
+                            <canvas
+                              id="barChart"
+                              width="2000"
+                              height="754"
+                              style="display: block; width: 100%; height: 377px"
+                              class="chartjs-render-monitor"
+                            ></canvas>
+                            <!-- </div> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-
-        <div class="app-main">
-            <div class="app-sidebar sidebar-shadow">
-                <div class="app-header__logo">
-                    <div class="logo-src"></div>
-                    <div class="header__pane ml-auto">
-                        <div>
-                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
-                                data-class="closed-sidebar">
-                                <span class="hamburger-box">
-                                    <span class="hamburger-inner"></span>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="app-header__mobile-menu">
-                    <div>
-                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-                <div class="app-header__menu">
-                    <span>
-                        <button type="button"
-                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                            <span class="btn-icon-wrapper">
-                                <i class="fa fa-ellipsis-v fa-w-6"></i>
-                            </span>
-                        </button>
-                    </span>
-                </div>
-                <div class="scrollbar-sidebar">
-                    <div class="app-sidebar__inner">
-                        <ul class="vertical-nav-menu">
-                            <li class="app-sidebar__heading" id="home_email"></li>
-                            <li>
-                                <a href="index.html" class="mm-active">
-                                    <i class="metismenu-icon pe-7s-home"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-                            <li>
-                                <a href="enfermeras.html">
-                                    <i class="metismenu-icon pe-7s-eyedropper"></i>
-                                    Enfermeras
-                                </a>
-                            </li>
-                            <li>
-                                <a href="pacientes.html">
-                                    <i class="metismenu-icon pe-7s-users"></i>
-                                    Pacientes
-                                </a>
-                            </li>
-                            <li>
-                                <a href="dispositivos.html">
-                                    <i class="metismenu-icon pe-7s-box2"></i>
-                                    Dispositivos
-                                </a>
-                            </li>
-                            <li>
-                                <a href="farmacias.html">
-                                    <i class="metismenu-icon pe-7s-culture"></i>
-                                    Farmacias
-                                </a>
-                            </li>
-
-                    </div>
-                </div>
-            </div>
-            <div class="app-main__outer">
-                <div class="app-main__inner">
-                    <div class="main-card mb-3 card">
-                        <div class="card-body">
-                            <div class="chartjs-size-monitor"
-                                style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-                                <div class="chartjs-size-monitor-expand"
-                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                                    <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
-                                </div>
-                                <div class="chartjs-size-monitor-shrink"
-                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                                    <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
-                                </div>
-                            </div>
-                            <h5 class="card-title">Gráfica circular</h5>
-                            <canvas id="chart-area" width="818" height="358"
-                                style="display: block; width: 459px; height: 229px;"
-                                class="chartjs-render-monitor"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+
+    <!-- Incluye Chart.js y Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Datos para la gráfica
+      var ctx = document.getElementById("barChart").getContext("2d");
+      var barChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["Masculino", "Femenino"],
+          datasets: [
+            {
+              label: "Pacientes",
+              data: [25, 35], // Cantidad de pacientes por sexo (ejemplo)
+              backgroundColor: "rgba(54, 162, 235, 0.2)", // Color de las barras
+              borderColor: "rgba(54, 162, 235, 1)",
+              borderWidth: 1,
+            },
+            {
+              label: "Enfermeras",
+              data: [15, 20], // Cantidad de enfermeras por sexo (ejemplo)
+              backgroundColor: "rgba(255, 99, 132, 0.2)", // Color de las barras
+              borderColor: "rgba(255, 99, 132, 1)",
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+
     <script type="text/javascript" src="./assets/scripts/main.js"></script>
-    <script type="text/javascript" src="./assets/scripts/index.js"></script>
+    <script src="./assets/scripts/plantillas/nav_plantilla.js"></script>
+    <script src="./assets/scripts/plantillas/sidebar.js"></script>
     <script src="./modal.js"></script>
-</body>
-<!-- MODAL -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    style="display: none;" aria-hidden="true">
-    <div class="modal-dialog" role="">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo paciente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="needs-validation" novalidate="">
-                    <div id="mod1"></div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
+    <script src="./key.js"></script>
+    <script type="text/javascript" src="./main_controler.js"></script>
+  </body>
 </html>

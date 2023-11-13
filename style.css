@@ -17,6 +17,15 @@
   border-radius: 0;
 } */
 
+.widget-chart-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
 .botonF1{
   width:60px;
   height:60px;

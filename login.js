@@ -63,7 +63,7 @@ const form_registro = document.getElementById("form_registro");
             if (user) {
             // ...
             console.log('Usuario logueado');
-            window.location = 'pacientes.html'
+            window.location = 'index.html'
             }
 
         });

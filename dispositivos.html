@@ -297,10 +297,10 @@
                   type="text"
                   class="form-control"
                   id="mac_dispositivo"
-                  placeholder="00:1a:b2:3c:45:6d"
+                  placeholder="001ab23c456d"
                   required=""
-                  minlength="17"
-                  maxlength="17"
+                  minlength="12"
+                  maxlength="12"
                 />
               </div>
             </div>
@@ -755,46 +755,78 @@
   <!-- FIN MODAL AGREGAR PASTILLAS -->
   <!-- MODASL MOSTRAR PASTILLAS -->
   <!-- MODAL -->
-<div class="modal fade overflow-auto" id="modal_pastillas" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" style="display: none" aria-hidden="true">
+  <div
+    class="modal fade overflow-auto"
+    id="modal_pastillas"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="ModalLabel"
+    style="display: none"
+    aria-hidden="true"
+  >
     <div class="modal-dialog modal-xl" role="">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="ModalLabel">Pastillas</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
             <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Buscar pastillas" id="search_pastillas" oninput="searchPastillas()" />
-              </div>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Buscar pastillas"
+              id="search_pastillas"
+              oninput="searchPastillas()"
+            />
+            <button
+              class="btn btn-outline-secondary"
+              data-toggle="modal"
+              data-target="#agregar_pastillas"
+              type="button"
+            >
+              Agregar
+            </button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Miligramos</th>
+                    <th>Descripción</th>
+                  </tr>
+                </thead>
+                <tbody
+                  class="table_pastillas"
+                  8
+                  mn
+                  id="table_body_pastillas"
+                ></tbody>
+              </table>
             </div>
-            <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Miligramos</th>
-                          <th>Descripción</th>
-                        </tr>
-                      </thead>
-                      <tbody class="table_pastillas" id="table_body_pastillas">
-                        
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-          
+          </div>
+        </div>
+
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Cerrar
+          </button>
         </div>
       </div>
     </div>
   </div>
-  
+
   <script>
     function searchPastillas() {
       var input, filter, table, tr, td, i, j, txtValue;
@@ -802,7 +834,7 @@
       filter = input.value.toLowerCase();
       table = document.querySelector(".table_pastillas");
       tr = table.getElementsByTagName("tr");
-  
+
       for (i = 0; i < tr.length; i++) {
         var displayRow = false;
         td = tr[i].getElementsByTagName("td");
@@ -819,9 +851,6 @@
       }
     }
   </script>
-    
-  
-
 
   <!--  -->
   <div
@@ -876,7 +905,6 @@
     </div>
   </div>
 
-  
   <!-- CONEXION A FIREBASE -->
   <!-- The core Firebase JS SDK is always required and must be listed first -->
 
@@ -910,4 +938,5 @@
     type="text/javascript"
     src="./assets/scripts/dispositivos.js"
   ></script>
+
 </html>
