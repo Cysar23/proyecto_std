@@ -88,6 +88,7 @@ const preload_detalle = document.getElementById("preload_detalle");
             if (form.checkValidity() === true) {
               event.preventDefault();
               event.stopPropagation();
+              form_pacientes["btn_agregar"].disabled = true;
               //Capturando datos del form de pacientes y enviandolos a firestore
 
               const enfermera_asiganada =
@@ -110,6 +111,7 @@ const preload_detalle = document.getElementById("preload_detalle");
               const id_vive = form_pacientes["id_vive"].value;
               const id_trabajo = form_pacientes["id_trabajo"].value;
               const estado = form_pacientes["estado"].value;
+              const id_nota = form_pacientes["id_nota"].value
 
               const id_hta = form_pacientes["id_hta"].checked;
               const id_icardiaca = form_pacientes["id_icardiaca"].checked;
@@ -187,6 +189,7 @@ const preload_detalle = document.getElementById("preload_detalle");
                   //expediente,
                   //archivo_expediente
                 );
+                form_pacientes["btn_agregar"].disabled = false;
                 form_pacientes.reset();
                 alert("PACIENTE AGREGADO");
               } else if (estatus == "editar") {
@@ -230,10 +233,12 @@ const preload_detalle = document.getElementById("preload_detalle");
                   id_cancerMama: id_cancerMama,
                   id_cancerCervicoUterino: id_cancerCervicoUterino,
                   id_cancerProstata: id_cancerProstata,
+                  id_nota: id_nota
 
                   //expediente: expediente,
                   //archivo_expediente: archivo_expediente
                 });
+                form_pacientes["btn_agregar"].disabled = false;
                 form_pacientes.reset();
                 alert("PACIENTE ACTUALIZADO");
                 estatus = "agregar";
@@ -543,7 +548,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
               paciente.id_cancerProstata;
             form_pacientes["id_cancerProstata"].disabled = campStatus;
 
-            form_pacientes["id_nota"].checked = paciente.id_nota;
+            form_pacientes["id_nota"].value = paciente.id_nota;
             form_pacientes["id_nota"].disabled = campStatus;
 
             /* form_pacientes["id_dispositivos"].value = paciente.dispositivos;
@@ -642,7 +647,8 @@ const guardar_paciente = (
   id_cancerTiroides,
   id_cancerMama,
   id_cancerCervicoUterino,
-  id_cancerProstata
+  id_cancerProstata,
+  id_nota
   //expediente
   //archivo_expediente
 ) =>
@@ -686,6 +692,7 @@ const guardar_paciente = (
     id_cancerMama,
     id_cancerCervicoUterino,
     id_cancerProstata,
+    id_nota
 
     //expediente,
     //archivo_expediente

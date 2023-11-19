@@ -1,6 +1,7 @@
 //Requiriendo a firestore
 const db = firebase.firestore();
 const card_dispositivo = document.getElementById("card_dispositivo"); //Donde se muestran
+const card_Nodispositivo = document.getElementById("card_Nodispositivo");
 const modalLabel = document.getElementById("ModalLabel");
 const tabla_detalle_dispositivo = document.getElementById(
   "mostrar_detalle_dispositivo"
@@ -86,6 +87,7 @@ let estado_mac = false;
 let macs = 0;
 let grados;
 let estado_reg_pastilla = false;
+let estado_conexion = false;
 
 //VALIDACION DE CAMPOS Y ENVIO A FIREBASE PARA GUARDAR DATOS
 (function () {
@@ -108,7 +110,7 @@ let estado_reg_pastilla = false;
                 selectElement.options[selectElement.selectedIndex];
               const paciente = selectedOption.text;
               id_paciente = selectedOption.value;
-              //numero_dispositivo = id_paciente;
+
               const mac_dispositivo = form_dispositivo["mac_dispositivo"].value;
               /* const contenedor_1 = form_dispositivo["id_contenedor_1"].value; */
 
@@ -118,6 +120,7 @@ let estado_reg_pastilla = false;
               const stock_1 = "0";
               const estado_compuerta1 = false;
               const estado_dispensar1 = false;
+              const cant_caps_toma_1 = form_dispositivo["cant_caps_toma_1"].value;
               const frecuencia_de_pastillas_1 =
                 form_dispositivo["frecuencia_de_pastillas_1"].value;
               const dia_inicio_pastilla =
@@ -200,11 +203,12 @@ let estado_reg_pastilla = false;
                   });
 
                   await actualizar_paciente(id_paciente, {
-                    dispositivos: mac_dispositivo,
+                    dispositivos: mac_dispositivo
                   });
 
                   await guardar_dispositivo(
                     //numero_dispositivo,
+                    estado_conexion,
                     id_paciente,
                     idNombrePaciente,
                     paciente,
@@ -214,6 +218,7 @@ let estado_reg_pastilla = false;
                     stock_1,
                     estado_compuerta1,
                     estado_dispensar1,
+                    cant_caps_toma_1,
                     frecuencia_de_pastillas_1,
                     dia_inicio_pastilla,
                     hora_inicio_pastilla,
@@ -240,7 +245,6 @@ let estado_reg_pastilla = false;
                     hora_inicio_pastilla_3,
                     t_tratamiento_3
                   );
-
                   alert("DISPOSITIVO AGREGADO");
                   form_dispositivo.reset();
                 }
@@ -285,15 +289,35 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     uid = user.uid;
     cuando_hay_dispositivo((querySnapshot) => {
       const cant_disp = document.getElementById("cant_disp");
-      cant_disp.innerHTML = `<span >${querySnapshot.docs.length}</span>`;
+      let cantidad_dispositivos = querySnapshot.docs.length;
+      cant_disp.innerHTML = `<span >${cantidad_dispositivos}</span>`;
 
       card_dispositivo.innerHTML = "";
+      card_Nodispositivo.innerHTML = "";
+
+      if (!cantidad_dispositivos) {
+        card_Nodispositivo.innerHTML = `
+        <div class="col-md-12 col-lg-12 col-xl-12 text-center">
+        <div class="card-shadow-primary border mb-3 card card-body border-primary">
+        <h5 class="card-title text-info">Actualmente no hay dispositivos agregados.</h5>
+        Agrega uno nuevo!
+        </div>
+        </div>
+        `;
+      }
       querySnapshot.forEach((doc) => {
         dispositivos = doc.data();
         dispositivos.id = doc.id;
 
         /* arreglo.push(dispositivos.numero_dispositivo + 1);
         numero_dispositivo = maximo_id_std(arreglo); */
+        let state_conection;
+
+        if (dispositivos.estado_conexion == true) {
+          state_conection = "success";
+        } else {
+          state_conection = "danger";
+        }
 
         card_dispositivo.innerHTML += `
                 <div class="col-md-12 col-lg-6 col-xl-4">
@@ -318,11 +342,12 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                             <div class="tab-content">
                                                 <div class="tab-pane show active" id="tab-2-eg1">
                                                     <ul class="list-group list-group-flush">
-
+                                                    
                                                     <li class="list-group-item">
-                                                     <span class="badge badge-dot badge-dot-lg badge-danger badge-pulse mr-2">Badge</span>
+                                                     <span class="badge badge-dot badge-dot-lg badge-${state_conection} badge-pulse mr-2">Badge</span>
                                                      Estado de conexión 
                                                     </li>
+                                                    
                                                         <li class="list-group-item">
                                                             <div class="widget-content p-0">
                                                                 <div class="widget-content-wrapper">
@@ -369,7 +394,9 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                                 </div>
                                                             </div>
                                                         </li>
-                                                        
+
+                                                        <!--
+
                                                         <li class="list-group-item">
                                                             <div class="widget-content p-0">
                                                                 <div class="widget-content-wrapper">
@@ -459,7 +486,8 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </li>
+                                                        </li> -->
+
                                                         <li class="list-group-item">
                                                           <div class="widget-content p-0">
                                                             <div class="widget-content-wrapper">
@@ -468,21 +496,29 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                                   <img
                                                                     width="42"
                                                                     class="rounded"
-                                                                    src="assets/images/avatars/4.jpg"
+                                                                    src="assets/images/avatars/pill_blue.png"
                                                                     alt=""
                                                                   />
                                                                 </div>
                                                               </div>
                                                               <div class="widget-content-left flex2">
-                                                                <div class="widget-heading">Product Sales</div>
-                                                                <div class="widget-subheading opacity-10">
-                                                                  <span class="pr-2"><b>43</b> Sales</span>
-                                                                  <span><b class="text-success">$156,24</b> Totals</span>
-                                                                </div>
+                                                                <div class="widget-heading">CONTENEDOR 1 <b class="text-primary">[AZUL]</b></div>
                                                               </div>
                                                               <div class="widget-content-right text-right mr-3">
-                                                                <div><b>52,5%</b></div>
-                                                                YoY Growth
+                                                                <div>
+                                                                  <b class="text-dark"> ${
+                                                                    dispositivos
+                                                                      .contenedor_1
+                                                                      .stock_1
+                                                                  }/12 </b>
+                                                                </div>
+                                                                <b class="text-primary">
+                                                                ${
+                                                                  dispositivos
+                                                                    .contenedor_1
+                                                                    .pastilla
+                                                                }
+                                                                </b>
                                                               </div>
                                                               <div class="widget-content-right">
                                                                 <div class="progress-circle-wrapper">
@@ -493,6 +529,13 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                                     ></small>
                                                                   </div>
                                                                 </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="widget-content-right text-center mt-2">
+                                                              <div role="group" class="btn-group-sm btn-group btn-group-toggle">
+                                                                <button type="button" class="btn btn-pill btn-outline-success">Abrir</button>
+                                                                <button type="button" class="btn btn-outline-success">Rellenar</button>
+                                                                <button type="button" class="btn btn-pill btn-outline-success">Vaciar</button>
                                                               </div>
                                                             </div>
                                                           </div>
@@ -521,7 +564,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
       });
       const canvas = document.querySelector(".progress-circle-wrapper canvas");
       const ctx = canvas.getContext("2d");
-      const percentage = 90; // Replace with actual progress percentage
+      const percentage = Math.round(dispositivos.contenedor_1.stock_1 * 8.34); // Replace with actual progress percentage
 
       const radius = canvas.width / 2;
       const circumference = 2 * Math.PI * radius;
@@ -554,12 +597,6 @@ window.addEventListener("DOMContentLoaded", async (e) => {
         ".progress-circle-wrapper small span span"
       );
       percentageText.textContent = percentage + "%";
-
-
-
-
-
-      
 
       const btnsVer = document.querySelectorAll(".btn_ver_dispositivo");
       btnsVer.forEach((btn) => {
@@ -655,7 +692,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
           let conf = confirm("¿Está seguro de eliminar el dispositivo?");
           if (conf == true) {
             console.log("Sí", id);
-            const id_pac = doc.data().idNombrePaciente;
+            /* const id_paciente = doc.data().id_paciente; */
 
             const mac_dispositivo = dispositivos.mac_dispositivo; // Valor de mac_dispositivo a eliminar
             const eliminando_MAC = db
@@ -676,9 +713,9 @@ window.addEventListener("DOMContentLoaded", async (e) => {
               MACS: updatedMACS,
             });
 
-            /* await actualizar_paciente(id_paciente, {
-              dispositivos: id_paciente,
-            }); */
+            await actualizar_paciente(id_paciente, {
+              dispositivos: id_paciente
+            });
             await eliminar_dispositivo(id);
 
             //form_pacientes.reset();
@@ -1015,6 +1052,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 const form_dispositivo = document.getElementById("form_dispositivo");
 const guardar_dispositivo = (
   //numero_dispositivo,
+  estado_conexion,
   id_paciente,
   idNombrePaciente,
   paciente,
@@ -1024,6 +1062,7 @@ const guardar_dispositivo = (
   stock_1,
   estado_compuerta1,
   estado_dispensar1,
+  cant_caps_toma_1,
   frecuencia_de_pastillas_1,
   dia_inicio_pastilla,
   hora_inicio_pastilla,
@@ -1057,6 +1096,7 @@ const guardar_dispositivo = (
     .doc()
     .set({
       //numero_dispositivo,
+      estado_conexion,
       id_paciente,
       idNombrePaciente,
       paciente,
@@ -1066,6 +1106,7 @@ const guardar_dispositivo = (
         stock_1,
         estado_compuerta1,
         estado_dispensar1,
+        cant_caps_toma_1,
         frecuencia_de_pastillas_1,
         dia_inicio_pastilla,
         hora_inicio_pastilla,
@@ -1107,6 +1148,7 @@ const pas = async () => {
     document.getElementById("id_paciente").innerHTML = "";
     querySnapshot.forEach((doc) => {
       paciente = doc.data();
+      console.log(paciente)
       if (paciente.dispositivos.length == 0) {
         console.log("paciente.dispositivos: ", paciente.dispositivos);
         console.log("paciente: ", paciente);
