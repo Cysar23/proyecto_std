@@ -117,17 +117,17 @@ let estado_conexion = false;
               /* CAPTURANDO DATOS DEL FORM CONTENEDOR 1 */
               const contenedor_1 = 1;
               const pastilla = form_dispositivo["id_pastilla_1"].value;
+              const fecha_vencimiento_1 = form_dispositivo["fecha_vencimiento_1"].value;
+              const cant_caps_toma_1 = form_dispositivo["cant_caps_toma_1"].value;
+              const cant_caps_contenedor_1 = form_dispositivo["cant_caps_contenedor_1"].value;
+              const frecuencia_de_pastillas_1 = form_dispositivo["frecuencia_de_pastillas_1"].value;
+              const t_tratamiento_1 = form_dispositivo["t_tratamiento_1"].value;
+              const dia_inicio_pastilla = form_dispositivo["dia_inicio_pastilla"].value;
+              const hora_inicio_pastilla = form_dispositivo["hora_inicio_pastilla"].value;
+              
               const stock_1 = "0";
               const estado_compuerta1 = false;
               const estado_dispensar1 = false;
-              const cant_caps_toma_1 = form_dispositivo["cant_caps_toma_1"].value;
-              const frecuencia_de_pastillas_1 =
-                form_dispositivo["frecuencia_de_pastillas_1"].value;
-              const dia_inicio_pastilla =
-                form_dispositivo["dia_inicio_pastilla"].value;
-              const hora_inicio_pastilla =
-                form_dispositivo["hora_inicio_pastilla"].value;
-              const t_tratamiento_1 = form_dispositivo["t_tratamiento_1"].value;
 
               /* CAPTURANDO DATOS DEL FORM CONTENEDOR 2 */
               const contenedor_2 = 2;
@@ -158,6 +158,7 @@ let estado_conexion = false;
               const t_tratamiento_3 = form_dispositivo["t_tratamiento_3"].value;
               grados = 2498;
               // Create a reference to the cities collection
+
 
               if (!editStatus) {
                 /* console.log('editStatus', paciente)
@@ -208,6 +209,7 @@ let estado_conexion = false;
 
                   await guardar_dispositivo(
                     //numero_dispositivo,
+                    fecha_vencimiento_1,
                     estado_conexion,
                     id_paciente,
                     idNombrePaciente,
@@ -218,6 +220,7 @@ let estado_conexion = false;
                     stock_1,
                     estado_compuerta1,
                     estado_dispensar1,
+                    cant_caps_contenedor_1,
                     cant_caps_toma_1,
                     frecuencia_de_pastillas_1,
                     dia_inicio_pastilla,
@@ -1052,6 +1055,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 const form_dispositivo = document.getElementById("form_dispositivo");
 const guardar_dispositivo = (
   //numero_dispositivo,
+  fecha_vencimiento_1,
   estado_conexion,
   id_paciente,
   idNombrePaciente,
@@ -1062,6 +1066,7 @@ const guardar_dispositivo = (
   stock_1,
   estado_compuerta1,
   estado_dispensar1,
+  cant_caps_contenedor_1,
   cant_caps_toma_1,
   frecuencia_de_pastillas_1,
   dia_inicio_pastilla,
@@ -1096,6 +1101,7 @@ const guardar_dispositivo = (
     .doc()
     .set({
       //numero_dispositivo,
+      fecha_vencimiento_1,
       estado_conexion,
       id_paciente,
       idNombrePaciente,
@@ -1106,6 +1112,7 @@ const guardar_dispositivo = (
         stock_1,
         estado_compuerta1,
         estado_dispensar1,
+        cant_caps_contenedor_1,
         cant_caps_toma_1,
         frecuencia_de_pastillas_1,
         dia_inicio_pastilla,

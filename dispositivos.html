@@ -173,13 +173,13 @@
               </div>
 
               <div class="col-md-6 mb-3">
-                <label for="fecha_v_1"
+                <label for="fecha_vencimiento_1"
                   >Fecha de vencimiento <font color="red">*</font></label
                 >
                 <input
                   type="date"
                   class="form-control"
-                  id="fecha_v_1"
+                  id="fecha_vencimiento_1"
                   required=""
                 />
               </div>
@@ -195,10 +195,10 @@
                   .slice(0, 10);
 
                 // Establece la fecha límite inferior como el atributo 'min'
-                document.getElementById("fecha_v_1").min = fechaLimiteInferior;
+                document.getElementById("fecha_vencimiento_1").min = fechaLimiteInferior;
               </script>
 
-              <div class="col-md-4 mb-3">
+              <div class="col-md-3 mb-3">
                 <label for="cant_caps_toma_1"
                   >Cantidad de cápsulas por toma <font color="red">*</font></label
                 >
@@ -206,12 +206,26 @@
                   type="number"
                   class="form-control"
                   required=""
-                  placeholder="Dias"
+                  placeholder="Cápsulas por toma"
                   id="cant_caps_toma_1"
                 />
               </div>
 
-              <div class="col-md-4 mb-3">
+              <div class="col-md-3 mb-3">
+                <label for="cant_caps_contenedor_1"
+                  >Cantidad de cápsulas por contenedor <font color="red">*</font></label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  required=""
+                  placeholder="Cápsulas por contenedor"
+                  id="cant_caps_contenedor_1"
+                  max="2"
+                />
+              </div>
+
+              <div class="col-md-3 mb-3">
                 <label for="frecuencia_de_pastillas_1"
                   >Toma de pastillas cada X horas
                   <font color="red">*</font></label
@@ -234,7 +248,7 @@
                 </select>
               </div>
 
-              <div class="col-md-4 mb-3">
+              <div class="col-md-3 mb-3">
                 <label for="t_tratamiento_1"
                   >Tiempo del tratamiento <font color="red">*</font></label
                 >
