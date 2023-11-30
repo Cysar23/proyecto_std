@@ -117,14 +117,20 @@ let estado_conexion = false;
               /* CAPTURANDO DATOS DEL FORM CONTENEDOR 1 */
               const contenedor_1 = 1;
               const pastilla = form_dispositivo["id_pastilla_1"].value;
-              const fecha_vencimiento_1 = form_dispositivo["fecha_vencimiento_1"].value;
-              const cant_caps_toma_1 = form_dispositivo["cant_caps_toma_1"].value;
-              const cant_caps_contenedor_1 = form_dispositivo["cant_caps_contenedor_1"].value;
-              const frecuencia_de_pastillas_1 = form_dispositivo["frecuencia_de_pastillas_1"].value;
+              const fecha_vencimiento_1 =
+                form_dispositivo["fecha_vencimiento_1"].value;
+              const cant_caps_toma_1 =
+                form_dispositivo["cant_caps_toma_1"].value;
+              const cant_caps_contenedor_1 =
+                form_dispositivo["cant_caps_contenedor_1"].value;
+              const frecuencia_de_pastillas_1 =
+                form_dispositivo["frecuencia_de_pastillas_1"].value;
               const t_tratamiento_1 = form_dispositivo["t_tratamiento_1"].value;
-              const dia_inicio_pastilla = form_dispositivo["dia_inicio_pastilla"].value;
-              const hora_inicio_pastilla = form_dispositivo["hora_inicio_pastilla"].value;
-              
+              const dia_inicio_pastilla =
+                form_dispositivo["dia_inicio_pastilla"].value;
+              const hora_inicio_pastilla =
+                form_dispositivo["hora_inicio_pastilla"].value;
+
               const stock_1 = "0";
               const estado_compuerta1 = false;
               const estado_dispensar1 = false;
@@ -132,33 +138,51 @@ let estado_conexion = false;
               /* CAPTURANDO DATOS DEL FORM CONTENEDOR 2 */
               const contenedor_2 = 2;
               const pastilla_2 = form_dispositivo["id_pastilla_2"].value;
-              const stock_2 = "0";
-              const estado_compuerta2 = false;
-              const estado_dispensar2 = false;
+              const fecha_vencimiento_2 =
+                form_dispositivo["fecha_vencimiento_2"].value;
+              const cant_caps_toma_2 =
+                form_dispositivo["cant_caps_toma_2"].value;
+              const cant_caps_contenedor_2 =
+                form_dispositivo["cant_caps_contenedor_2"].value;
               const frecuencia_de_pastillas_2 =
                 form_dispositivo["frecuencia_de_pastillas_2"].value;
+              const t_tratamiento_2 = form_dispositivo["t_tratamiento_2"].value;
               const dia_inicio_pastilla_2 =
                 form_dispositivo["dia_inicio_pastilla_2"].value;
               const hora_inicio_pastilla_2 =
                 form_dispositivo["hora_inicio_pastilla_2"].value;
-              const t_tratamiento_2 = form_dispositivo["t_tratamiento_2"].value;
+
+              const stock_2 = "0";
+              const estado_compuerta2 = false;
+              const estado_dispensar2 = false;
 
               /* CAPTURANDO DATOS DEL FORM CONTENEDOR 3 */
               const contenedor_3 = 3;
               const pastilla_3 = form_dispositivo["id_pastilla_3"].value;
-              const stock_3 = "0";
-              const estado_compuerta3 = false;
-              const estado_dispensar3 = false;
+              const fecha_vencimiento_3 =
+                form_dispositivo["fecha_vencimiento_3"].value;
+              const cant_caps_toma_3 =
+                form_dispositivo["cant_caps_toma_2"].value;
+              const cant_caps_contenedor_3 =
+                form_dispositivo["cant_caps_contenedor_3"].value;
               const frecuencia_de_pastillas_3 =
                 form_dispositivo["frecuencia_de_pastillas_3"].value;
+              const t_tratamiento_3 = form_dispositivo["t_tratamiento_3"].value;
               const dia_inicio_pastilla_3 =
                 form_dispositivo["dia_inicio_pastilla_3"].value;
               const hora_inicio_pastilla_3 =
                 form_dispositivo["hora_inicio_pastilla_3"].value;
-              const t_tratamiento_3 = form_dispositivo["t_tratamiento_3"].value;
+
+              const stock_3 = "0";
+              const estado_compuerta3 = false;
+              const estado_dispensar3 = false;
+
+              console.log("fecha_vencimiento_1: ", fecha_vencimiento_1);
+              console.log("fecha_vencimiento_2: ", fecha_vencimiento_2);
+              console.log("fecha_vencimiento_3: ", fecha_vencimiento_3);
+
               grados = 2498;
               // Create a reference to the cities collection
-
 
               if (!editStatus) {
                 /* console.log('editStatus', paciente)
@@ -204,12 +228,11 @@ let estado_conexion = false;
                   });
 
                   await actualizar_paciente(id_paciente, {
-                    dispositivos: mac_dispositivo
+                    dispositivos: mac_dispositivo,
                   });
 
                   await guardar_dispositivo(
                     //numero_dispositivo,
-                    fecha_vencimiento_1,
                     estado_conexion,
                     id_paciente,
                     idNombrePaciente,
@@ -226,6 +249,7 @@ let estado_conexion = false;
                     dia_inicio_pastilla,
                     hora_inicio_pastilla,
                     t_tratamiento_1,
+                    fecha_vencimiento_1,
                     grados,
 
                     contenedor_2,
@@ -233,20 +257,26 @@ let estado_conexion = false;
                     stock_2,
                     estado_compuerta2,
                     estado_dispensar2,
+                    cant_caps_contenedor_2,
+                    cant_caps_toma_2,
                     frecuencia_de_pastillas_2,
                     dia_inicio_pastilla_2,
                     hora_inicio_pastilla_2,
                     t_tratamiento_2,
+                    fecha_vencimiento_2,
 
                     contenedor_3,
                     pastilla_3,
                     stock_3,
                     estado_compuerta3,
                     estado_dispensar3,
+                    cant_caps_contenedor_3,
+                    cant_caps_toma_3,
                     frecuencia_de_pastillas_3,
                     dia_inicio_pastilla_3,
                     hora_inicio_pastilla_3,
-                    t_tratamiento_3
+                    t_tratamiento_3,
+                    fecha_vencimiento_3
                   );
                   alert("DISPOSITIVO AGREGADO");
                   form_dispositivo.reset();
@@ -321,6 +351,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
         } else {
           state_conection = "danger";
         }
+        console.log("NUMERO++++++++++++:, ", dispositivos.id)
 
         card_dispositivo.innerHTML += `
                 <div class="col-md-12 col-lg-6 col-xl-4">
@@ -351,6 +382,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                      Estado de conexión 
                                                     </li>
                                                     
+                                                    <!--
                                                         <li class="list-group-item">
                                                             <div class="widget-content p-0">
                                                                 <div class="widget-content-wrapper">
@@ -398,7 +430,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                             </div>
                                                         </li>
 
-                                                        <!--
+                                                        
 
                                                         <li class="list-group-item">
                                                             <div class="widget-content p-0">
@@ -491,6 +523,9 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                             </div>
                                                         </li> -->
 
+
+
+
                                                         <li class="list-group-item">
                                                           <div class="widget-content p-0">
                                                             <div class="widget-content-wrapper">
@@ -532,13 +567,175 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                                                     ></small>
                                                                   </div>
                                                                 </div>
+                                                                <div class="text-center">${
+                                                                  Math.floor(dispositivos.contenedor_1.stock_1 * 8.34)
+                                                                } %</div>
+                                                                <div class="mb-3 progress">
+                                                                    <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: ${
+                                                                      dispositivos
+                                                                        .contenedor_1
+                                                                        .stock_1 *
+                                                                      8.34
+                                                                    }%;"></div>
+                                                                  </div>
                                                               </div>
                                                             </div>
                                                             <div class="widget-content-right text-center mt-2">
                                                               <div role="group" class="btn-group-sm btn-group btn-group-toggle">
-                                                                <button type="button" class="btn btn-pill btn-outline-success">Abrir</button>
-                                                                <button type="button" class="btn btn-outline-success">Rellenar</button>
-                                                                <button type="button" class="btn btn-pill btn-outline-success">Vaciar</button>
+                                                                <button type="button" class="btn btn-pill btn-outline-success btn_abrir_dispositivo" data-id="${
+                                                                  dispositivos.id
+                                                                }" value="1">Abrir</button>
+                                                                <button type="button" class="btn btn-outline-success btn_rellenar" data-id="${
+                                                                  dispositivos.id
+                                                                }" value="1">Rellenar</button>
+                                                                <button type="button" class="btn btn-pill btn-outline-success btn_vaciar" data-id="${
+                                                                  dispositivos.id
+                                                                }" value="1">Vaciar</button>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </li>
+
+
+
+
+                                                        <li class="list-group-item">
+                                                          <div class="widget-content p-0">
+                                                            <div class="widget-content-wrapper">
+                                                              <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                  <img
+                                                                    width="42"
+                                                                    class="rounded"
+                                                                    src="assets/images/avatars/pill_red.png"
+                                                                    alt=""
+                                                                  />
+                                                                </div>
+                                                              </div>
+                                                              <div class="widget-content-left flex2">
+                                                                <div class="widget-heading">CONTENEDOR 2 <b class="text-danger">[ROJO]</b></div>
+                                                              </div>
+                                                              <div class="widget-content-right text-right mr-3">
+                                                                <div>
+                                                                  <b class="text-dark"> ${
+                                                                    dispositivos
+                                                                      .contenedor_2
+                                                                      .stock_2
+                                                                  }/12 </b>
+                                                                </div>
+                                                                <b class="text-primary">
+                                                                ${
+                                                                  dispositivos
+                                                                    .contenedor_2
+                                                                    .pastilla_2
+                                                                }
+                                                                </b>
+                                                              </div>
+                                                              <div class="widget-content-right">
+                                                                <div class="progress-circle-wrapper">
+                                                                  <div class="circle-progress circle-progress-success">
+                                                                    <canvas width="52" height="52"></canvas>
+                                                                    <small
+                                                                      ><span><span></span></span
+                                                                    ></small>
+                                                                  </div>
+                                                                </div>
+                                                                <div class="text-center">${
+                                                                  Math.floor(dispositivos.contenedor_2.stock_2 * 8.34)
+                                                                } %</div>
+                                                                <div class="mb-3 progress">
+                                                                    <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: ${
+                                                                      dispositivos
+                                                                        .contenedor_2
+                                                                        .stock_2 *
+                                                                      8.34
+                                                                    }%;"></div>
+                                                                  </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="widget-content-right text-center mt-2">
+                                                              <div role="group" class="btn-group-sm btn-group btn-group-toggle">
+                                                                <button type="button" class="btn btn-pill btn-outline-success btn_abrir_dispositivo" data-id="${
+                                                                  dispositivos.id
+                                                                }" value="2">Abrir</button>
+                                                                <button type="button" class="btn btn-outline-success btn_rellenar" data-id="${
+                                                                  dispositivos.id
+                                                                }" value="2">Rellenar</button>
+                                                                <button type="button" class="btn btn-pill btn-outline-success btn_vaciar" data-id="${
+                                                                  dispositivos.id
+                                                                }" value="2">Vaciar</button>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </li>
+
+
+
+                                                        <li class="list-group-item">
+                                                          <div class="widget-content p-0">
+                                                            <div class="widget-content-wrapper">
+                                                              <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                  <img
+                                                                    width="42"
+                                                                    class="rounded"
+                                                                    src="assets/images/avatars/pill.png"
+                                                                    alt=""
+                                                                  />
+                                                                </div>
+                                                              </div>
+                                                              <div class="widget-content-left flex2">
+                                                                <div class="widget-heading">CONTENEDOR 3 <b class="text-success">[VERDE]</b></div>
+                                                              </div>
+                                                              <div class="widget-content-right text-right mr-3">
+                                                                <div>
+                                                                  <b class="text-dark"> ${
+                                                                    dispositivos
+                                                                      .contenedor_3
+                                                                      .stock_3
+                                                                  }/12 </b>
+                                                                </div>
+                                                                <b class="text-primary">
+                                                                ${
+                                                                  dispositivos
+                                                                    .contenedor_3
+                                                                    .pastilla_3
+                                                                }
+                                                                </b>
+                                                              </div>
+                                                              <div class="widget-content-right">
+                                                                <div class="progress-circle-wrapper">
+                                                                  <div class="circle-progress circle-progress-success">
+                                                                    <canvas width="52" height="52"></canvas>
+                                                                    <small
+                                                                      ><span><span></span></span
+                                                                    ></small>
+                                                                  </div>
+                                                                </div>
+                                                                <div class="text-center">${
+                                                                  Math.floor(dispositivos.contenedor_3.stock_3 * 8.34)
+                                                                } %</div>
+                                                                <div class="mb-3 progress">
+                                                                    <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: ${
+                                                                      dispositivos
+                                                                        .contenedor_3
+                                                                        .stock_3 *
+                                                                      8.34
+                                                                    }%;"></div>
+                                                                  </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="widget-content-right text-center mt-2">
+                                                              <div role="group" class="btn-group-sm btn-group btn-group-toggle">
+                                                                <button type="button" class="btn btn-pill btn-outline-success btn_abrir_dispositivo" data-id="${
+                                                                  dispositivos.id
+                                                                }" value="3">Abrir</button>
+                                                                <button type="button" class="btn btn-outline-success btn_rellenar" data-id="${
+                                                                  dispositivos.id
+                                                                }" value="3">Rellenar</button>
+                                                                <button type="button" class="btn btn-pill btn-outline-success btn_vaciar" data-id="${
+                                                                  dispositivos.id
+                                                                }" value="3">Vaciar</button>
                                                               </div>
                                                             </div>
                                                           </div>
@@ -554,7 +751,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                               dispositivos.id
                                             }" data-toggle="modal" data-target="#modal_dispositivo_detalle">Ver</button>
 
-                                            <button class="btn-shadow-primary btn btn-warning btn-lg" >Editar</button>
+                                            
 
                                             <button class="btn-shadow-primary btn btn-danger btn-lg btn_eliminar_dispositivo" data-id="${
                                               dispositivos.id
@@ -565,41 +762,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
                                 </div>
                 `;
       });
-      const canvas = document.querySelector(".progress-circle-wrapper canvas");
-      const ctx = canvas.getContext("2d");
-      const percentage = Math.round(dispositivos.contenedor_1.stock_1 * 8.34); // Replace with actual progress percentage
-
-      const radius = canvas.width / 2;
-      const circumference = 2 * Math.PI * radius;
-
-      // Function to draw the progress circle
-      function drawProgressCircle() {
-        ctx.beginPath();
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = "#ccc"; // Color of the progress bar
-        ctx.arc(radius, radius, radius - ctx.lineWidth / 2, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-
-      // Function to draw the progress arc
-      function drawProgressArc() {
-        const angle = (percentage / 100) * 2 * Math.PI;
-        ctx.beginPath();
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = "#007bff"; // Color of the progress indicator
-        ctx.arc(radius, radius, radius - ctx.lineWidth / 2, 0, angle);
-        ctx.stroke();
-      }
-
-      // Draw the progress circle and arc
-      drawProgressCircle();
-      drawProgressArc();
-
-      // Update the percentage text
-      const percentageText = document.querySelector(
-        ".progress-circle-wrapper small span span"
-      );
-      percentageText.textContent = percentage + "%";
+      
 
       const btnsVer = document.querySelectorAll(".btn_ver_dispositivo");
       btnsVer.forEach((btn) => {
@@ -695,7 +858,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
           let conf = confirm("¿Está seguro de eliminar el dispositivo?");
           if (conf == true) {
             console.log("Sí", id);
-            /* const id_paciente = doc.data().id_paciente; */
+            const id_paciente = doc.data().id_paciente;
 
             const mac_dispositivo = dispositivos.mac_dispositivo; // Valor de mac_dispositivo a eliminar
             const eliminando_MAC = db
@@ -717,7 +880,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
             });
 
             await actualizar_paciente(id_paciente, {
-              dispositivos: id_paciente
+              dispositivos: "",
             });
             await eliminar_dispositivo(id);
 
@@ -1055,7 +1218,6 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 const form_dispositivo = document.getElementById("form_dispositivo");
 const guardar_dispositivo = (
   //numero_dispositivo,
-  fecha_vencimiento_1,
   estado_conexion,
   id_paciente,
   idNombrePaciente,
@@ -1072,6 +1234,7 @@ const guardar_dispositivo = (
   dia_inicio_pastilla,
   hora_inicio_pastilla,
   t_tratamiento_1,
+  fecha_vencimiento_1,
   grados,
 
   contenedor_2,
@@ -1079,20 +1242,26 @@ const guardar_dispositivo = (
   stock_2,
   estado_compuerta2,
   estado_dispensar2,
+  cant_caps_contenedor_2,
+  cant_caps_toma_2,
   frecuencia_de_pastillas_2,
   dia_inicio_pastilla_2,
   hora_inicio_pastilla_2,
   t_tratamiento_2,
+  fecha_vencimiento_2,
 
   contenedor_3,
   pastilla_3,
   stock_3,
   estado_compuerta3,
   estado_dispensar3,
+  cant_caps_contenedor_3,
+  cant_caps_toma_3,
   frecuencia_de_pastillas_3,
   dia_inicio_pastilla_3,
   hora_inicio_pastilla_3,
-  t_tratamiento_3
+  t_tratamiento_3,
+  fecha_vencimiento_3
 ) =>
   db
     .collection("usuarios")
@@ -1101,13 +1270,14 @@ const guardar_dispositivo = (
     .doc()
     .set({
       //numero_dispositivo,
-      fecha_vencimiento_1,
+
       estado_conexion,
       id_paciente,
       idNombrePaciente,
       paciente,
       mac_dispositivo,
       contenedor_1: {
+        fecha_vencimiento_1,
         pastilla,
         stock_1,
         estado_compuerta1,
@@ -1121,6 +1291,7 @@ const guardar_dispositivo = (
         grados,
       },
       contenedor_2: {
+        fecha_vencimiento_2,
         pastilla_2,
         stock_2,
         estado_compuerta2,
@@ -1130,8 +1301,11 @@ const guardar_dispositivo = (
         hora_inicio_pastilla_2,
         t_tratamiento_2,
         grados,
+        cant_caps_contenedor_2,
+        cant_caps_toma_2,
       },
       contenedor_3: {
+        fecha_vencimiento_3,
         pastilla_3,
         stock_3,
         estado_compuerta3,
@@ -1141,6 +1315,8 @@ const guardar_dispositivo = (
         hora_inicio_pastilla_3,
         t_tratamiento_3,
         grados,
+        cant_caps_contenedor_3,
+        cant_caps_toma_3,
       },
     });
 
@@ -1155,7 +1331,7 @@ const pas = async () => {
     document.getElementById("id_paciente").innerHTML = "";
     querySnapshot.forEach((doc) => {
       paciente = doc.data();
-      console.log(paciente)
+      console.log(paciente);
       if (paciente.dispositivos.length == 0) {
         console.log("paciente.dispositivos: ", paciente.dispositivos);
         console.log("paciente: ", paciente);
@@ -1246,71 +1422,101 @@ function buscando_id_paciente() {
 const checkbox_contenedor_2 = document.getElementById("checkbox_contenedor_2");
 const checkbox_contenedor_3 = document.getElementById("checkbox_contenedor_3");
 
+const id_pastilla_2 = document.getElementById("id_pastilla_2");
+const frecuencia_de_pastillas_2 = document.getElementById(
+  "frecuencia_de_pastillas_2"
+);
+const dia_inicio_pastilla_2 = document.getElementById("dia_inicio_pastilla_2");
+const hora_inicio_pastilla_2 = document.getElementById(
+  "hora_inicio_pastilla_2"
+);
+const t_tratamiento_2 = document.getElementById("t_tratamiento_2");
+const fecha_vencimiento_2 = document.getElementById("fecha_vencimiento_2");
+const cant_caps_toma_2 = document.getElementById("cant_caps_toma_2");
+const cant_caps_contenedor_2 = document.getElementById(
+  "cant_caps_contenedor_2"
+);
+
 checkbox_contenedor_2.addEventListener("click", function () {
   if (checkbox_contenedor_2.checked) {
-    document.getElementById("id_pastilla_2").removeAttribute("disabled");
-    document
-      .getElementById("frecuencia_de_pastillas_2")
-      .removeAttribute("disabled");
-    document
-      .getElementById("dia_inicio_pastilla_2")
-      .removeAttribute("disabled");
-    document
-      .getElementById("hora_inicio_pastilla_2")
-      .removeAttribute("disabled");
-    document.getElementById("t_tratamiento_2").removeAttribute("disabled");
-    document.getElementById("fecha_v_2").removeAttribute("disabled");
+    // Habilitar campos
+    id_pastilla_2.removeAttribute("disabled");
+    frecuencia_de_pastillas_2.removeAttribute("disabled");
+    dia_inicio_pastilla_2.removeAttribute("disabled");
+    hora_inicio_pastilla_2.removeAttribute("disabled");
+    t_tratamiento_2.removeAttribute("disabled");
+    fecha_vencimiento_2.removeAttribute("disabled");
+    cant_caps_toma_2.removeAttribute("disabled");
+    cant_caps_contenedor_2.removeAttribute("disabled");
   } else {
-    document
-      .getElementById("id_pastilla_2")
-      .setAttribute("disabled", "required");
-    document
-      .getElementById("frecuencia_de_pastillas_2")
-      .setAttribute("disabled", "required");
-    document
-      .getElementById("dia_inicio_pastilla_2")
-      .setAttribute("disabled", "required");
-    document
-      .getElementById("hora_inicio_pastilla_2")
-      .setAttribute("disabled", "required");
-    document
-      .getElementById("t_tratamiento_2")
-      .setAttribute("disabled", "required");
-    document.getElementById("fecha_v_2").setAttribute("disabled", "required");
+    // Deshabilitar campos
+    id_pastilla_2.setAttribute("disabled", "required");
+    frecuencia_de_pastillas_2.setAttribute("disabled", "required");
+    dia_inicio_pastilla_2.setAttribute("disabled", "required");
+    hora_inicio_pastilla_2.setAttribute("disabled", "required");
+    t_tratamiento_2.setAttribute("disabled", "required");
+    fecha_vencimiento_2.setAttribute("disabled", "required");
+    cant_caps_toma_2.setAttribute("disabled", "required");
+    cant_caps_contenedor_2.setAttribute("disabled", "required");
+
+    // Resetear valores de los campos
+    id_pastilla_2.value = "";
+    frecuencia_de_pastillas_2.value = "";
+    dia_inicio_pastilla_2.value = "";
+    hora_inicio_pastilla_2.value = "";
+    t_tratamiento_2.value = "";
+    fecha_vencimiento_2.value = "";
+    cant_caps_toma_2.value = "";
+    cant_caps_contenedor_2.value = "";
   }
 });
 
+const id_pastilla_3 = document.getElementById("id_pastilla_3");
+const frecuencia_de_pastillas_3 = document.getElementById(
+  "frecuencia_de_pastillas_3"
+);
+const dia_inicio_pastilla_3 = document.getElementById("dia_inicio_pastilla_3");
+const hora_inicio_pastilla_3 = document.getElementById(
+  "hora_inicio_pastilla_3"
+);
+const t_tratamiento_3 = document.getElementById("t_tratamiento_3");
+const fecha_vencimiento_3 = document.getElementById("fecha_vencimiento_3");
+const cant_caps_toma_3 = document.getElementById("cant_caps_toma_3");
+const cant_caps_contenedor_3 = document.getElementById(
+  "cant_caps_contenedor_3"
+);
+
 checkbox_contenedor_3.addEventListener("click", function () {
   if (checkbox_contenedor_3.checked) {
-    document.getElementById("id_pastilla_3").removeAttribute("disabled");
-    document
-      .getElementById("frecuencia_de_pastillas_3")
-      .removeAttribute("disabled");
-    document
-      .getElementById("dia_inicio_pastilla_3")
-      .removeAttribute("disabled");
-    document
-      .getElementById("hora_inicio_pastilla_3")
-      .removeAttribute("disabled");
-    document.getElementById("t_tratamiento_3").removeAttribute("disabled");
-    document.getElementById("fecha_v_3").removeAttribute("disabled");
+    // Habilitar campos
+    id_pastilla_3.removeAttribute("disabled");
+    frecuencia_de_pastillas_3.removeAttribute("disabled");
+    dia_inicio_pastilla_3.removeAttribute("disabled");
+    hora_inicio_pastilla_3.removeAttribute("disabled");
+    t_tratamiento_3.removeAttribute("disabled");
+    fecha_vencimiento_3.removeAttribute("disabled");
+    cant_caps_toma_3.removeAttribute("disabled");
+    cant_caps_contenedor_3.removeAttribute("disabled");
   } else {
-    document
-      .getElementById("id_pastilla_3")
-      .setAttribute("disabled", "required");
-    document
-      .getElementById("frecuencia_de_pastillas_3")
-      .setAttribute("disabled", "required");
-    document
-      .getElementById("dia_inicio_pastilla_3")
-      .setAttribute("disabled", "required");
-    document
-      .getElementById("hora_inicio_pastilla_3")
-      .setAttribute("disabled", "required");
-    document
-      .getElementById("t_tratamiento_3")
-      .setAttribute("disabled", "required");
-    document.getElementById("fecha_v_3").setAttribute("disabled", "required");
+    // Deshabilitar campos
+    id_pastilla_3.setAttribute("disabled", "required");
+    frecuencia_de_pastillas_3.setAttribute("disabled", "required");
+    dia_inicio_pastilla_3.setAttribute("disabled", "required");
+    hora_inicio_pastilla_3.setAttribute("disabled", "required");
+    t_tratamiento_3.setAttribute("disabled", "required");
+    fecha_vencimiento_3.setAttribute("disabled", "required");
+    cant_caps_toma_3.setAttribute("disabled", "required");
+    cant_caps_contenedor_3.setAttribute("disabled", "required");
+
+    // Resetear valores de los campos
+    id_pastilla_3.value = "";
+    frecuencia_de_pastillas_3.value = "";
+    dia_inicio_pastilla_3.value = "";
+    hora_inicio_pastilla_3.value = "";
+    t_tratamiento_3.value = "";
+    fecha_vencimiento_3.value = "";
+    cant_caps_toma_3.value = "";
+    cant_caps_contenedor_3.value = "";
   }
 });
 

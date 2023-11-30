@@ -84,7 +84,7 @@
     </div>
   </body>
 
-  <!-- MODAL AGREGAR-->
+  <!-- MODAL AGREGAR NUEVO DISP-->
   <div
     class="modal fade overflow-auto"
     id="modal_pacientes"
@@ -184,23 +184,11 @@
                 />
               </div>
 
-              <!-- Script para que la fecha de vencimiento siempre sea mayor a hoy -->
-              <script>
-                // Obtén la fecha actual
-                var fechaActual = new Date();
-
-                // Convierte la fecha a formato yyyy-mm-dd
-                var fechaLimiteInferior = fechaActual
-                  .toISOString()
-                  .slice(0, 10);
-
-                // Establece la fecha límite inferior como el atributo 'min'
-                document.getElementById("fecha_vencimiento_1").min = fechaLimiteInferior;
-              </script>
 
               <div class="col-md-3 mb-3">
                 <label for="cant_caps_toma_1"
-                  >Cantidad de cápsulas por toma <font color="red">*</font></label
+                  >Cantidad de cápsulas por toma
+                  <font color="red">*</font></label
                 >
                 <input
                   type="number"
@@ -213,7 +201,8 @@
 
               <div class="col-md-3 mb-3">
                 <label for="cant_caps_contenedor_1"
-                  >Cantidad de cápsulas por contenedor <font color="red">*</font></label
+                  >Cantidad de cápsulas por contenedor
+                  <font color="red">*</font></label
                 >
                 <input
                   type="number"
@@ -277,20 +266,6 @@
                 />
               </div>
 
-              <!-- Script para que la fecha sea siempre sea mayor a hoy -->
-              <script>
-                // Obtén la fecha actual
-                var fechaActual = new Date();
-
-                // Convierte la fecha a formato yyyy-mm-dd
-                var fechaLimiteInferior = fechaActual
-                  .toISOString()
-                  .slice(0, 10);
-
-                // Establece la fecha límite inferior como el atributo 'min'
-                document.getElementById("dia_inicio_pastilla").min =
-                  fechaLimiteInferior;
-              </script>
 
               <div class="col-md-6 mb-3">
                 <label for="hora_inicio_pastilla"
@@ -333,44 +308,88 @@
                 <label for="id_pastilla_2"
                   >Pastilla <font color="red">*</font></label
                 >
-                <select
-                  name="custom-select-dip"
-                  id="id_pastilla_2"
-                  class="form-control"
-                  disabled
-                  required
-                >
-                  <option value="" disabled selected>Seleccione...</option>
-                </select>
+                <div class="input-group">
+                  <select
+                    name="custom-select-dip"
+                    id="id_pastilla_2"
+                    class="form-control"
+                    disabled
+                    required
+                  >
+                    <option value="" disabled selected>Seleccione...</option>
+                  </select>
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary"
+                      data-toggle="modal"
+                      data-target="#agregar_pastillas"
+                      type="button"
+                    >
+                      Agregar
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <div class="col-md-6 mb-3">
-                <label for="fecha_v_2"
+                <label for="fecha_vencimiento_2"
                   >Fecha de vencimiento <font color="red">*</font></label
                 >
                 <input
                   type="date"
                   class="form-control"
-                  id="fecha_v_2"
+                  id="fecha_vencimiento_2"
                   required=""
                   disabled
-                  required
                 />
               </div>
 
-              <div class="col-md-6 mb-3">
+              <div class="col-md-3 mb-3">
+                <label for="cant_caps_toma_2"
+                  >Cantidad de cápsulas por toma
+                  <font color="red">*</font></label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  required=""
+                  placeholder="Cápsulas por toma"
+                  id="cant_caps_toma_2"
+                  disabled
+                  value="1"
+                />
+              </div>
+
+              <div class="col-md-3 mb-3">
+                <label for="cant_caps_contenedor_2"
+                  >Cantidad de cápsulas por contenedor
+                  <font color="red">*</font></label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  required=""
+                  placeholder="Cápsulas por contenedor"
+                  id="cant_caps_contenedor_2"
+                  max="2"
+                  disabled
+                  value="1"
+                />
+              </div>
+
+              <div class="col-md-3 mb-3">
                 <label for="frecuencia_de_pastillas_2"
-                  >Toma de pastillas por HORAS <font color="red">*</font></label
+                  >Toma de pastillas cada X horas
+                  <font color="red">*</font></label
                 >
                 <select
                   name="custom-select-dip"
                   id="frecuencia_de_pastillas_2"
                   class="form-control"
+                  required=""
                   disabled
-                  required
                 >
-                  <option value="" disabled selected>Seleccione...</option>
-                  <option>1</option>
+                  <option disabled selected>1</option>
                   <option>2</option>
                   <option>3</option>
                   <option>4</option>
@@ -381,17 +400,18 @@
                 </select>
               </div>
 
-              <div class="col-md-6 mb-3">
+              <div class="col-md-3 mb-3">
                 <label for="t_tratamiento_2"
                   >Tiempo del tratamiento <font color="red">*</font></label
                 >
                 <input
                   type="number"
                   class="form-control"
+                  required=""
                   placeholder="Dias"
                   id="t_tratamiento_2"
                   disabled
-                  required
+                  value="1"
                 />
               </div>
 
@@ -409,6 +429,7 @@
                   id="dia_inicio_pastilla_2"
                   disabled
                   required
+                  value="01-01-2020"
                 />
               </div>
               <div class="col-md-6 mb-3">
@@ -421,6 +442,7 @@
                   id="hora_inicio_pastilla_2"
                   disabled
                   required
+                  value="12:12"
                 />
               </div>
             </div>
@@ -453,44 +475,88 @@
                 <label for="id_pastilla_3"
                   >Pastilla <font color="red">*</font></label
                 >
-                <select
-                  name="custom-select-dip"
-                  id="id_pastilla_3"
-                  class="form-control"
-                  disabled
-                  required
-                >
-                  <option value="" disabled selected>Seleccione...</option>
-                </select>
+                <div class="input-group">
+                  <select
+                    name="custom-select-dip"
+                    id="id_pastilla_3"
+                    class="form-control"
+                    disabled
+                    required
+                  >
+                    <option value="" disabled selected>Seleccione...</option>
+                  </select>
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary"
+                      data-toggle="modal"
+                      data-target="#agregar_pastillas"
+                      type="button"
+                    >
+                      Agregar
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <div class="col-md-6 mb-3">
-                <label for="fecha_v_3"
+                <label for="fecha_vencimiento_3"
                   >Fecha de vencimiento <font color="red">*</font></label
                 >
                 <input
                   type="date"
                   class="form-control"
-                  id="fecha_v_3"
+                  id="fecha_vencimiento_3"
                   required=""
                   disabled
-                  required
                 />
               </div>
 
-              <div class="col-md-6 mb-3">
+              <div class="col-md-3 mb-3">
+                <label for="cant_caps_toma_3"
+                  >Cantidad de cápsulas por toma
+                  <font color="red">*</font></label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  required=""
+                  placeholder="Cápsulas por toma"
+                  id="cant_caps_toma_3"
+                  disabled
+                  value="1"
+                />
+              </div>
+
+              <div class="col-md-3 mb-3">
+                <label for="cant_caps_contenedor_3"
+                  >Cantidad de cápsulas por contenedor
+                  <font color="red">*</font></label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  required=""
+                  placeholder="Cápsulas por contenedor"
+                  id="cant_caps_contenedor_3"
+                  max="2"
+                  disabled
+                  value="1"
+                />
+              </div>
+
+              <div class="col-md-3 mb-3">
                 <label for="frecuencia_de_pastillas_3"
-                  >Toma de pastillas por HORAS <font color="red">*</font></label
+                  >Toma de pastillas cada X horas
+                  <font color="red">*</font></label
                 >
                 <select
                   name="custom-select-dip"
                   id="frecuencia_de_pastillas_3"
                   class="form-control"
+                  required=""
                   disabled
-                  required
                 >
-                  <option value="" disabled selected>Seleccione...</option>
-                  <option>1</option>
+                  <option disabled selected>1</option>
                   <option>2</option>
                   <option>3</option>
                   <option>4</option>
@@ -501,7 +567,7 @@
                 </select>
               </div>
 
-              <div class="col-md-6 mb-3">
+              <div class="col-md-3 mb-3">
                 <label for="t_tratamiento_3"
                   >Tiempo del tratamiento <font color="red">*</font></label
                 >
@@ -512,6 +578,7 @@
                   id="t_tratamiento_3"
                   disabled
                   required
+                  value="1"
                 />
               </div>
 
@@ -529,6 +596,7 @@
                   id="dia_inicio_pastilla_3"
                   disabled
                   required
+                  value="01-01-2020"
                 />
               </div>
               <div class="col-md-6 mb-3">
@@ -541,9 +609,49 @@
                   id="hora_inicio_pastilla_3"
                   disabled
                   required
+                  value="12:12"
                 />
               </div>
             </div>
+
+            <!-- Script para que la fecha de vencimiento siempre sea mayor a hoy -->
+            <script>
+              // Obtén la fecha actual
+              var fechaActual = new Date();
+
+              // Convierte la fecha a formato yyyy-mm-dd
+              var fechaLimiteInferior = fechaActual
+                .toISOString()
+                .slice(0, 10);
+
+              // Establece la fecha límite inferior como el atributo 'min'
+              document.getElementById("fecha_vencimiento_1").min =
+                fechaLimiteInferior;
+                document.getElementById("fecha_vencimiento_2").min =
+                fechaLimiteInferior;
+                document.getElementById("fecha_vencimiento_3").min =
+                fechaLimiteInferior;
+            </script>
+
+            <!-- Script para que la fecha sea siempre sea mayor a hoy -->
+            <script>
+              // Obtén la fecha actual
+              var fechaActual = new Date();
+
+              // Convierte la fecha a formato yyyy-mm-dd
+              var fechaLimiteInferior = fechaActual
+                .toISOString()
+                .slice(0, 10);
+
+              // Establece la fecha límite inferior como el atributo 'min'
+              document.getElementById("dia_inicio_pastilla").min =
+                fechaLimiteInferior;
+                document.getElementById("dia_inicio_pastilla_2").min =
+                fechaLimiteInferior;
+                document.getElementById("dia_inicio_pastilla_3").min =
+                fechaLimiteInferior;
+            </script>
+
 
             <div id="div_eliminar">
               <button class="btn btn-primary" type="submit" id="btn_agregar">
@@ -737,7 +845,7 @@
     }
   </script>
 
-  <!--  -->
+  <!-- DETALLES DISPOSITIVOS -->
   <div
     class="modal fade bd-example-modal-lg"
     id="modal_dispositivo_detalle"
@@ -798,7 +906,6 @@
   <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
 
   <script src="./config.js"></script>
-  <script type="text/javascript" src="./main_controler.js"></script>
   <script type="text/javascript" src="./assets/scripts/main.js"></script>
   <script src="./assets/scripts/plantillas/nav_plantilla.js"></script>
   <script src="./assets/scripts/plantillas/sidebar.js"></script>
@@ -806,4 +913,5 @@
     type="text/javascript"
     src="./assets/scripts/dispositivos.js"
   ></script>
+  <script type="text/javascript" src="./main_controler.js"></script>
 </html>
